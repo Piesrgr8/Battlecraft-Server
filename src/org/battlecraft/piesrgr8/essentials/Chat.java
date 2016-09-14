@@ -25,6 +25,15 @@ public class Chat implements Listener{
 			p.setDisplayName(ChatColor.WHITE + p.getName());
 		}
 		
+		if(p.getName.equals("iHersh")) {
+			//manually added myself because f*ck permissions
+			e.setFormat(ChatColor.RED + "" + ChatColor.BOLD + "DEV " + ChatColor.RESET + p.getDisplayName() + " " +
+		ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage());
+			return;
+		}
+		
+		//cant do this because for op's it check if you have the owner permission first and since op's have
+		//all permissions it'll assume they have it and set them with the owner tag
 		if (p.hasPermission("bc.prefix.owner")) {
 			e.setFormat(ChatColor.DARK_RED + "" + ChatColor.BOLD + "OWNER " + ChatColor.RESET + p.getDisplayName() + " " +
 		ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage());
