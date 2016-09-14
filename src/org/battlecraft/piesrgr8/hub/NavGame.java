@@ -154,18 +154,10 @@ public class NavGame implements Listener {
 		final int random = rand.nextInt(6);
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
-				if (random == 0) {
+				if(random == 0) {
 					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft");
-				} else if (random == 1) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft2");
-				} else if (random == 2) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft3");
-				} else if (random == 3) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft4");
-				} else if (random == 4) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft5");
-				} else if (random == 5) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft6");
+				}else {
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft " + Integer.toString(random + 1)
 				}
 			}
 		}, 40);
@@ -178,19 +170,8 @@ public class NavGame implements Listener {
 		final int random1 = rand.nextInt(6);
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
-				if (random1 == 0) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 1");
-				} else if (random1 == 1) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 2");
-				} else if (random1 == 2) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 3");
-				} else if (random1 == 3) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 4");
-				} else if (random1 == 4) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 5");
-				} else if (random1 == 5) {
-					Bukkit.getServer().dispatchCommand(p, "sg join 6");
-				}
+				
+				Bukkit.getServer().dispatchCommand(p, "sg join " + Integer.toString(random1 + 1);
 			}
 		}, 40);
 		p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a random game in " + ChatColor.GREEN + ""
