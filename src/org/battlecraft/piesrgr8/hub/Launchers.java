@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,6 +32,7 @@ public class Launchers implements Listener {
 			e.getPlayer().setVelocity(
 					new Vector(e.getPlayer().getVelocity().getX(), 3.0D, e.getPlayer().getVelocity().getZ()));
 			jumpers.add(e.getPlayer());
+			e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 10000, 1);
 		}
 	}
 

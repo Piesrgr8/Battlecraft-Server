@@ -23,7 +23,6 @@ public class Kills implements Listener {
 	@EventHandler
 	public void onDeath(EntityDeathEvent e) {
 		Player k = (Player) e.getEntity().getKiller();
-		Player d = (Player) e.getEntity();
 		
 	   try {
 		if (!k.getType().equals(EntityType.PLAYER)) {
@@ -37,7 +36,7 @@ public class Kills implements Listener {
 		File f = new File("plugins//BattlecraftServer//stats//" + k.getName() + ".yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
         
-		if (d.isDead() && f.exists()) {
+		if (e.getEntity().isDead() && f.exists()) {
 			yaml.set("stats.kills", yaml.getInt("stats.kills") + 1);
 			try {
 				yaml.save(f);

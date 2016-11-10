@@ -7,6 +7,7 @@ import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
 import net.minecraft.server.v1_9_R2.SoundCategory;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -53,14 +54,18 @@ public class Weapons implements CommandExecutor {
 			}
 
 			if (args.length == 1) {
+				Player p = (Player) sender;
+				PlayerInventory pi = p.getInventory();
+				
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+						+ " has recieved a sword from the /sword command!");
+				
 
 				// ************************************************************
 				// ***************** THE SWORDS OF THE WORTHY *****************
 				// ************************************************************
 
 				if (args[0].equalsIgnoreCase("leg1")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack newItem = setMeta(new ItemStack(Material.DIAMOND_SWORD),
 							ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE"
 									+ ChatColor.DARK_PURPLE + "] " + ChatColor.RED + "" + ChatColor.BOLD
@@ -85,8 +90,6 @@ public class Weapons implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("leg2")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack newItem = setMeta(new ItemStack(Material.DIAMOND_SWORD),
 							ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE"
 									+ ChatColor.DARK_PURPLE + "] " + ChatColor.RED + "" + ChatColor.BOLD
@@ -110,8 +113,6 @@ public class Weapons implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("ex1")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack newItem = setMeta(new ItemStack(Material.DIAMOND_SWORD),
 							ChatColor.YELLOW + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "EXOTIC" + ChatColor.YELLOW
 									+ "] " + ChatColor.RED + "" + ChatColor.BOLD + "Bread & Butter",
@@ -143,8 +144,6 @@ public class Weapons implements CommandExecutor {
 				// ************************************************************
 
 				if (args[0].equalsIgnoreCase("r1")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack karaBela = setMeta(new ItemStack(Material.IRON_SWORD),
 							ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE"
 									+ ChatColor.DARK_PURPLE + "] " + ChatColor.GOLD + "" + ChatColor.BOLD + "Karabela",
@@ -171,8 +170,6 @@ public class Weapons implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("rb")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack sharpShooter = setMeta(new ItemStack(Material.BOW),
 							ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE"
 									+ ChatColor.DARK_PURPLE + "] " + ChatColor.GOLD + "" + ChatColor.BOLD
@@ -203,8 +200,6 @@ public class Weapons implements CommandExecutor {
 				// ************************************************************
 
 				if (args[0].equalsIgnoreCase("uc1")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack magnitudeSword = setMeta(new ItemStack(Material.STONE_SWORD),
 							ChatColor.AQUA + "[" + ChatColor.GREEN + "" + ChatColor.BOLD + "UNCOMMON" + ChatColor.AQUA
 									+ "] " + ChatColor.GREEN + "" + ChatColor.BOLD + "Magnitude",
@@ -225,8 +220,6 @@ public class Weapons implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("uc2")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack coreGreen = setMeta(new ItemStack(Material.STONE_SWORD),
 							ChatColor.AQUA + "[" + ChatColor.GREEN + "" + ChatColor.BOLD + "UNCOMMON" + ChatColor.AQUA
 									+ "] " + ChatColor.GREEN + "" + ChatColor.BOLD + "Core Green",
@@ -252,8 +245,6 @@ public class Weapons implements CommandExecutor {
 				// ************************************************************
 
 				if (args[0].equalsIgnoreCase("c1")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack vikingSword = setMeta(new ItemStack(Material.STONE_SWORD),
 							ChatColor.DARK_AQUA + "[" + ChatColor.AQUA + "" + ChatColor.BOLD + "COMMON"
 									+ ChatColor.DARK_AQUA + "] " + ChatColor.GRAY + "" + ChatColor.BOLD
@@ -274,8 +265,6 @@ public class Weapons implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("c2")) {
-					Player p = (Player) sender;
-					PlayerInventory pi = p.getInventory();
 					ItemStack longSword = setMeta(new ItemStack(Material.STONE_SWORD),
 							ChatColor.DARK_AQUA + "[" + ChatColor.AQUA + "" + ChatColor.BOLD + "COMMON"
 									+ ChatColor.DARK_AQUA + "] " + ChatColor.GRAY + "" + ChatColor.BOLD + "Longsword",

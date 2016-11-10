@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -25,6 +26,8 @@ public class Health implements CommandExecutor {
 				p.setFoodLevel(20);
 				p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "HEALED!");
+				
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has healed themselves!");
 				return true;
 			}
 
@@ -43,7 +46,9 @@ public class Health implements CommandExecutor {
 							target.setFoodLevel(20);
 							target.playSound(target.getLocation(), Sound.BLOCK_LEVER_CLICK, 10, 1);
 							target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " healed you!");
-							p.sendMessage(prefix + ChatColor.GREEN + args[0] + " has been healed!");
+							p.sendMessage(prefix + ChatColor.GREEN + args[0]);
+								Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has healed "
+									+ ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
 							return true;
 						}
 

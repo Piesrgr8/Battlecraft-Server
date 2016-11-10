@@ -5,6 +5,7 @@ import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -92,6 +93,11 @@ public class Menus implements Listener, CommandExecutor {
 			break;
 
 		case ENDER_CHEST:
+			if (!p.hasPermission("bc.teleport")) {
+				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
+				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
+				e.setCancelled(true);
+			}
 			PlayerTp.openGUI(p);
 			break;
 

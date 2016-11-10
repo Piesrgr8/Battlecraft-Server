@@ -13,6 +13,7 @@ import org.battlecraft.piesrgr8.essentials.Commands;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.fake.SilentJoin;
 import org.battlecraft.piesrgr8.fake.Spammer;
+import org.battlecraft.piesrgr8.hub.DoubleJump;
 import org.battlecraft.piesrgr8.hub.Hub;
 import org.battlecraft.piesrgr8.hub.Launchers;
 import org.battlecraft.piesrgr8.hub.Menus;
@@ -29,6 +30,7 @@ import org.battlecraft.piesrgr8.shop.ShopMaterial;
 import org.battlecraft.piesrgr8.shop.ShopMaterialStone;
 import org.battlecraft.piesrgr8.shop.ShopMaterialWood;
 import org.battlecraft.piesrgr8.shop.ShopTool;
+import org.battlecraft.piesrgr8.signs.Buy;
 import org.battlecraft.piesrgr8.staff.StaffList;
 import org.battlecraft.piesrgr8.stats.BlockBreaks;
 import org.battlecraft.piesrgr8.stats.DamageTaken;
@@ -42,6 +44,7 @@ import org.battlecraft.piesrgr8.utils.PlayerCountMessage;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.SignColors;
 import org.battlecraft.piesrgr8.utils.Test;
+import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.battlecraft.piesrgr8.weapons.Guns;
 import org.battlecraft.piesrgr8.world.WorldHandler;
 import org.bukkit.ChatColor;
@@ -118,6 +121,15 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 	
 	public static String prefixNick = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Nick" + ChatColor.GRAY + "] ";
+	
+	public static String prefixSigns = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Sign" + ChatColor.GRAY + "] ";
+	
+	public static String prefixSkull = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Skull" + ChatColor.GRAY + "] ";
+	
+	public static String prefixAdmin = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+			+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Admin" + ChatColor.GRAY + "] ";
 
 	public static String prefixCooldown = ChatColor.GRAY + "[" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "COOLDOWN"
 			+ ChatColor.GRAY + "] ";
@@ -164,6 +176,8 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new Chat(this), this);
 		pm.registerEvents(new ScoreboardMg(this), this);
 		pm.registerEvents(new SignColors(this), this);
+		pm.registerEvents(new DoubleJump(this), this);
+		pm.registerEvents(new TimerDaily(this), this);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(this), this);
@@ -177,6 +191,9 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new ShopMaterialWood(this), this);
 		pm.registerEvents(new ShopMaterialStone(this), this);
 		pm.registerEvents(new ShopTool(this), this);
+		
+		//FOR SIGNS
+		pm.registerEvents(new Buy(this), this);
 	}
 
 	@Override

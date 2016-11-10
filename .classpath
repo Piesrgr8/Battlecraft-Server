@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/bukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/PermissionsEx-1.23.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Desktop/Bconomy.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

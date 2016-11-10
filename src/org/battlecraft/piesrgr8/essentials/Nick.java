@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +25,8 @@ public class Nick implements CommandExecutor {
 			}
 			Player p = (Player) sender;
 			if (!p.hasPermission("bc.nick")) {
-				p.sendMessage(BattlecraftServer.prefixNick + ChatColor.RED + "You dont have permission to set your nickname");
+				p.sendMessage(
+						BattlecraftServer.prefixNick + ChatColor.RED + "You dont have permission to set your nickname");
 				return true;
 			}
 
@@ -55,6 +57,8 @@ public class Nick implements CommandExecutor {
 				p.sendMessage(BattlecraftServer.prefixNick + ChatColor.GREEN
 						+ "Successfully set nick name! Your nick is now " + p.getDisplayName());
 				p.sendMessage(ChatColor.YELLOW + "Loggout or do this command again if your nick doesnt appear.");
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+						+ " has changed their nickname to " + ChatColor.translateAlternateColorCodes('&', bc));
 				return true;
 			}
 		}

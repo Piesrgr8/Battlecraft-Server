@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.Debug;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,6 +28,8 @@ public class Gamemode implements CommandExecutor {
 				p.setGameMode(GameMode.SURVIVAL);
 				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+						+ " has changed their gamemode to Survival!");
 				return true;
 			}
 			Player target = Bukkit.getServer().getPlayer(args[0]);
@@ -43,6 +46,8 @@ public class Gamemode implements CommandExecutor {
 					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "SURVIVAL!");
+						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
+							+ target.getName() + ChatColor.GREEN + "'s gamemode to Survival!");
 				}
 			}
 		}
@@ -57,6 +62,8 @@ public class Gamemode implements CommandExecutor {
 				p.setGameMode(GameMode.CREATIVE);
 				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+						+ " has changed their gamemode to Creative!");
 				return true;
 			}
 			Player target = Bukkit.getServer().getPlayer(args[0]);
@@ -73,6 +80,8 @@ public class Gamemode implements CommandExecutor {
 					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "CREATIVE!");
+						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
+							+ target.getName() + ChatColor.GREEN + "'s gamemode to Creative!");
 				}
 			}
 		}
@@ -87,6 +96,8 @@ public class Gamemode implements CommandExecutor {
 				p.setGameMode(GameMode.ADVENTURE);
 				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
+					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+						+ " has changed their gamemode to Adventure!");
 				return true;
 			}
 			Player target = Bukkit.getServer().getPlayer(args[0]);
@@ -103,6 +114,8 @@ public class Gamemode implements CommandExecutor {
 					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "ADVENTURE!");
+						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
+							+ target.getName() + ChatColor.GREEN + "'s gamemode to Adventure!");
 				}
 			}
 		}

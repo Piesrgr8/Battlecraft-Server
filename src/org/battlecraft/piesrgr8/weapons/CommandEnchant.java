@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.weapons;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -51,6 +52,8 @@ public class CommandEnchant implements CommandExecutor {
 				it.addUnsafeEnchantment(Enchantment.getByName(args[0]), Integer.parseInt(args[1]));
 				p.sendMessage(BattlecraftServer.prefixEnchant + ChatColor.GREEN
 						+ "You have successfully enchanted your " + ChatColor.YELLOW + it.getType());
+						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+								+ " has enchanted their " + ChatColor.YELLOW + it.getType());
 				return true;
 			}
 		}

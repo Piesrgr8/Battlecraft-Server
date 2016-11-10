@@ -1,7 +1,7 @@
 package org.battlecraft.piesrgr8.shop;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.Test;
+import org.battlecraft.piesrgr8.signs.Buy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -42,11 +42,11 @@ public class Kiosk implements Listener, CommandExecutor {
 
 		// Creating the items and registering them.
 
-		for (int i = 0; i < Test.list.keySet().size(); i++) {
+		for (int i = 0; i < Buy.list.keySet().size(); i++) {
 			if (i == 9) {
 				break;
 			}
-			inv.setItem(i, (ItemStack) Test.list.get(p));
+			inv.setItem(i, (ItemStack) Buy.list.get(p));
 		}
 		
        try {

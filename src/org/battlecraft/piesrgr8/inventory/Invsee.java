@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.inventory;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -36,6 +37,8 @@ public class Invsee implements CommandExecutor {
 				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.GREEN + tar.getName()
 							+ "'s inventory has been opened!");
 					p.openInventory(inv);
+						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
+							+ " is inspecting " + ChatColor.YELLOW + tar.getName() + ChatColor.GREEN + "'s inventory!");
 					return true;
 				}
 			}

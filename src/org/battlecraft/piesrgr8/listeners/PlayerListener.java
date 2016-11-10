@@ -5,9 +5,11 @@ import java.io.IOException;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.staff.StaffList;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -35,8 +37,6 @@ public class PlayerListener implements Listener {
 
 	static File f = new File("plugins/BattlecraftServer/players.yml");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-	
-	
 
 	@EventHandler
 	public void onItemEnchant(EnchantItemEvent e) {
@@ -53,18 +53,30 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		final Player p = e.getPlayer();
-		
-		File f1 = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
-		YamlConfiguration yaml1 = YamlConfiguration.loadConfiguration(f1);
-		
+
 		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + p.getName()
 				+ ChatColor.DARK_GREEN + "" + ChatColor.ITALIC + " joined");
 
 		if (p.hasPermission("bc.staff")) {
 			StaffList.player.add(p);
 		}
-		
-		if (yaml1.contains(p.getName() + ".nick")) {
+
+		TimerDaily.timer(p);
+
+		if (p.hasPermission("bc.admin")) {
+			Admin.setupAdmin(p);
+			if (yaml.getBoolean(p.getName() + ".adminM") == true) {
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					public void run() {
+				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW
+						+ "You have admin messages on. This means when people execute commands"
+						+ " like /tp will be displayed to you. To toggle, use the /admin command.");
+					}
+			}, 150);
+			}
+		}
+
+		if (yaml.contains(p.getName() + ".nick")) {
 			p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));
 		}
 
@@ -88,6 +100,7 @@ public class PlayerListener implements Listener {
 			yaml.createSection(p.getName());
 			yaml.createSection(p.getName() + ".muted");
 			yaml.createSection(p.getName() + ".banned");
+			yaml.createSection(p.getName() + ".logins");
 			yaml.addDefault(p.getName() + ".muted", false);
 			yaml.addDefault(p.getName() + ".banned", false);
 			try {
@@ -103,6 +116,7 @@ public class PlayerListener implements Listener {
 			yaml.createSection(p.getName());
 			yaml.createSection(p.getName() + ".muted");
 			yaml.createSection(p.getName() + ".banned");
+			yaml.createSection(p.getName() + ".logins");
 			yaml.addDefault(p.getName() + ".muted", false);
 			yaml.addDefault(p.getName() + ".banned", false);
 			try {
@@ -128,6 +142,15 @@ public class PlayerListener implements Listener {
 	public void onPlayerLogin(PlayerLoginEvent e) {
 		if (e.getResult() == Result.KICK_FULL && e.getPlayer().hasPermission("bc.full")) {
 			e.allow();
+		}
+		Player p = e.getPlayer();
+
+		if (yaml.contains(p.getName() + ".nick")) {
+			p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));
+		}
+
+		if (p.hasPermission("bc.admin")) {
+			Admin.setupAdmin(p);
 		}
 	}
 

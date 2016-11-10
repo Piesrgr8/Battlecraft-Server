@@ -5,6 +5,8 @@ author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
 commands:
+  admin:
+    description: Admin command/
   armor:
     description: Grants the player armor for protection.
   ban:
@@ -91,6 +93,8 @@ commands:
     description: Set the hub!
   setwarp:
     description: Set the warp!
+  skull:
+    description: Get a player's skull.
   spam:
     description: Spam a certain message.
   spawn:
@@ -153,6 +157,7 @@ permissions:
             bc.save: true
             bc.silentjoin: true
             bc.silentquit: true
+            bc.skull: true
             bc.test: true
             bc.unmute: true
             bc.vanish: true
@@ -168,6 +173,8 @@ permissions:
             bc.kit.premium: true
             bc.kit.staff: true
             bc.kit.yt: true
+    bc.admin:
+        description: Admins are equiped with this.
     bc.armor:
         description: Grants the player armor for protection.
     bc.ban:
@@ -256,6 +263,8 @@ permissions:
         description: Silently sneak into the server.
     bc.silentquit:
         description: Silently quit the server.
+    bc.skull:
+        description: Get a players head.
     bc.staff:
         description: This is a command for the staff team!
     bc.test:

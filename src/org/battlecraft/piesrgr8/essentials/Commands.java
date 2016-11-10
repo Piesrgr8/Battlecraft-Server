@@ -23,6 +23,7 @@ import org.battlecraft.piesrgr8.punish.Mute;
 import org.battlecraft.piesrgr8.punish.Punishing;
 import org.battlecraft.piesrgr8.punish.Unmute;
 import org.battlecraft.piesrgr8.shop.Kiosk;
+import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.staff.StaffCommand;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.support.Issue;
@@ -30,6 +31,7 @@ import org.battlecraft.piesrgr8.support.Report;
 import org.battlecraft.piesrgr8.utils.ClickChat;
 import org.battlecraft.piesrgr8.utils.MaintenanceCommand;
 import org.battlecraft.piesrgr8.utils.RestartCommand;
+import org.battlecraft.piesrgr8.utils.Skulls;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.weapons.Armors;
 import org.battlecraft.piesrgr8.weapons.CommandEnchant;
@@ -52,6 +54,7 @@ public class Commands implements CommandExecutor {
 	}
 
 	public static void registerCommands(BattlecraftServer plugin) {
+		plugin.getCommand("admin").setExecutor(new Admin(plugin));
 		plugin.getCommand("armor").setExecutor(new Armors());
 		plugin.getCommand("ban").setExecutor(new Punishing(plugin));
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
@@ -91,6 +94,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("send").setExecutor(new Send(plugin));
 		plugin.getCommand("sethub").setExecutor(new Hub(plugin));
 		plugin.getCommand("setwarp").setExecutor(new Teleportation());
+		plugin.getCommand("skull").setExecutor(new Skulls(plugin));
 		plugin.getCommand("spam").setExecutor(new Spammer(plugin));
 		plugin.getCommand("spawn").setExecutor(new Hub(plugin));
 		plugin.getCommand("spawner").setExecutor(new WorldHandler(plugin));

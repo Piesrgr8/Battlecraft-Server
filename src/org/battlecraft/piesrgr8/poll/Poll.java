@@ -150,7 +150,7 @@ public class Poll implements CommandExecutor, Listener {
 			public void run() {
 				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW
 						+ "There is an available poll currently going on!");
-				p.sendMessage(ChatColor.GREEN + "       Q: Is this plugin working correctly?");
+				p.sendMessage(ChatColor.GREEN + "       Q: Should we expand our creative world?");
 				p.sendMessage(ChatColor.YELLOW + "       Choices are " + ChatColor.GREEN + "Yes" + ChatColor.YELLOW
 						+ " or " + ChatColor.GREEN + "No.");
 				p.sendMessage(ChatColor.YELLOW + "       To vote, do " + ChatColor.GREEN + "/poll" + ChatColor.YELLOW

@@ -33,13 +33,11 @@ public class Tell implements CommandExecutor {
 			}
 
 			if (args.length > 2) {
-				String bc = "";
-				for (String message : args) {
-					if (bc == sender.getName() || bc == tar.getName()) {
-						continue;
-					}
-					bc = (bc + message + " ");
-				}
+				StringBuilder sb = new StringBuilder();
+				String msg;
+				for(int i = 1; i < args.length; i++)
+    					sb.append(args[i]).append(" ");
+				msg = sb.toString();
 
 				String msg1 = ChatColor.GOLD + "" + ChatColor.BOLD + "[" + ChatColor.YELLOW + "" + ChatColor.BOLD
 						+ sender.getName() + " " + ChatColor.GOLD + "" + ChatColor.BOLD + "> " + ChatColor.YELLOW + ""
@@ -47,8 +45,8 @@ public class Tell implements CommandExecutor {
 				String msg2 = ChatColor.GOLD + "" + ChatColor.BOLD + "[" + ChatColor.YELLOW + "" + ChatColor.BOLD
 						+ tar.getName() + " " + ChatColor.GOLD + "" + ChatColor.BOLD + "< " + ChatColor.YELLOW + ""
 						+ ChatColor.BOLD + sender.getName() + ChatColor.GOLD + "" + ChatColor.BOLD + "] ";
-				sender.sendMessage(msg1 + ChatColor.YELLOW + "" + ChatColor.BOLD + bc);
-				tar.sendMessage(msg2 + ChatColor.YELLOW + "" + ChatColor.BOLD + bc);
+				sender.sendMessage(msg1 + ChatColor.YELLOW + "" + ChatColor.BOLD + msg);
+				tar.sendMessage(msg2 + ChatColor.YELLOW + "" + ChatColor.BOLD + msg);
 			}
 		}
 		return true;
