@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
@@ -36,6 +37,7 @@ public class PlayerTp implements Listener {
 			ItemMeta meta = item.getItemMeta();
 
 			meta.setDisplayName(playerName);
+			meta.setLore(Arrays.asList("Click to Teleport!"));
 			item.setItemMeta(meta);
 			inv.setItem(i, item);
 		}

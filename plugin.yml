@@ -35,6 +35,8 @@ commands:
     description: Use this command to fly!
   forceop:
     description: Fake an op!
+  friend:
+    description: Friend a player.
   g0:
     description: Set gamemode to Survival.
     aliases: [gms,gs]
@@ -109,6 +111,7 @@ commands:
     description: Gives a sword to defend a player!
   tell:
     description: Tell players a secret or something.
+    aliases: [msg]
   test:
     description: Piesrgr8 tests methods with this command!
   tp:

@@ -17,6 +17,7 @@ import org.battlecraft.piesrgr8.inventory.Clear;
 import org.battlecraft.piesrgr8.inventory.Enderchest;
 import org.battlecraft.piesrgr8.inventory.Invsee;
 import org.battlecraft.piesrgr8.particles.Particles;
+import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.poll.Poll;
 import org.battlecraft.piesrgr8.punish.Mute;
@@ -68,6 +69,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("fakek").setExecutor(new FakeKick());
 		plugin.getCommand("fly").setExecutor(new Fly());
 		plugin.getCommand("forceop").setExecutor(new ForceOp(plugin));
+		plugin.getCommand("friend").setExecutor(new Friends(plugin));
 		plugin.getCommand("g0").setExecutor(new Gamemode());
 		plugin.getCommand("g1").setExecutor(new Gamemode());
 		plugin.getCommand("g2").setExecutor(new Gamemode());

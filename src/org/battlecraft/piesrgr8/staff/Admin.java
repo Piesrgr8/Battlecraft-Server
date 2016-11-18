@@ -34,6 +34,7 @@ public class Admin implements CommandExecutor{
 	public static void tasks(Player p) {
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
 		if (on.hasPermission("bc.admin")) {
+			while (yaml.getInt(p.getName() + ".logins") >= 0) {
 			if (yaml.getInt(p.getName() + ".logins") == 10) {
 				sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " has logged in " + ChatColor.YELLOW + "10 times!");
 			}
@@ -46,6 +47,7 @@ public class Admin implements CommandExecutor{
 				sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " has logged in " + ChatColor.YELLOW + "50 times!");
 			}
 			}
+		}
 		}
 	}
 	

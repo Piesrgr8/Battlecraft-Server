@@ -22,6 +22,7 @@ import org.battlecraft.piesrgr8.inventory.RestoreInventory;
 import org.battlecraft.piesrgr8.listeners.BCBlockListener;
 import org.battlecraft.piesrgr8.listeners.DeathListener;
 import org.battlecraft.piesrgr8.listeners.PlayerListener;
+import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
@@ -128,6 +129,9 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 	public static String prefixSkull = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Skull" + ChatColor.GRAY + "] ";
 	
+	public static String prefixFriend = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Friends" + ChatColor.GRAY + "] ";
+	
 	public static String prefixAdmin = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 			+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Admin" + ChatColor.GRAY + "] ";
 
@@ -178,6 +182,7 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new SignColors(this), this);
 		pm.registerEvents(new DoubleJump(this), this);
 		pm.registerEvents(new TimerDaily(this), this);
+		pm.registerEvents(new Friends(this), this);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(this), this);

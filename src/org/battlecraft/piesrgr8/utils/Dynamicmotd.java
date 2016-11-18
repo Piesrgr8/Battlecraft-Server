@@ -26,12 +26,12 @@ public class Dynamicmotd implements Listener {
 		int random = rand.nextInt(4);
 
 		if (random == 0) {
-			e.setMotd(permanent + "    " + ChatColor.GOLD + "" + ChatColor.BOLD + "This server supports "
-					+ ChatColor.YELLOW + "" + ChatColor.BOLD + "1.9 " + ChatColor.GOLD + "" + ChatColor.BOLD + "&"
-					+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.10!");
+			e.setMotd(permanent + "       " + ChatColor.YELLOW + "" + ChatColor.BOLD + "1.9 " + ChatColor.RED + "/"
+					+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.10 " + ChatColor.RED + "/"
+					+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.11 ");
 		} else if (random == 1) {
 			e.setMotd(permanent + "    " + ChatColor.GOLD + "" + ChatColor.BOLD
-					+ "Our custom plugin has Dynamic MOTD's!");
+					+ "We are always working to improve!");
 		} else if (random == 2) {
 			e.setMotd(permanent + "    " + ChatColor.translateAlternateColorCodes('&',
 					"&7&l( &cMinigames " + "&7- &6SkyBlock &7- &eFactions &7- &2SG &7- &bSW &7&l)"));

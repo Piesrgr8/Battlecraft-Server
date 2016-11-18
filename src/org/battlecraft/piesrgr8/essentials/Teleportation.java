@@ -117,7 +117,7 @@ public class Teleportation implements CommandExecutor {
 							p.getLocation().getZ()));
 					tar.sendMessage(BattlecraftServer.prefixWarp + ChatColor.GREEN + "You were teleported to "
 							+ ChatColor.YELLOW + p.getName());
-					Admin.sendMessage(ChatColor.YELLOW + tar.getName() + ChatColor.GREEN + " teleported to "
+					Admin.sendMessage(ChatColor.YELLOW + tar.getName() + ChatColor.GREEN + " was teleported to "
 							+ ChatColor.YELLOW + sender.getName() + "!");
 					return true;
 				}

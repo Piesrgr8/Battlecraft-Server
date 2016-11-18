@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
+import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.staff.StaffList;
 import org.battlecraft.piesrgr8.stats.StatsManager;
@@ -61,6 +62,7 @@ public class PlayerListener implements Listener {
 			StaffList.player.add(p);
 		}
 
+		Friends.saveFriends(p);
 		TimerDaily.timer(p);
 
 		if (p.hasPermission("bc.admin")) {
