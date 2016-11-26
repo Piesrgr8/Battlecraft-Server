@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Debug;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -55,11 +54,14 @@ public class Poll implements CommandExecutor, Listener {
 
 			Player p = (Player) sender;
 			if (args.length == 0) {
+				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "There are no polls to vote for!");
+				/*
 				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "Your choices are: " + ChatColor.GREEN
 						+ "Yes" + ChatColor.YELLOW + " or " + ChatColor.GREEN + "No.");
+						*/
 				return true;
 			}
-
+/*
 			if (args.length == 1) {
 
 				if (args[0].equalsIgnoreCase("results")) {
@@ -97,8 +99,8 @@ public class Poll implements CommandExecutor, Listener {
 					p.sendMessage(
 							BattlecraftServer.prefixPolls + ChatColor.RED + "You have already voted for this poll!");
 				}
-			}
-		}
+			} */
+		} 
 		return true;
 	}
 
@@ -144,8 +146,9 @@ public class Poll implements CommandExecutor, Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		@SuppressWarnings("unused")
 		final Player p = e.getPlayer();
-
+/*
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW
@@ -156,6 +159,6 @@ public class Poll implements CommandExecutor, Listener {
 				p.sendMessage(ChatColor.YELLOW + "       To vote, do " + ChatColor.GREEN + "/poll" + ChatColor.YELLOW
 						+ ", and then your choice of yes or no.");
 			}
-		}, 200L);
-	}
+		}, 200L); */
+	} 
 }

@@ -101,8 +101,6 @@ commands:
     description: Spam a certain message.
   spawn:
     description: Spawn in the hub.
-  spawner:
-    description: Spawn things.
   staff:
     description: This is a command for the staff team!
   stats:
@@ -141,6 +139,7 @@ permissions:
             bc.fakeb: true
             bc.fakej: true
             bc.fakel: true
+            bc.fireworks: true
             bc.fly: true
             bc.full: true
             bc.gamemode0: true
@@ -192,6 +191,8 @@ permissions:
         description: Fake a join!
     bc.fakel:
         description: Fake a leave!
+    bc.fireworks:
+        description: Get fireworks!
     bc.fly:
         description: For flying!
     bc.full:

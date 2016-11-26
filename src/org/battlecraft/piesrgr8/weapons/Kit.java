@@ -394,6 +394,46 @@ public class Kit {
 		inv.addItem(item5);
 		inv.addItem(item6);
 	}
+	
+	public static void kitpvp(Player p) {
+		Inventory inv = p.getInventory();
+
+		ItemStack item1 = setMeta(new ItemStack(Material.DIAMOND_HELMET), op + ChatColor.RED + "Helmet",
+				Arrays.asList("This is a helmet", "specifically for KitPvP!"));
+
+		ItemStack item2 = setMeta(new ItemStack(Material.DIAMOND_CHESTPLATE), op + ChatColor.RED + "Chestplate",
+				Arrays.asList("This is a chestplate", "specifically for KitPvP!"));
+
+		ItemStack item3 = setMeta(new ItemStack(Material.DIAMOND_LEGGINGS), op + ChatColor.RED + "Leggings",
+				Arrays.asList("These are leggings", "specifically for KitPvP!"));
+
+		ItemStack item4 = setMeta(new ItemStack(Material.DIAMOND_BOOTS), op + ChatColor.RED + "Boots",
+				Arrays.asList("This is a pair of boots", "specifically for KitPvP!"));
+
+		ItemStack item5 = setMeta(new ItemStack(Material.DIAMOND_PICKAXE), op + ChatColor.RED + "Pickaxe",
+				Arrays.asList("This is a pickaxe", "specifically for KitPvP!"));
+
+		ItemStack item6 = setMeta(new ItemStack(Material.DIAMOND_SWORD), op + ChatColor.RED + "Sword",
+				Arrays.asList("This is a sword", "specifically for KitPvP!"));
+
+		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.RED + ""
+				+ ChatColor.BOLD + "KitPvP " + ChatColor.GREEN + "kit!");
+
+		item1.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1000);
+		item2.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1000);
+		item3.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1000);
+		item4.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1000);
+		item5.addUnsafeEnchantment(Enchantment.DIG_SPEED, 1000);
+		item5.addUnsafeEnchantment(Enchantment.DURABILITY, 1000);
+		item6.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1000);
+
+		inv.addItem(item1);
+		inv.addItem(item2);
+		inv.addItem(item3);
+		inv.addItem(item4);
+		inv.addItem(item5);
+		inv.addItem(item6);
+	}
 
 	public static ItemStack setMeta(ItemStack material, String name, List<String> lore) {
 		if (((material == null) || material.getType() == Material.AIR) || (name == null && lore == null))

@@ -73,6 +73,9 @@ public class Hub implements Listener, CommandExecutor {
 		ItemStack hub = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta hub1 = hub.getItemMeta();
 
+		ItemStack kp = new ItemStack(Material.DIAMOND_SWORD);
+		ItemMeta kp1 = kp.getItemMeta();
+
 		ItemStack shop = new ItemStack(Material.EXP_BOTTLE);
 		ItemMeta shop1 = shop.getItemMeta();
 
@@ -85,41 +88,49 @@ public class Hub implements Listener, CommandExecutor {
 		// Setting the meta, or names, of all of the blocks that will be added
 		// to the inventory.
 
-		main1.setDisplayName(ChatColor.GOLD + "Main PvP");
+		String newT = ChatColor.DARK_RED + "" + ChatColor.MAGIC + ":::" + ChatColor.RED + "" + ChatColor.BOLD + "NEW"
+				+ ChatColor.DARK_RED + "" + ChatColor.MAGIC + "::: " + ChatColor.RESET;
+
+		main1.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Main PvP");
 		main1.setLore(Arrays.asList(ChatColor.YELLOW + "The heart of Battlecraft.",
 				ChatColor.YELLOW + "Play this fast-paced pvp", ChatColor.YELLOW + "with several gamemodes to",
 				ChatColor.YELLOW + "choose from!"));
 		main.setItemMeta(main1);
 
-		mg1.setDisplayName(ChatColor.DARK_RED + "Minigames");
+		mg1.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Minigames");
 		mg1.setLore(Arrays.asList(ChatColor.YELLOW + "Basic minigames so fun,",
 				ChatColor.YELLOW + "that you will never", ChatColor.YELLOW + "want to leave!"));
 		mg.setItemMeta(mg1);
 
-		sw1.setDisplayName(ChatColor.BLUE + "SkyWars");
+		sw1.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + "SkyWars");
 		sw1.setLore(
 				Arrays.asList(ChatColor.YELLOW + "Fight in the sky on a", ChatColor.YELLOW + "square block with a tree",
 						ChatColor.YELLOW + "and other resources!", ChatColor.YELLOW + "Dont fall off!"));
 		sw.setItemMeta(sw1);
 
-		hg1.setDisplayName(ChatColor.YELLOW + "Survival Games");
+		hg1.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Survival Games");
 		hg1.setLore(Arrays.asList(ChatColor.YELLOW + "A classic game, where survival",
 				ChatColor.YELLOW + "is all you have left.", ChatColor.YELLOW + "This pvp game has been seen",
 				ChatColor.YELLOW + "everywhere lately!"));
 		hg.setItemMeta(hg1);
 
-		fc1.setDisplayName(ChatColor.GREEN + "Factions");
+		kp1.setDisplayName(newT + ChatColor.GOLD + "" + ChatColor.BOLD + "KitPvP");
+		kp1.setLore(Arrays.asList(ChatColor.YELLOW + "You are put into the arena",
+				ChatColor.YELLOW + "and you are to fight against", ChatColor.YELLOW + "other players to survive!"));
+		kp.setItemMeta(kp1);
+
+		fc1.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Factions");
 		fc1.setLore(Arrays.asList(ChatColor.YELLOW + "A survival game that",
 				ChatColor.YELLOW + "puts you in an open world,", ChatColor.YELLOW + "surrounded by trees, and the",
 				ChatColor.YELLOW + "wild!"));
 		fc.setItemMeta(fc1);
 
-		gm1.setDisplayName(ChatColor.LIGHT_PURPLE + "Creative");
+		gm1.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Creative");
 		gm1.setLore(Arrays.asList(ChatColor.YELLOW + "Sit back and relax!",
 				ChatColor.YELLOW + "Join here to build whatever", ChatColor.YELLOW + "pops up in your head!"));
 		gm.setItemMeta(gm1);
 
-		sb1.setDisplayName(ChatColor.AQUA + "SkyBlock");
+		sb1.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "SkyBlock");
 		sb1.setLore(Arrays.asList(ChatColor.YELLOW + "You are stranded on a",
 				ChatColor.YELLOW + "floating block, with resources", ChatColor.YELLOW + "that will help you live",
 				ChatColor.YELLOW + ".....for a while."));
@@ -137,7 +148,7 @@ public class Hub implements Listener, CommandExecutor {
 		air1.setDisplayName(ChatColor.RED + "Click me or the empty spaces to exit!");
 		air.setItemMeta(air1);
 
-		work1.setDisplayName(ChatColor.LIGHT_PURPLE + "Creative");
+		work1.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Creative");
 		work1.setLore(Arrays.asList(ChatColor.RED + "" + ChatColor.BOLD + "THIS MODE IS CURRENTLY",
 				ChatColor.RED + "" + ChatColor.BOLD + "IN MAINTENANCE!"));
 		work.setItemMeta(work1);
@@ -154,13 +165,13 @@ public class Hub implements Listener, CommandExecutor {
 		inv.setItem(7, sb);
 		inv.setItem(10, hub);
 		inv.setItem(16, shop);
+		inv.setItem(13, kp);
 
 		inv.setItem(0, air);
 		inv.setItem(8, air);
 		inv.setItem(9, air);
 		inv.setItem(11, air);
 		inv.setItem(12, air);
-		inv.setItem(13, air);
 		inv.setItem(14, air);
 		inv.setItem(15, air);
 		inv.setItem(17, air);
@@ -209,6 +220,13 @@ public class Hub implements Listener, CommandExecutor {
 			p.closeInventory();
 			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Survival Games.");
+			break;
+			
+		case DIAMOND_SWORD:
+			teleportInWorld(p, Bukkit.getWorld("world"), 1565.633, 6.63153, 585.487);
+			p.closeInventory();
+			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "KitPvP.");
 			break;
 
 		case IRON_SWORD:

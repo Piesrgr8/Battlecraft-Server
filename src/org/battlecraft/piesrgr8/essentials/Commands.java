@@ -99,7 +99,6 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("skull").setExecutor(new Skulls(plugin));
 		plugin.getCommand("spam").setExecutor(new Spammer(plugin));
 		plugin.getCommand("spawn").setExecutor(new Hub(plugin));
-		plugin.getCommand("spawner").setExecutor(new WorldHandler(plugin));
 		plugin.getCommand("staff").setExecutor(new StaffCommand());
 		plugin.getCommand("stats").setExecutor(new StatsManager(plugin));
 		plugin.getCommand("sword").setExecutor(new Weapons(plugin));

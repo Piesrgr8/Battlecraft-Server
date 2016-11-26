@@ -22,7 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
@@ -99,14 +99,14 @@ public class Friends implements CommandExecutor, Listener {
 					}
 				}
 				if (args[0].equalsIgnoreCase("remove")) {
-					if (!yaml.contains(p1.getName())) {
+					List<String> list = yaml.getStringList("friends");
+					if (!list.contains(p1.getName())) {
 						p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW
 								+ "You dont have that player in your friends list!");
 						return true;
 					}
 					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GREEN + "You have removed " + p1.getName()
 							+ " from your friends list!");
-					List<String> list = yaml.getStringList("friends");
 					list.remove(p1.getName());
 					yaml.set("friends", list);
 					try {
@@ -135,8 +135,8 @@ public class Friends implements CommandExecutor, Listener {
 			// of the players in-game
 			String playerName = yaml.getStringList("friends").get(i);
 			Player p1 = Bukkit.getServer().getPlayer(playerName);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM);
-			ItemMeta meta = item.getItemMeta();
+			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+			SkullMeta meta = (SkullMeta) item.getItemMeta();
 
 			String on = null;
 			String pref = null;
@@ -153,6 +153,7 @@ public class Friends implements CommandExecutor, Listener {
 			meta.setLore(Arrays.asList(ChatColor.YELLOW + "They are rank:",
 					pref, "",
 					ChatColor.YELLOW + "They are currently:", on));
+			meta.setOwner(playerName);
 			item.setItemMeta(meta);
 			inv.setItem(i, item);
 		}
@@ -194,6 +195,23 @@ public class Friends implements CommandExecutor, Listener {
 				Admin.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " teleported to "
 						+ ChatColor.YELLOW + c.getName());
 			}
+		}
+	}
+	
+	public void bothFriends(Player p, Player p1) {
+		File f = new File("plugins//BattlecraftServer//friends//" + p.getName() + ".yml");
+		File f1 = new File("plugins//BattlecraftServer//friends//" + p1.getName() + ".yml");
+		
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		YamlConfiguration yaml1 = YamlConfiguration.loadConfiguration(f1);
+		
+		List<String> list = yaml.getStringList("friends");
+		List<String> list1 = yaml1.getStringList("friends");
+		
+		if (list.contains(p1.getName()) && list1.contains(p.getName())) {
+			p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GOLD + "You and " + p1.getName() + " are both friends!");
+			p1.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GOLD + "You and " + p.getName() + " are both friends!");
+			return;
 		}
 	}
 }

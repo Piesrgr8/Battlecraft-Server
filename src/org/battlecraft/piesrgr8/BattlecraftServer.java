@@ -22,6 +22,8 @@ import org.battlecraft.piesrgr8.inventory.RestoreInventory;
 import org.battlecraft.piesrgr8.listeners.BCBlockListener;
 import org.battlecraft.piesrgr8.listeners.DeathListener;
 import org.battlecraft.piesrgr8.listeners.PlayerListener;
+import org.battlecraft.piesrgr8.menu.MainPvP;
+import org.battlecraft.piesrgr8.menu.Sg;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
@@ -158,7 +160,6 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
 	public void registerEvents() {
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvents(new Hub(this), this);
 		pm.registerEvents(new SilentJoin(this), this);
 		pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BCBlockListener(), this);
@@ -173,9 +174,6 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new Test(this), this);
 		pm.registerEvents(new RestoreInventory(this), this);
 		pm.registerEvents(new Dynamicmotd(this), this);
-		pm.registerEvents(new Menus(this), this);
-		pm.registerEvents(new NavGame(this), this);
-		pm.registerEvents(new PlayerTp(this), this);
 		pm.registerEvents(new Launchers(this), this);
 		pm.registerEvents(new Chat(this), this);
 		pm.registerEvents(new ScoreboardMg(this), this);
@@ -183,6 +181,7 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new DoubleJump(this), this);
 		pm.registerEvents(new TimerDaily(this), this);
 		pm.registerEvents(new Friends(this), this);
+		pm.registerEvents(new Fireworks(this), this);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(this), this);
@@ -199,6 +198,14 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		
 		//FOR SIGNS
 		pm.registerEvents(new Buy(this), this);
+		
+		//FOR MENUS
+		pm.registerEvents(new Menus(this), this);
+		pm.registerEvents(new NavGame(this), this);
+		pm.registerEvents(new PlayerTp(this), this);
+		pm.registerEvents(new Hub(this), this);
+		pm.registerEvents(new MainPvP(this), this);
+		pm.registerEvents(new Sg(this), this);
 	}
 
 	@Override

@@ -1,9 +1,10 @@
 package org.battlecraft.piesrgr8.hub;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.menu.MainPvP;
+import org.battlecraft.piesrgr8.menu.Sg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -116,9 +117,7 @@ public class NavGame implements Listener {
 
 		switch (e.getCurrentItem().getType()) {
 		case COBBLESTONE:
-			p.closeInventory();
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			mainpvp(p);
+			MainPvP.openGUI(p);
 			break;
 
 		case SLIME_BALL:
@@ -134,9 +133,7 @@ public class NavGame implements Listener {
 			break;
 
 		case CHEST:
-			p.closeInventory();
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076.5, 4, 783);
-			hg(p);
+			Sg.openGUI(p);
 			break;
 
 		case STAINED_GLASS_PANE:
@@ -147,34 +144,6 @@ public class NavGame implements Listener {
 			p.closeInventory();
 			break;
 		}
-	}
-
-	public void mainpvp(final Player p) {
-		Random rand = new Random();
-		final int random = rand.nextInt(6);
-		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				if (random == 0) {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft");
-				} else {
-					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft" + Integer.toString(random + 1));
-				}
-			}
-		}, 40);
-		p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a random game in " + ChatColor.GREEN + ""
-				+ ChatColor.BOLD + "Main PvP.");
-	}
-
-	public void hg(final Player p) {
-		Random rand = new Random();
-		final int random1 = rand.nextInt(6);
-		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				Bukkit.getServer().dispatchCommand(p, "sg join " + Integer.toString(random1 + 1));
-			}
-		}, 40);
-		p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a random game in " + ChatColor.GREEN + ""
-				+ ChatColor.BOLD + "Survival Games");
 	}
 
 	public void sw(final Player p) {

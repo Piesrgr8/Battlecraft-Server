@@ -49,22 +49,23 @@ public class Report implements CommandExecutor {
 			}
 
 			if (args.length >= 2) {
-				String bc = "";
-				for (String message : args) {
-					bc = (bc + message + " ");
-				}
+				StringBuilder sb = new StringBuilder();
+				String msg;
+				for(int i = 1; i < args.length; i++)
+    					sb.append(args[i]).append(" ");
+				msg = sb.toString();
 
 				p.sendMessage(bg + ChatColor.GREEN + "Thank you! The report has been saved in our "
 						+ "records and has alerted staff members!");
 				for (Player on : Bukkit.getOnlinePlayers()) {
 					if (on.hasPermission("bc.staff")) {
 						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "A player has reported "
-								+ args[0] + " for: " + ChatColor.GREEN + bc);
+								+ args[0] + " for: " + ChatColor.GREEN + msg);
 					}
 				}
 				yaml.createSection(args[0]);
 				yaml.createSection(args[0] + ".report");
-				yaml.set(args[0] + ".report", bc);
+				yaml.set(args[0] + ".report", msg);
 				try {
 					yaml.save(f);
 				} catch (IOException e) {

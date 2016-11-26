@@ -66,20 +66,18 @@ public class Punishing implements CommandExecutor {
 			if (args.length >= 2) {
 
 				Player target = Bukkit.getServer().getPlayer(args[0]);
-				String bc = "";
-				for (String message : args) {
-					if (message.contains(sender.getName())) {
-						continue;
-					}
-					bc = (bc + message + " ");
-				}
+				StringBuilder sb = new StringBuilder();
+				String msg;
+				for(int i = 1; i < args.length; i++)
+    					sb.append(args[i]).append(" ");
+				msg = sb.toString();
 
 				target.kickPlayer(BattlecraftServer.prefixPunish + exline + ChatColor.YELLOW
-						+ "You have been kicked for......" + exline + ChatColor.GREEN + bc + exline + ChatColor.YELLOW
+						+ "You have been kicked for......" + exline + ChatColor.GREEN + msg + exline + ChatColor.YELLOW
 						+ "This means that its not the end of the world. Join back!");
 
 				Bukkit.broadcastMessage(BattlecraftServer.prefixPunish + target.getDisplayName() + ChatColor.YELLOW
-						+ " was kicked by " + sender.getName() + ChatColor.YELLOW + " for " + ChatColor.GREEN + bc);
+						+ " was kicked by " + sender.getName() + ChatColor.YELLOW + " for " + ChatColor.GREEN + msg);
 			}
 		}
 
@@ -121,19 +119,17 @@ public class Punishing implements CommandExecutor {
 				if (args.length >= 2) {
 
 					Player target = Bukkit.getServer().getPlayer(args[0]);
-					String bc = "";
-					for (String message : args) {
-						if (message.contains(sender.getName())) {
-							continue;
-						}
-						bc = (bc + message + " ");
-					}
+					StringBuilder sb = new StringBuilder();
+					String msg;
+					for(int i = 1; i < args.length; i++)
+	    					sb.append(args[i]).append(" ");
+					msg = sb.toString();
 					target.kickPlayer(BattlecraftServer.prefixPunish + exline + ChatColor.YELLOW
-							+ "You have been banned for......" + exline + ChatColor.GREEN + bc + exline
+							+ "You have been banned for......" + exline + ChatColor.GREEN + msg + exline
 							+ ChatColor.YELLOW + "If you believe that you were wrongfully banned, report it!" + exline
 							+ ChatColor.YELLOW + "Go to " + website + ChatColor.YELLOW + " and submit and appeal.");
 					Bukkit.broadcastMessage(BattlecraftServer.prefixPunish + target.getDisplayName() + ChatColor.YELLOW
-							+ " was banned by " + sender.getName() + ChatColor.YELLOW + " for " + ChatColor.GREEN + bc);
+							+ " was banned by " + sender.getName() + ChatColor.YELLOW + " for " + ChatColor.GREEN + msg);
 					yaml.set(target.getName() + ".banned", true);
 					try {
 						yaml.save(f);
