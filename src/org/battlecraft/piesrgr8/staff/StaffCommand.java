@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Debug;
 import org.bukkit.ChatColor;
@@ -25,7 +27,7 @@ public class StaffCommand implements CommandExecutor {
 
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("staff")) {
-			if (!p.hasPermission("bc.staff")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(
 						BattlecraftServer.prefixStaff + ChatColor.RED + "You are not allowed to use this command!");
 				return true;

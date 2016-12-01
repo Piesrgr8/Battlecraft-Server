@@ -1,17 +1,20 @@
 package org.battlecraft.piesrgr8.fake;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class FakeBan implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fakeb")) {
-			if (!sender.hasPermission("bc.fakeb")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
 				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "Access denied!");
 				return true;
 			}

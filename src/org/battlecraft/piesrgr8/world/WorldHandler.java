@@ -6,7 +6,6 @@ import org.battlecraft.piesrgr8.inventory.RestoreInventory;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class WorldHandler implements Listener, CommandExecutor {
@@ -55,7 +53,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 					HubInv.hubInv(p);
 					ScoreboardMg.createBoard(p);
 				}
-			}, 40);
+			}, 10);
 		} else if (e.getFrom().getName().equals("Hub1")) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -83,24 +81,6 @@ public class WorldHandler implements Listener, CommandExecutor {
 					HubInv.hubInv(p);
 				}
 			}, 50);
-		}
-	}
-
-	@EventHandler
-	public void vipChk(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-
-		final PlayerInventory inv = e.getPlayer().getInventory();
-		
-		final ItemStack it = new ItemStack(Material.FIREWORK, 64);
-
-		if (p.getWorld().getName().equals("Hub1")
-				&& p.hasPermission("bc.fireworks")) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-					inv.addItem(it);
-				}
-			}, 40);
 		}
 	}
 

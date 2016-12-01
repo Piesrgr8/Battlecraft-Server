@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.essentials;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,7 +27,7 @@ public class Invisibility implements CommandExecutor {
 			}
 			Player p = (Player) sender;
 
-			if (!sender.hasPermission("bc.vanish")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to vanish!");
 				return false;
 			}

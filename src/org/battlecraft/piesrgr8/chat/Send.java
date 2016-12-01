@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.chat;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.bukkit.Bukkit;
@@ -19,7 +21,7 @@ public class Send implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("send")) {
-			if (!sender.hasPermission("bc.send")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				sender.sendMessage("You dont have permission to send different messages!");
 				return true;
 			}

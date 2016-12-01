@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.support;
 import java.io.File;
 import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -44,7 +46,7 @@ public class Issue implements CommandExecutor {
 				p.sendMessage(bg + ChatColor.GREEN + "Thank you for reporting the issue! Staff has been alerted "
 						+ "and they will try the best they can to help solve the issue!");
 				for (Player on : Bukkit.getOnlinePlayers()) {
-					if (on.hasPermission("bc.staff")) {
+					if (RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "A player has made an issue: "
 								+ ChatColor.GREEN + bc);
 					}

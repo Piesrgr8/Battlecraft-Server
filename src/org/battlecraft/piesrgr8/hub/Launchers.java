@@ -23,7 +23,7 @@ public class Launchers implements Listener {
 	public Launchers(BattlecraftServer p) {
 		this.plugin = p;
 	}
-
+	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
 		if (e.getTo().getBlock().getRelative(BlockFace.SELF).getType() == Material.STONE_PLATE
@@ -32,7 +32,7 @@ public class Launchers implements Listener {
 			e.getPlayer().setVelocity(
 					new Vector(e.getPlayer().getVelocity().getX(), 3.0D, e.getPlayer().getVelocity().getZ()));
 			jumpers.add(e.getPlayer());
-			e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 10000, 1);
+			e.getPlayer().playSound(e.getTo(), Sound.ENTITY_GENERIC_EXPLODE, 10000, 1);
 		}
 	}
 

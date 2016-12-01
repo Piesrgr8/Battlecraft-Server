@@ -3,7 +3,11 @@ package org.battlecraft.piesrgr8.staff;
 import java.io.File;
 import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.ConfigMg;
+import org.battlecraft.piesrgr8.utils.SoundEffects;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,8 +18,8 @@ import org.bukkit.entity.Player;
 
 public class Admin implements CommandExecutor{
 	
-	static File f = new File("plugins/BattlecraftServer/players.yml");
-	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	static File f = ConfigMg.player;
+	static YamlConfiguration yaml = ConfigMg.playerY;
 	
 	BattlecraftServer plugin;
 	
@@ -25,15 +29,16 @@ public class Admin implements CommandExecutor{
 
 	public static void sendMessage(String s) {
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
-			if (on.hasPermission("bc.admin")) {
+			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
 		on.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.WHITE + s);
+		SoundEffects.adminS(on);
 			}
 		}
 	}
 	
 	public static void tasks(Player p) {
-		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
-		if (on.hasPermission("bc.admin")) {
+		for (@SuppressWarnings("unused") Player on : Bukkit.getServer().getOnlinePlayers()) {
+		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 			while (yaml.getInt(p.getName() + ".logins") >= 0) {
 			if (yaml.getInt(p.getName() + ".logins") == 10) {
 				sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " has logged in " + ChatColor.YELLOW + "10 times!");
@@ -51,22 +56,10 @@ public class Admin implements CommandExecutor{
 		}
 	}
 	
-	public static void setupAdmin(Player p) {
-		if (yaml.contains(p.getName()) && p.hasPermission("bc.admin")) {
-			yaml.createSection(p.getName() + ".adminM");
-			yaml.set(p.getName() + ".adminM", true);
-			try {
-				yaml.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("admin")) {
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.admin")) {
+			if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.RED + "You are not an admin on this server!");
 				return true;
 			}

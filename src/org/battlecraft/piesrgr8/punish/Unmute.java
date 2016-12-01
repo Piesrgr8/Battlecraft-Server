@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.punish;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +19,7 @@ public class Unmute implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (cmd.getLabel().equalsIgnoreCase("unmute")) {
-			if (!sender.hasPermission("bc.unmute")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to mute people!");
 				return true;
 			}

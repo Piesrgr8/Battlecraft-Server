@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.essentials;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,7 +25,7 @@ public class Fly implements CommandExecutor {
 			}
 
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.fly")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "You don't have permission to fly!");
 				return true;
 			}

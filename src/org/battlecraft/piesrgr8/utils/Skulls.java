@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.utils;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
@@ -31,7 +33,7 @@ public class Skulls implements CommandExecutor {
 			}
 
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.skull")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				p.sendMessage(
 						BattlecraftServer.prefixSkull + ChatColor.RED + "You dont have permission to receive a skull.");
 				return true;

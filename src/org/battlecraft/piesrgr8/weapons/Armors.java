@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.weapons;
 import java.util.Arrays;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +35,7 @@ public class Armors implements CommandExecutor {
 				return true;
 			}
 
-			if (!sender.hasPermission("bc.armor")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
 				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED
 						+ "You dont have permission to recieve this armor!");
 				return true;

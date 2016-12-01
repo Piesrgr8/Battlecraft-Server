@@ -1,14 +1,20 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.5.3, 1.9
+version: 1.7.0.20, 1.9
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
 commands:
   admin:
-    description: Admin command/
+    description: Admin command.
   armor:
     description: Grants the player armor for protection.
+  answer:
+    description: Staff can answer questions.
+    aliases: [ans,an]
+  ask:
+    description: Ask questions to staff members!
+    aliases: [a]
   ban:
     description: Ban players.
   bc:
@@ -81,10 +87,6 @@ commands:
     description: Vote for an ongoing poll.
   report:
     description: Report a player for breaking rules.
-  restart:
-    description: Restart the server.
-  reload:
-    description: Reload the server.
   save:
     description: Save worlds.
   scan:
@@ -101,6 +103,8 @@ commands:
     description: Spam a certain message.
   spawn:
     description: Spawn in the hub.
+  spawner:
+    description: Spawn things.
   staff:
     description: This is a command for the staff team!
   stats:
@@ -118,6 +122,8 @@ commands:
     description: Teleportation at its finest!
   tphere:
     description: Teleportation at its finest!
+  updaterank:
+    description: Updates ranks
   unmute:
     description: Unmute players.
   vs:
@@ -126,6 +132,8 @@ commands:
     description: Get the URL for the website!
   warp:
     description: Teleport to a location!
+  whois:
+    description: Who is that player?
   world:
     description: Get the current world that you are in!
 
@@ -139,7 +147,6 @@ permissions:
             bc.fakeb: true
             bc.fakej: true
             bc.fakel: true
-            bc.fireworks: true
             bc.fly: true
             bc.full: true
             bc.gamemode0: true
@@ -191,8 +198,6 @@ permissions:
         description: Fake a join!
     bc.fakel:
         description: Fake a leave!
-    bc.fireworks:
-        description: Get fireworks!
     bc.fly:
         description: For flying!
     bc.full:
@@ -255,8 +260,6 @@ permissions:
         description: For chat purposes.
     bc.prefix.builder:
         description: For chat purposes.
-    bc.rank:
-        description: Set ranks for different players!
     bc.save:
         description: Save all worlds.
     bc.sethub:

@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.world;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,7 +21,7 @@ public class WorldScanProx implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("scan")) {
-			if (!p.hasPermission("bc.scan")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				p.sendMessage(BattlecraftServer.prefixWorld + ChatColor.RED
 						+ "You dont have permission to scan for entities!");
 				return true;

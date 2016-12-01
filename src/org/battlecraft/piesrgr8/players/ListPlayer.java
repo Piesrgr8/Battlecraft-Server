@@ -1,8 +1,5 @@
 package org.battlecraft.piesrgr8.players;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -16,17 +13,6 @@ public class ListPlayer implements CommandExecutor {
 
 	public ListPlayer(BattlecraftServer p) {
 		this.plugin = p;
-	}
-
-	public static void savePlayerList(BattlecraftServer plugin) {
-		if (!new File(plugin.getDataFolder(), "players.yml").exists()) {
-			try {
-				new File(plugin.getDataFolder(), "players.yml").createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		plugin.saveConfig();
 	}
 
 	@SuppressWarnings("deprecation")

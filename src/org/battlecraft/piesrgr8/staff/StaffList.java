@@ -16,28 +16,12 @@ public class StaffList {
 	BattlecraftServer plugin;
 
 	static ArrayList<String> staff = new ArrayList<>();
-	public static ArrayList<Player> player = new ArrayList<Player>();
 
 	static File f = new File("plugins/BattlecraftServer/staff.yml");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 	public StaffList(BattlecraftServer p) {
 		this.plugin = p;
-	}
-
-	public static void saveStaffYaml(BattlecraftServer plugin) {
-		if (!new File(plugin.getDataFolder(), "staff.yml").exists()) {
-			try {
-				new File(plugin.getDataFolder(), "staff.yml").createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-			yaml.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void checkStaffList(Player p) {

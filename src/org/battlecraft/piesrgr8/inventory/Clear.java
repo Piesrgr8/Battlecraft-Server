@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.inventory;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +22,7 @@ public class Clear implements CommandExecutor {
 			}
 			Player p = (Player) sender;
 
-			if (!p.hasPermission("bc.clear")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED
 						+ "You dont have permission to clear your inventory!");
 				return true;

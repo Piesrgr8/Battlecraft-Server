@@ -72,7 +72,7 @@ public class Hub implements Listener, CommandExecutor {
 
 		ItemStack hub = new ItemStack(Material.ENDER_PEARL);
 		ItemMeta hub1 = hub.getItemMeta();
-
+		
 		ItemStack kp = new ItemStack(Material.DIAMOND_SWORD);
 		ItemMeta kp1 = kp.getItemMeta();
 
@@ -341,6 +341,8 @@ public class Hub implements Listener, CommandExecutor {
 			double y = yaml.getDouble("hub.y");
 			double z = yaml.getDouble("hub.z");
 			p.teleport(new Location(w, x, y, z));
+			p.setHealth(20);
+			p.setFoodLevel(20);
 			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Hub.");
 			return true;

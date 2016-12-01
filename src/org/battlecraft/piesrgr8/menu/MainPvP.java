@@ -43,27 +43,27 @@ public class MainPvP implements Listener {
 		Wool wool = new Wool(DyeColor.GREEN);
 		ItemStack g = wool.toItemStack(1);
 		ItemMeta g1 = g.getItemMeta();
-		
+
 		Wool wool1 = new Wool(DyeColor.GREEN);
 		ItemStack a = wool1.toItemStack(1);
 		ItemMeta a1 = a.getItemMeta();
-		
+
 		Wool wool2 = new Wool(DyeColor.GREEN);
 		ItemStack b = wool2.toItemStack(1);
 		ItemMeta b1 = b.getItemMeta();
-		
+
 		Wool wool3 = new Wool(DyeColor.RED);
 		ItemStack c = wool3.toItemStack(1);
 		ItemMeta c1 = c.getItemMeta();
-		
+
 		Wool wool4 = new Wool(DyeColor.RED);
 		ItemStack d = wool4.toItemStack(1);
 		ItemMeta d1 = d.getItemMeta();
-		
+
 		Wool wool5 = new Wool(DyeColor.RED);
 		ItemStack e = wool5.toItemStack(1);
 		ItemMeta e1 = e.getItemMeta();
-		
+
 		ItemStack bk = new ItemStack(Material.ARROW);
 		ItemMeta bk1 = bk.getItemMeta();
 
@@ -77,42 +77,35 @@ public class MainPvP implements Listener {
 				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_BLUE + ChatColor.BOLD + "Stone! 1");
 		g1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		g.setItemMeta(g1);
-		
-		
+
 		a1.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold " + ChatColor.RESET + ChatColor.ITALIC
 				+ ChatColor.BOLD + "VS. " + ChatColor.WHITE + ChatColor.BOLD + "Iron! 2");
 		a1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		a.setItemMeta(a1);
-		
-		
+
 		b1.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Emerald " + ChatColor.RESET + ChatColor.ITALIC
 				+ ChatColor.BOLD + "VS. " + ChatColor.AQUA + ChatColor.BOLD + "Diamond! 3");
 		b1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		b.setItemMeta(b1);
-		
-		
+
 		c1.setDisplayName(ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
 				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red! 4");
 		c1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		c.setItemMeta(c1);
-		
-		
+
 		d1.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Green " + ChatColor.RESET + ChatColor.ITALIC
 				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red! 5");
 		d1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		d.setItemMeta(d1);
-		
-		
+
 		e1.setDisplayName(ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
 				+ ChatColor.BOLD + "VS. " + ChatColor.GOLD + ChatColor.BOLD + "Gold! 6");
 		e1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		e.setItemMeta(e1);
-		
-		
+
 		bk1.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "BACK!");
 		bk.setItemMeta(bk1);
 
-		
 		air1.setDisplayName(ChatColor.BLACK + " ");
 		air.setItemMeta(air1);
 
@@ -145,79 +138,83 @@ public class MainPvP implements Listener {
 			p.closeInventory();
 			return;
 		}
-		
-		
-		//GAME 1
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Wood"))) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft");
-			}
-		}, 40);
+
+		// GAME 1
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("1"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
-		}
-		
-		//GAME 2
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Iron!"))) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft2");
-			}
-		}, 40);
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft");
+				}
+			}, 40);
+
+		}
+
+		// GAME 2
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("2"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+				public void run() {
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft2");
+				}
+			}, 40);
+
 		}
-		
+
 		// GAME 3
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Emerald"))) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft3");
-			}
-		}, 40);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("3"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+				public void run() {
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft3");
+				}
+			}, 40);
+
 		}
-		
-		
-		//GAME 4
+
+		// GAME 4
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("4"))) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft4");
-			}
-		}, 40);
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
-		}
-		
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Green"))) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft5");
-			}
-		}, 40);
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft4");
+				}
+			}, 40);
+
+		}
+
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("5"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
-		}
-		
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Gold!"))) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
-			Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft6");
-			}
-		}, 40);
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft5");
+				}
+			}, 40);
+
+		}
+
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("6"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
 			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+				public void run() {
+					Bukkit.getServer().dispatchCommand(p, "mg join Battlecraft6");
+				}
+			}, 40);
+
 		}
-		
+
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("BACK"))) {
 			NavGame.openGUI(p);
 		}

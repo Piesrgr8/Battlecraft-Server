@@ -3,6 +3,7 @@ package org.battlecraft.piesrgr8.essentials;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Send;
 import org.battlecraft.piesrgr8.chat.Tell;
@@ -25,13 +26,13 @@ import org.battlecraft.piesrgr8.punish.Punishing;
 import org.battlecraft.piesrgr8.punish.Unmute;
 import org.battlecraft.piesrgr8.shop.Kiosk;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.staff.Ask;
 import org.battlecraft.piesrgr8.staff.StaffCommand;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.support.Issue;
 import org.battlecraft.piesrgr8.support.Report;
 import org.battlecraft.piesrgr8.utils.ClickChat;
 import org.battlecraft.piesrgr8.utils.MaintenanceCommand;
-import org.battlecraft.piesrgr8.utils.RestartCommand;
 import org.battlecraft.piesrgr8.utils.Skulls;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.weapons.Armors;
@@ -57,6 +58,8 @@ public class Commands implements CommandExecutor {
 	public static void registerCommands(BattlecraftServer plugin) {
 		plugin.getCommand("admin").setExecutor(new Admin(plugin));
 		plugin.getCommand("armor").setExecutor(new Armors());
+		plugin.getCommand("answer").setExecutor(new Ask());
+		plugin.getCommand("ask").setExecutor(new Ask());
 		plugin.getCommand("ban").setExecutor(new Punishing(plugin));
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
 		plugin.getCommand("clear").setExecutor(new Clear());
@@ -89,8 +92,6 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("player").setExecutor(new ListPlayer(plugin));
 		plugin.getCommand("poll").setExecutor(new Poll(plugin));
 		plugin.getCommand("report").setExecutor(new Report());
-		plugin.getCommand("restart").setExecutor(new RestartCommand(plugin));
-		plugin.getCommand("reload").setExecutor(new RestartCommand(plugin));
 		plugin.getCommand("save").setExecutor(new WorldSave(plugin));
 		plugin.getCommand("scan").setExecutor(new WorldScanProx());
 		plugin.getCommand("send").setExecutor(new Send(plugin));
@@ -108,14 +109,18 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("tpc").setExecutor(new Teleportation());
 		plugin.getCommand("tphere").setExecutor(new Teleportation());
 		plugin.getCommand("unmute").setExecutor(new Unmute());
+		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
 		plugin.getCommand("vs").setExecutor(new Invisibility());
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));
 		plugin.getCommand("warp").setExecutor(new Teleportation());
+		plugin.getCommand("whois").setExecutor(new Whois());
 		plugin.getCommand("world").setExecutor(new WorldHandler(plugin));
 	}
 
 	// THIS IS THE RELOAD COMMAND & MAIN COMMAND
-
+	//heckin memes boi
+	
+	
 	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

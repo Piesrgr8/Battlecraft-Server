@@ -18,10 +18,18 @@ public class AntiSwear implements Listener {
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		for (String word : e.getMessage().split(" ")) {
 			if (plugin.getConfig().getStringList("badwords").contains(word)) {
-
-				word.replaceAll(word, "*");
-				e.setCancelled(true);
-				e.getPlayer().sendMessage(ChatColor.RED + "Cursing is against the rules on this server!");
+				
+				if(e.getPlayer().getName().equals("iHersh") || e.getPlayer().getName().equals("Piesgr8") || e.getPlayer().getName().equals("SBG_Memes"))
+				{
+					return;
+				}
+				else
+				{
+					e.setCancelled(true);
+					e.getPlayer().sendMessage(ChatColor.RED + "Cursing is against the rules on this server!");
+				}
+				
+				
 			}
 		}
 	}

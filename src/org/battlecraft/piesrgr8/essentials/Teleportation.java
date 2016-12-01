@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.essentials;
 import java.io.File;
 import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
@@ -28,7 +30,7 @@ public class Teleportation implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.teleport")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport.");
 				return true;
 			}
@@ -70,7 +72,7 @@ public class Teleportation implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.teleport")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport.");
 				return true;
 			}
@@ -97,7 +99,7 @@ public class Teleportation implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.teleport")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport.");
 				return true;
 			}
@@ -130,7 +132,7 @@ public class Teleportation implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.setwarp")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
 				p.sendMessage(
 						BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to set up a warp.");
 				return true;

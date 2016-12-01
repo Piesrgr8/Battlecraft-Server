@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.inventory;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
@@ -20,7 +22,7 @@ public class Invsee implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.invsee")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
 				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED
 						+ "You dont have permission to see another player's inventory!");
 				return true;

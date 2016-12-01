@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.Bukkit;
@@ -16,7 +18,7 @@ public class Health implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("heal")) {
-			if (!sender.isOp()) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to heal yourself!");
 				return true;
 			}

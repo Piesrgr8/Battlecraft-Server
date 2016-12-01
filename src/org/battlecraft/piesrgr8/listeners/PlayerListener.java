@@ -1,13 +1,13 @@
 package org.battlecraft.piesrgr8.listeners;
 
 import java.io.File;
-import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.players.Friends;
-import org.battlecraft.piesrgr8.staff.Admin;
-import org.battlecraft.piesrgr8.staff.StaffList;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
@@ -36,8 +36,8 @@ public class PlayerListener implements Listener {
 		this.plugin = p;
 	}
 
-	static File f = new File("plugins/BattlecraftServer/players.yml");
-	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	static File f = ConfigMg.player;
+	static YamlConfiguration yaml = ConfigMg.playerY;
 
 	@EventHandler
 	public void onItemEnchant(EnchantItemEvent e) {
@@ -57,17 +57,12 @@ public class PlayerListener implements Listener {
 
 		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + p.getName()
 				+ ChatColor.DARK_GREEN + "" + ChatColor.ITALIC + " joined");
-
-		if (p.hasPermission("bc.staff")) {
-			StaffList.player.add(p);
-		}
-
+		
 		Friends.saveFriends(p);
 		TimerDaily.timer(p);
 
-		if (p.hasPermission("bc.admin")) {
-			Admin.setupAdmin(p);
-			if (yaml.getBoolean(p.getName() + ".adminM") == true) {
+		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
+			if (yaml.getBoolean(p.getName() + ".adminM")) {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
 				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW
@@ -98,35 +93,6 @@ public class PlayerListener implements Listener {
 				}
 			}, 25);
 		}
-		if (!yaml.contains(p.getName())) {
-			yaml.createSection(p.getName());
-			yaml.createSection(p.getName() + ".muted");
-			yaml.createSection(p.getName() + ".banned");
-			yaml.createSection(p.getName() + ".logins");
-			yaml.addDefault(p.getName() + ".muted", false);
-			yaml.addDefault(p.getName() + ".banned", false);
-			try {
-				yaml.save(f);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-
-		if (p.hasPlayedBefore() == false) {
-			Bukkit.broadcastMessage(
-					ChatColor.AQUA + p.getName() + ChatColor.YELLOW + " has joined for the first time!");
-			yaml.createSection(p.getName());
-			yaml.createSection(p.getName() + ".muted");
-			yaml.createSection(p.getName() + ".banned");
-			yaml.createSection(p.getName() + ".logins");
-			yaml.addDefault(p.getName() + ".muted", false);
-			yaml.addDefault(p.getName() + ".banned", false);
-			try {
-				yaml.save(f);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
 	}
 
 	@EventHandler
@@ -135,9 +101,6 @@ public class PlayerListener implements Listener {
 		e.setQuitMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + p.getName()
 				+ ChatColor.DARK_RED + "" + ChatColor.ITALIC + " left");
 		PlayerTp.players.remove(p.getName());
-		if (p.hasPermission("bc.staff")) {
-			StaffList.player.remove(p);
-		}
 	}
 
 	@EventHandler
@@ -149,10 +112,6 @@ public class PlayerListener implements Listener {
 
 		if (yaml.contains(p.getName() + ".nick")) {
 			p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));
-		}
-
-		if (p.hasPermission("bc.admin")) {
-			Admin.setupAdmin(p);
 		}
 	}
 

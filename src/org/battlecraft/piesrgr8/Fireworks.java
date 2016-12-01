@@ -5,6 +5,7 @@ import java.util.Random;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -31,6 +32,7 @@ public class Fireworks implements Listener {
 
 		if (p.getWorld().getName().equals("Hub1")) {
 			if (p.getItemInHand().getType().equals(Material.FIREWORK)) {
+				if(e.getPlayer().getLocation().getBlock().getRelative(BlockFace.SELF).getType() != Material.STONE_PLATE) {
 			e.setCancelled(true);
 			
 			Firework fw = (Firework) p.getWorld().spawn(p.getLocation(), Firework.class);
@@ -76,6 +78,7 @@ public class Fireworks implements Listener {
 		}else{
 			return;
 		}
+			}
 		}
 	}
 

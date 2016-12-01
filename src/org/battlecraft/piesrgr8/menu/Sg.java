@@ -143,73 +143,79 @@ public class Sg implements Listener {
 		
 		//GAME 1
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Basic"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 1");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		//GAME 2
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Water"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 2");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		// GAME 3
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Turbulence"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 3");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		
 		//GAME 4
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Egypt"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 4");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("City"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 5");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("Floating"))) {
+			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
+			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 			Bukkit.getServer().dispatchCommand(p, "sg join 6");
 			}
 		}, 40);
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076, 4, 783);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
-					+ ChatColor.BOLD + "Main PvP.");
+			
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("BACK"))) {

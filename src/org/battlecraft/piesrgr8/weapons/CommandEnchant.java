@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.weapons;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.ChatColor;
@@ -21,7 +23,7 @@ public class CommandEnchant implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("enchant")) {
+		if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
 			if (!sender.isOp()) {
 				sender.sendMessage("You cannot enchant anything since you're not op!");
 				return true;

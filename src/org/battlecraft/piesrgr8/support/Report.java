@@ -3,6 +3,7 @@ package org.battlecraft.piesrgr8.support;
 import java.io.File;
 import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,7 +59,7 @@ public class Report implements CommandExecutor {
 				p.sendMessage(bg + ChatColor.GREEN + "Thank you! The report has been saved in our "
 						+ "records and has alerted staff members!");
 				for (Player on : Bukkit.getOnlinePlayers()) {
-					if (on.hasPermission("bc.staff")) {
+					if (RanksEnum.isStaff(on)) {
 						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "A player has reported "
 								+ args[0] + " for: " + ChatColor.GREEN + msg);
 					}

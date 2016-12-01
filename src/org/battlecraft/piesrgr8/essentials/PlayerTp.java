@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class PlayerTp implements Listener {
 
@@ -33,8 +33,8 @@ public class PlayerTp implements Listener {
 		for (int i = 0; i < players.size(); i++) { // Where players is an array
 													// of the players in-game
 			String playerName = players.get(i);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-			SkullMeta meta = (SkullMeta) item.getItemMeta();
+			ItemStack item = new ItemStack(Material.SKULL_ITEM);
+			ItemMeta meta = item.getItemMeta();
 
 			meta.setDisplayName(playerName);
 			meta.setLore(Arrays.asList("Click to Teleport!"));
@@ -65,7 +65,6 @@ public class PlayerTp implements Listener {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
 				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
-				return;
 			}
 			if (c != null) {
 

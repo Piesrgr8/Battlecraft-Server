@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.inventory;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,7 +15,7 @@ public class Enderchest implements CommandExecutor {
 
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("enderchest")) {
+		if (RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage("You are not a player!");
 				return true;

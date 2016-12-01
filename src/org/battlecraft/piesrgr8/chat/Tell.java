@@ -32,7 +32,7 @@ public class Tell implements CommandExecutor {
 				}
 			}
 
-			if (args.length > 1) {
+			if (args.length > 2) {
 				StringBuilder sb = new StringBuilder();
 				String msg;
 				for(int i = 1; i < args.length; i++)

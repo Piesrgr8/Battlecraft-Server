@@ -1,9 +1,11 @@
 package org.battlecraft.piesrgr8.essentials;
 
 import java.io.File;
-import java.io.IOException;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,7 +16,7 @@ import org.bukkit.entity.Player;
 
 public class Nick implements CommandExecutor {
 
-	File f = new File("plugins/BattlecraftServer/players.yml");
+	File f = new File("plugins//BattlecraftServer//players.yml");
 	YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -24,7 +26,7 @@ public class Nick implements CommandExecutor {
 				return true;
 			}
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.nick")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(
 						BattlecraftServer.prefixNick + ChatColor.RED + "You dont have permission to set your nickname");
 				return true;
@@ -41,19 +43,17 @@ public class Nick implements CommandExecutor {
 					bc = (bc + message + "");
 				}
 
-				p.setDisplayName(
-						"*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));
-
-				if (!yaml.contains(p.getName() + ".nick")) {
-					yaml.createSection(p.getName() + ".nick");
+				if(args[0].equals("off"))
+				{
+					p.setDisplayName(ChatColor.WHITE + p.getName());
+					p.sendMessage(BattlecraftServer.prefixNick + "Successfully reset nickname!");
+					PlayersYML.setNick(p, null);
+					return true;
 				}
+				
+				p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', args[0]));
 
-				yaml.set(p.getName() + ".nick", bc);
-				try {
-					yaml.save(f);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				PlayersYML.setNick(p, bc);
 				p.sendMessage(BattlecraftServer.prefixNick + ChatColor.GREEN
 						+ "Successfully set nick name! Your nick is now " + p.getDisplayName());
 				p.sendMessage(ChatColor.YELLOW + "Loggout or do this command again if your nick doesnt appear.");

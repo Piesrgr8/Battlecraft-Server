@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Cooldown;
 import org.battlecraft.piesrgr8.weapons.Kit;
@@ -27,7 +29,7 @@ public class Kits implements CommandExecutor {
 			}
 
 			final Player p = (Player) sender;
-			if (!p.hasPermission("bc.kit")) {
+			if (!RanksEnum.getRank((Player) sender).equals(Ranks.HELPER)) {
 				p.sendMessage(BattlecraftServer.prefixKit + ChatColor.RED + "You do not have permission to get kits!");
 				return true;
 			}

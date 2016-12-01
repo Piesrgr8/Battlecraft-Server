@@ -1,5 +1,7 @@
 package org.battlecraft.piesrgr8.essentials;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.Debug;
@@ -20,7 +22,7 @@ public class Gamemode implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("g0")) {
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.gamemode0")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 				p.sendMessage(prefix + ChatColor.RED + "You don't have permission to change your gamemode!");
 				return true;
 			}
@@ -54,7 +56,7 @@ public class Gamemode implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("g1")) {
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.gamemode1")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 				p.sendMessage(prefix + ChatColor.RED + "You don't have permission to change your gamemode!");
 				return true;
 			}
@@ -88,7 +90,7 @@ public class Gamemode implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("g2")) {
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.gamemode2")) {
+			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 				p.sendMessage(prefix + ChatColor.RED + "You don't have permission to change your gamemode!");
 				return true;
 			}
@@ -123,7 +125,7 @@ public class Gamemode implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("g3")) {
 			Debug.debugBroadcast("Player executed Spectator!");
 			Player p = (Player) sender;
-			if (!p.hasPermission("bc.gamemode3")) {
+			if (!RanksEnum.getRank((Player) sender).equals(Ranks.SRMOD)) {
 				p.sendMessage(prefix + ChatColor.RED + "You don't have permission to change your gamemode!");
 				return true;
 			}

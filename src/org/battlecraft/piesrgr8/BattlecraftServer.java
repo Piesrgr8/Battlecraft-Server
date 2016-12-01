@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.battlecraft.piesrgr8.config.ConfigManager;
-import org.battlecraft.piesrgr8.config.Spawning;
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.piesrgr8.config.ConfigMg;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.essentials.AntiSwear;
 import org.battlecraft.piesrgr8.essentials.Chat;
 import org.battlecraft.piesrgr8.essentials.Commands;
@@ -25,7 +26,6 @@ import org.battlecraft.piesrgr8.listeners.PlayerListener;
 import org.battlecraft.piesrgr8.menu.MainPvP;
 import org.battlecraft.piesrgr8.menu.Sg;
 import org.battlecraft.piesrgr8.players.Friends;
-import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
 import org.battlecraft.piesrgr8.shop.Shop;
@@ -34,7 +34,6 @@ import org.battlecraft.piesrgr8.shop.ShopMaterialStone;
 import org.battlecraft.piesrgr8.shop.ShopMaterialWood;
 import org.battlecraft.piesrgr8.shop.ShopTool;
 import org.battlecraft.piesrgr8.signs.Buy;
-import org.battlecraft.piesrgr8.staff.StaffList;
 import org.battlecraft.piesrgr8.stats.BlockBreaks;
 import org.battlecraft.piesrgr8.stats.DamageTaken;
 import org.battlecraft.piesrgr8.stats.Deaths;
@@ -44,8 +43,11 @@ import org.battlecraft.piesrgr8.utils.Cooldown;
 import org.battlecraft.piesrgr8.utils.Dynamicmotd;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.battlecraft.piesrgr8.utils.PlayerCountMessage;
+import org.battlecraft.piesrgr8.utils.RestartCommand;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.SignColors;
+import org.battlecraft.piesrgr8.utils.SoundEffects;
+import org.battlecraft.piesrgr8.utils.Tablist;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.battlecraft.piesrgr8.weapons.Guns;
@@ -134,6 +136,9 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 	public static String prefixFriend = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Friends" + ChatColor.GRAY + "] ";
 	
+	public static String prefixRanks = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+			+ ChatColor.BLUE + "" + ChatColor.BOLD + "Ranks" + ChatColor.GRAY + "] ";
+	
 	public static String prefixAdmin = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 			+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Admin" + ChatColor.GRAY + "] ";
 
@@ -146,20 +151,16 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		Cooldown.cooldownTask = new HashMap<Player, BukkitRunnable>();
 		getLogger().info("The Battlecraft Server Plugin is awake and alive!");
 		log = this.getLogger();
-		Poll.savePollYaml(this);
-		ListPlayer.savePlayerList(this);
 		PlayerCountMessage.playerCountMessage(this);
-		StaffList.saveStaffYaml(this);
-		Spawning.saveSpawnYaml(this);
-		Spawning.saveWarpYaml(this);
-		ConfigManager.saveIssueYaml(this);
-		ConfigManager.saveReportYaml(this);
+		ConfigMg.saveEverything(this);
 		registerEvents();
 		Commands.registerCommands(this);
+		RanksEnum.startRanks(this);
 	}
 
 	public void registerEvents() {
 		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(new Hub(this), this);
 		pm.registerEvents(new SilentJoin(this), this);
 		pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BCBlockListener(), this);
@@ -174,6 +175,9 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new Test(this), this);
 		pm.registerEvents(new RestoreInventory(this), this);
 		pm.registerEvents(new Dynamicmotd(this), this);
+		pm.registerEvents(new Menus(this), this);
+		pm.registerEvents(new NavGame(this), this);
+		pm.registerEvents(new PlayerTp(this), this);
 		pm.registerEvents(new Launchers(this), this);
 		pm.registerEvents(new Chat(this), this);
 		pm.registerEvents(new ScoreboardMg(this), this);
@@ -181,7 +185,11 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new DoubleJump(this), this);
 		pm.registerEvents(new TimerDaily(this), this);
 		pm.registerEvents(new Friends(this), this);
-		pm.registerEvents(new Fireworks(this), this);
+		pm.registerEvents(new RanksEnum(this), this);
+		pm.registerEvents(new SoundEffects(this), this);
+		pm.registerEvents(new PlayersYML(this), this);
+		pm.registerEvents(new Tablist(this), this);
+		pm.registerEvents(new RestartCommand(this), this);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(this), this);
@@ -200,24 +208,14 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new Buy(this), this);
 		
 		//FOR MENUS
-		pm.registerEvents(new Menus(this), this);
-		pm.registerEvents(new NavGame(this), this);
-		pm.registerEvents(new PlayerTp(this), this);
-		pm.registerEvents(new Hub(this), this);
 		pm.registerEvents(new MainPvP(this), this);
 		pm.registerEvents(new Sg(this), this);
 	}
 
 	@Override
 	public void onDisable() {
-		Poll.savePollYaml(this);
-		ListPlayer.savePlayerList(this);
 		PlayerCountMessage.playerCountMessage(this);
-		StaffList.saveStaffYaml(this);
-		Spawning.saveSpawnYaml(this);
-		Spawning.saveWarpYaml(this);
-		ConfigManager.saveIssueYaml(this);
-		ConfigManager.saveReportYaml(this);
+		ConfigMg.saveEverything(this);
 		getLogger().info("The Battlecraft Server Plugin is asleep!");
 		plugin = null;
 	}

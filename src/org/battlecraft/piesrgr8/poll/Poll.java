@@ -29,18 +29,8 @@ public class Poll implements CommandExecutor, Listener {
 		this.plugin = p;
 	}
 
+	File f = new File("plugins//BattlecraftServer//polls.yml");
 	YamlConfiguration yaml = new YamlConfiguration();
-
-	public static void savePollYaml(BattlecraftServer plugin) {
-		if (!new File(plugin.getDataFolder(), "polls.yml").exists()) {
-			try {
-				new File(plugin.getDataFolder(), "polls.yml").createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		plugin.saveConfig();
-	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		votes.put("yes", 0);
@@ -54,11 +44,9 @@ public class Poll implements CommandExecutor, Listener {
 
 			Player p = (Player) sender;
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "There are no polls to vote for!");
-				/*
-				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "Your choices are: " + ChatColor.GREEN
-						+ "Yes" + ChatColor.YELLOW + " or " + ChatColor.GREEN + "No.");
-						*/
+				//p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "Your choices are: " + ChatColor.GREEN
+				//		+ "Yes" + ChatColor.YELLOW + " or " + ChatColor.GREEN + "No.");
+				p.sendMessage(BattlecraftServer.prefixPolls + ChatColor.YELLOW + "There are no polls active at this time!");
 				return true;
 			}
 /*
@@ -100,7 +88,7 @@ public class Poll implements CommandExecutor, Listener {
 							BattlecraftServer.prefixPolls + ChatColor.RED + "You have already voted for this poll!");
 				}
 			} */
-		} 
+		}
 		return true;
 	}
 
@@ -144,9 +132,9 @@ public class Poll implements CommandExecutor, Listener {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		@SuppressWarnings("unused")
 		final Player p = e.getPlayer();
 /*
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -160,5 +148,5 @@ public class Poll implements CommandExecutor, Listener {
 						+ ", and then your choice of yes or no.");
 			}
 		}, 200L); */
-	} 
+	}
 }

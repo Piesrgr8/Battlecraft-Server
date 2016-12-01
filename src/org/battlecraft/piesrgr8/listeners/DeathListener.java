@@ -4,14 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
-
-import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
-import net.minecraft.server.v1_9_R2.SoundCategory;
 
 public class DeathListener implements Listener {
 
@@ -53,7 +46,7 @@ public class DeathListener implements Listener {
 	 * e.setDeathMessage(ChatColor.BLUE + p.getName() + ChatColor.YELLOW +
 	 * " entered a black hole in space!"); } }
 	 */
-	
+	/*
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
 		Player p = (Player) e.getEntity().getKiller();
@@ -97,5 +90,5 @@ public class DeathListener implements Listener {
 							p.getLocation().getBlockX(), p.getLocation().getBlockY(),
 							p.getLocation().getBlockZ(), 100000.0F, 1.0F));
 		}
-	}
+	} */
 }

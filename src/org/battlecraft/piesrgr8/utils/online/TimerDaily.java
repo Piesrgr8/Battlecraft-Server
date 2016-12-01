@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -40,13 +41,8 @@ public class TimerDaily implements Listener {
 				list.add(p);
 				p.sendMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
 						+ "You have completed your daily login for 5 minutes! Come back tomorrow to increase the numbers!");
-				yaml.set(p.getName() + ".logins", yaml.getInt(p.getName() + ".logins") + 1);
+				PlayersYML.setLogins(p, 1);
 				resetDaily(p);
-				try {
-					yaml.save(f);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 			}
 		}, 6000L);
