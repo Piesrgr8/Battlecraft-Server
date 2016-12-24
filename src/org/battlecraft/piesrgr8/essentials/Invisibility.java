@@ -19,6 +19,8 @@ public class Invisibility implements CommandExecutor {
 
 	List<Player> vanish = new ArrayList<Player>();
 
+	
+	//This is for vanishing players that are seen on the server by the player.
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getLabel().equalsIgnoreCase("vs")) {
 			if (!(sender instanceof Player)) {

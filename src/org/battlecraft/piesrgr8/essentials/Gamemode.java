@@ -19,6 +19,8 @@ public class Gamemode implements CommandExecutor {
 	String prefix = BattlecraftServer.prefixGamemode;
 
 	@SuppressWarnings("deprecation")
+	
+	//Everything said here is for gamemodes, and each particular gamemode has a method for targeting players too.
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("g0")) {
 			Player p = (Player) sender;

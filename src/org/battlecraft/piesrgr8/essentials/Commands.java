@@ -21,9 +21,7 @@ import org.battlecraft.piesrgr8.particles.Particles;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.poll.Poll;
-import org.battlecraft.piesrgr8.punish.Mute;
-import org.battlecraft.piesrgr8.punish.Punishing;
-import org.battlecraft.piesrgr8.punish.Unmute;
+import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Kiosk;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.staff.Ask;
@@ -55,12 +53,12 @@ public class Commands implements CommandExecutor {
 		this.plugin = p;
 	}
 
+	//Any command that is in this plugin is registered here.
 	public static void registerCommands(BattlecraftServer plugin) {
 		plugin.getCommand("admin").setExecutor(new Admin(plugin));
 		plugin.getCommand("armor").setExecutor(new Armors());
 		plugin.getCommand("answer").setExecutor(new Ask());
 		plugin.getCommand("ask").setExecutor(new Ask());
-		plugin.getCommand("ban").setExecutor(new Punishing(plugin));
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
 		plugin.getCommand("clear").setExecutor(new Clear());
 		plugin.getCommand("death").setExecutor(new Health());
@@ -81,16 +79,15 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("information").setExecutor(new Commands(plugin));
 		plugin.getCommand("invsee").setExecutor(new Invsee());
 		plugin.getCommand("issue").setExecutor(new Issue());
-		plugin.getCommand("kick").setExecutor(new Punishing(plugin));
 		plugin.getCommand("kit").setExecutor(new Kits(plugin));
 		plugin.getCommand("kiosk").setExecutor(new Kiosk(plugin));
 		plugin.getCommand("maintenance").setExecutor(new MaintenanceCommand(plugin));
 		plugin.getCommand("menu").setExecutor(new Menus(plugin));
-		plugin.getCommand("mute").setExecutor(new Mute());
 		plugin.getCommand("nick").setExecutor(new Nick());
 		plugin.getCommand("particle").setExecutor(new Particles(plugin));
 		plugin.getCommand("player").setExecutor(new ListPlayer(plugin));
 		plugin.getCommand("poll").setExecutor(new Poll(plugin));
+		plugin.getCommand("punish").setExecutor(new Punish(plugin));
 		plugin.getCommand("report").setExecutor(new Report());
 		plugin.getCommand("save").setExecutor(new WorldSave(plugin));
 		plugin.getCommand("scan").setExecutor(new WorldScanProx());
@@ -108,7 +105,6 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("tp").setExecutor(new Teleportation());
 		plugin.getCommand("tpc").setExecutor(new Teleportation());
 		plugin.getCommand("tphere").setExecutor(new Teleportation());
-		plugin.getCommand("unmute").setExecutor(new Unmute());
 		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
 		plugin.getCommand("vs").setExecutor(new Invisibility());
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));

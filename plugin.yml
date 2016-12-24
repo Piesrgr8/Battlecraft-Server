@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.7.0.20, 1.9
+version: 1.7.1.07, 1.9
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -15,8 +15,6 @@ commands:
   ask:
     description: Ask questions to staff members!
     aliases: [a]
-  ban:
-    description: Ban players.
   bc:
     description: The main command for the plugin.
   clear:
@@ -65,8 +63,6 @@ commands:
     description: Open up a players inventory.
   issue:
     description: Send an issue if you spot any problems.
-  kick:
-    description: Kick players.
   kit:
     description: Gives kits to players.
   kiosk:
@@ -85,6 +81,8 @@ commands:
     description: Add or remove a player from the list.
   poll:
     description: Vote for an ongoing poll.
+  punish:
+    description: Punish players for behavior issues.
   report:
     description: Report a player for breaking rules.
   save:
@@ -142,7 +140,6 @@ permissions:
         description: Gives all permissions to a player.
         children:
             bc.armor: true
-            bc.ban: true
             bc.fakek: true
             bc.fakeb: true
             bc.fakej: true
@@ -155,7 +152,6 @@ permissions:
             bc.gamemode3: true
             bc.helpbypass: true
             bc.invsee: true
-            bc.kick: true
             bc.main: true
             bc.mutebypass: true
             bc.mute: true
@@ -186,8 +182,6 @@ permissions:
         description: Admins are equiped with this.
     bc.armor:
         description: Grants the player armor for protection.
-    bc.ban:
-        description: Ban players.
     bc.clear:
         description: Clear inventory.
     bc.fakek:
@@ -214,8 +208,6 @@ permissions:
         description: Bypasses the help message.
     bc.invsee:
         description: Open a players inventory.
-    bc.kick:
-        description: Kick players.
     bc.kit:
         description: The main command for kits.
     bc.kit.starter:

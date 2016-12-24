@@ -1,10 +1,6 @@
 package org.battlecraft.piesrgr8.utils;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 public class SoundEffects implements Listener{
@@ -14,9 +10,10 @@ public class SoundEffects implements Listener{
 	public SoundEffects(BattlecraftServer p) {
 		SoundEffects.plugin = p;
 	}
-	
+	/*
 	public static void alertS(final Player p) {
 		final Location loc = p.getLocation();
+		long i = System.currentTimeMillis();
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
@@ -54,5 +51,5 @@ public class SoundEffects implements Listener{
 				p.playSound(loc, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10000, 1);
 			}
 		}, 4);
-	}
+	} */
 }

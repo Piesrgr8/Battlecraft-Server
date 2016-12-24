@@ -1,7 +1,6 @@
 package org.battlecraft.piesrgr8.utils;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,29 +16,18 @@ public class PacketUtil implements Listener {
 
 	@EventHandler
 	public static void onJoin(final BattlecraftServer plugin, final Player p) {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				TitleManager.sendTitle(p.getPlayer(), ChatColor.translateAlternateColorCodes('&', "&c&lBATTLECRAFT"),
-						ChatColor.translateAlternateColorCodes('&', "&aWelcome to the server, " + p.getName()), 40);
-			}
-		}, 20);
+		TitleManager.sendTitle(p.getPlayer(), ChatColor.translateAlternateColorCodes('&', "&c&lBATTLECRAFT"),
+				ChatColor.translateAlternateColorCodes('&', "&aWelcome to the server, " + p.getName()), 40);
 	}
 
 	@EventHandler
 	public static void sendTitle(final BattlecraftServer plugin, final Player p, final String msg, final String msg1) {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				TitleManager.sendTitle(p, msg, msg1, 70);
-			}
-		}, 20);
+		TitleManager.sendTitle(p, ChatColor.translateAlternateColorCodes('&', msg),
+				ChatColor.translateAlternateColorCodes('&', msg1), 70);
 	}
 
 	@EventHandler
 	public static void sendActionMsg(final BattlecraftServer plugin, final Player p, final String msg) {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				TitleManager.sendActionBar(p, msg, 70);
-			}
-		}, 20);
+		TitleManager.sendActionBar(p, ChatColor.translateAlternateColorCodes('&', msg), 70);
 	}
 }

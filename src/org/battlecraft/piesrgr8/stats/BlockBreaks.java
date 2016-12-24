@@ -22,7 +22,7 @@ public class BlockBreaks implements Listener {
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		yaml.set("stats.blockbreaks", yaml.getInt("stats.blockbreaks") + 1);
 		try {

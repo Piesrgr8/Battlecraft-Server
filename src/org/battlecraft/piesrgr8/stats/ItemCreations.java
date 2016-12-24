@@ -23,7 +23,7 @@ public class ItemCreations implements Listener {
 
 		Player p = (Player) e.getWhoClicked();
 
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		yaml.set("stats.itemcreations", yaml.getInt("stats.itemcreations") + 1);
 		try {

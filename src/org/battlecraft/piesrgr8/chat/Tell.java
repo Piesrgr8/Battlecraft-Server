@@ -13,6 +13,8 @@ public class Tell implements CommandExecutor {
 	String bg = BattlecraftServer.prefixMain;
 
 	@SuppressWarnings("deprecation")
+	
+	//Registering a command to be usable.
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("tell")) {
 			if (args.length == 0) {
@@ -21,6 +23,8 @@ public class Tell implements CommandExecutor {
 			}
 
 			Player tar = Bukkit.getServer().getPlayer(args[0]);
+			
+			//Checking to see if the target is null when they hit enter. Otherwise, it will ask them for a message if nothing else is typed in.
 			if (args.length == 1) {
 				if (tar == null) {
 					sender.sendMessage(bg + ChatColor.RED + "This player isnt online.");
@@ -32,6 +36,7 @@ public class Tell implements CommandExecutor {
 				}
 			}
 
+			//This will now send the message using the string build method.
 			if (args.length > 2) {
 				StringBuilder sb = new StringBuilder();
 				String msg;

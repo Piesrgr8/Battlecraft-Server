@@ -1,10 +1,6 @@
 package org.battlecraft.piesrgr8.utils;
 
-import java.io.File;
-
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.config.ConfigMg;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -17,8 +13,6 @@ public class Prefixes implements Listener{
 		Prefixes.plugin = p;
 	}
 	
-	static File f = ConfigMg.player;
-	static YamlConfiguration yaml = ConfigMg.playerY;
 	
 	/*
 	public static void registerPrefixes() {

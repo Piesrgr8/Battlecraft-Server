@@ -21,7 +21,7 @@ public class Deaths implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity().getPlayer();
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		if (p.isDead()) {

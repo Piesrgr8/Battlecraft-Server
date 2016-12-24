@@ -9,14 +9,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigMg {
 
+	//Register all of the ymls so that any class can use them.
 	public static File issue = new File("plugins//BattlecraftServer//issues.yml");
 	public static YamlConfiguration issueY = YamlConfiguration.loadConfiguration(issue);
 
 	public static File report = new File("plugins//BattlecraftServer//reports.yml");
 	public static YamlConfiguration reportY = YamlConfiguration.loadConfiguration(report);
-	
-	public static File player = new File("plugins//BattlecraftServer//players.yml");
-	public static YamlConfiguration playerY = YamlConfiguration.loadConfiguration(player);
 	
 	public static File warp = new File("plugins//BattlecraftServer//warps.yml");
 	public static YamlConfiguration warpY = YamlConfiguration.loadConfiguration(warp);
@@ -36,6 +34,7 @@ public class ConfigMg {
 		this.plugin = p;
 	}
 
+	//This is not really important to the class.
 	public void saveConfig(String name, FileConfiguration config) {
 		if (!name.endsWith(".yml")) {
 			name = name + ".yml";
@@ -49,16 +48,17 @@ public class ConfigMg {
 		}
 	}
 	
+	//We will save everything if this method is used.
 	public static void saveEverything(BattlecraftServer plugin) {
 		saveIssueYaml(plugin);
 		saveReportYaml(plugin);
-		savePlayerYaml(plugin);
 		saveWarpYaml(plugin);
 		saveSpawnYaml(plugin);
 		savePollYaml(plugin);
 		saveStaffYaml(plugin);
 	}
 
+	//Then the list continues, saving every individual yml.
 	public static void saveIssueYaml(BattlecraftServer plugin) {
 		if (!new File(plugin.getDataFolder(), "issues.yml").exists()) {
 			try {
@@ -84,21 +84,6 @@ public class ConfigMg {
 		}
 		try {
 			reportY.save(report);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void savePlayerYaml(BattlecraftServer plugin) {
-		if (!new File(plugin.getDataFolder(), "players.yml").exists()) {
-			try {
-				new File(plugin.getDataFolder(), "players.yml").createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-			playerY.save(player);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

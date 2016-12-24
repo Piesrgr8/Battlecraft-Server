@@ -6,10 +6,9 @@ import java.io.IOException;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.config.ConfigMg;
-import org.battlecraft.piesrgr8.utils.SoundEffects;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,9 +16,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class Admin implements CommandExecutor{
-	
-	static File f = ConfigMg.player;
-	static YamlConfiguration yaml = ConfigMg.playerY;
 	
 	BattlecraftServer plugin;
 	
@@ -31,12 +27,15 @@ public class Admin implements CommandExecutor{
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
 			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
 		on.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.WHITE + s);
-		SoundEffects.adminS(on);
+		on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 			}
 		}
 	}
 	
 	public static void tasks(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+        
 		for (@SuppressWarnings("unused") Player on : Bukkit.getServer().getOnlinePlayers()) {
 		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 			while (yaml.getInt(p.getName() + ".logins") >= 0) {
@@ -59,6 +58,9 @@ public class Admin implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("admin")) {
 			Player p = (Player) sender;
+			File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+	        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	        
 			if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.RED + "You are not an admin on this server!");
 				return true;

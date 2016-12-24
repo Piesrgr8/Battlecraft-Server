@@ -1,17 +1,21 @@
 package org.battlecraft.piesrgr8;
 
+import java.util.HashSet;
 import java.util.Random;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Material;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -32,14 +36,17 @@ public class Fireworks implements Listener {
 
 		if (p.getWorld().getName().equals("Hub1")) {
 			if (p.getItemInHand().getType().equals(Material.FIREWORK)) {
-				if(e.getPlayer().getLocation().getBlock().getRelative(BlockFace.SELF).getType() != Material.STONE_PLATE) {
+				if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			inv.remove(new ItemStack(Material.FIREWORK, 10));		
 			e.setCancelled(true);
 			
-			Firework fw = (Firework) p.getWorld().spawn(p.getLocation(), Firework.class);
+			Firework fw = (Firework) p.getWorld().spawn(p.getTargetBlock((HashSet<Byte>) null, 10).getLocation(), Firework.class);
 			FireworkMeta fwm = fw.getFireworkMeta();
 
 			// Our random generator
 			Random r = new Random();
+			
+			System.currentTimeMillis();
 
 			// Get the type
 			int rt = r.nextInt(4) + 1;
@@ -74,13 +81,30 @@ public class Fireworks implements Listener {
 
 			// Then apply this to our rocket
 			fw.setFireworkMeta(fwm);
-			inv.setItem(1, new ItemStack(Material.FIREWORK, 64));
 		}else{
 			return;
 		}
 			}
 		}
 	}
+	
+	@EventHandler
+	public void vipFw(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		PlayerInventory inv = p.getInventory();
+		
+		if (!RanksEnum.isAtLeast(p, Ranks.VIP)) {
+			return;
+		}
+		
+		if (p.getLocation().getWorld().getName().equals("Hub1")) {
+				if (!inv.contains(new ItemStack(Material.FIREWORK, 64))) {
+				inv.addItem(new ItemStack(Material.FIREWORK, 1));
+					}
+				}else{
+					return;
+				}
+			}
 
 	private Color getColor(int i) {
 		Color c = null;

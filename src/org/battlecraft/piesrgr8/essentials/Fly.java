@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 public class Fly implements CommandExecutor {
 
+	//Using an array list to make things much more accurate.
 	List<Player> pl = new ArrayList<Player>();
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

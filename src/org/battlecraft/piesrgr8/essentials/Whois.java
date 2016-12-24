@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,9 +13,6 @@ import org.bukkit.entity.Player;
 
 public class Whois implements CommandExecutor{
 	
-	File f = ConfigMg.player;
-	YamlConfiguration yaml = ConfigMg.playerY;
-	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("whois")) {
 			if (args.length == 0) {
@@ -25,6 +21,9 @@ public class Whois implements CommandExecutor{
 			}
 			
 			Player p = (Player) sender;
+			File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+	        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	        
 			if (args.length == 1) {
                 p.sendMessage("Looking for player with nickname: " + ChatColor.GREEN + args[0]);
                 

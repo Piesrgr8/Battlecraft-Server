@@ -23,7 +23,7 @@ public class DamageTaken implements Listener {
 	public void onDamageDelt(EntityDamageByEntityEvent e) {
 		if (e.getDamager() instanceof Player) {
 			Player p = (Player) e.getDamager();
-			File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+			File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 			yaml.set("stats.damagedelt", yaml.getInt("stats.damagedelt") + (int) e.getDamage());
 			try {

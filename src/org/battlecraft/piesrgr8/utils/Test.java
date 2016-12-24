@@ -1,7 +1,10 @@
 package org.battlecraft.piesrgr8.utils;
 
+import java.util.UUID;
+
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -100,6 +103,13 @@ public class Test implements Listener, CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		Player p = (Player) sender;
+		
+		//Use this method for UUID switches!
+
+		String uuid = p.getUniqueId().toString();
+		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+		
+		
 		if (cmd.getName().equalsIgnoreCase("test")) {
 			if (!sender.hasPermission("bc.test")) {
 				sender.sendMessage("No permission");
@@ -110,6 +120,8 @@ public class Test implements Listener, CommandExecutor {
 				sender.sendMessage("This class is testing buy signs and sell signs!");
 				sender.sendMessage("" + p.getInventory().getItemInMainHand());
 				sender.sendMessage(TimerDaily.list.size()+ "");
+				sender.sendMessage("" + uuid);
+				sender.sendMessage("" + fromUUID.getName());
 				return true;
 			}
 		}

@@ -22,7 +22,7 @@ public class RestoreInventory implements Listener {
 	public static void saveInventory(Player p) {
 		checkFolder();
 		ArrayList<ItemStack> list = new ArrayList<>();
-		File file = new File("plugins//BattlecraftServer//inventories//" + p.getName() + ".yml");
+		File file = new File("plugins//BattlecraftServer//inventories//" + p.getUniqueId().toString() + ".yml");
 
 		if (!file.exists()) {
 			try {
@@ -49,7 +49,7 @@ public class RestoreInventory implements Listener {
 	}
 
 	public static void loadInventory(Player p) {
-		File file = new File("plugins//BattlecraftServer//inventories//" + p.getName() + ".yml");
+		File file = new File("plugins//BattlecraftServer//inventories//" + p.getUniqueId().toString() + ".yml");
 		if (file.exists()) {
 			YamlConfiguration inv = YamlConfiguration.loadConfiguration(file);
 			p.getInventory().clear();

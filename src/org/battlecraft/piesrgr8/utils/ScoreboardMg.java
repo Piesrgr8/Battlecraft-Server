@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.utils;
 
 import java.io.File;
+import java.util.UUID;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
@@ -43,7 +44,7 @@ public class ScoreboardMg implements Listener {
 	}
 
 	public static void board1(Player p) {
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
@@ -105,19 +106,22 @@ public class ScoreboardMg implements Listener {
 	public static void board2(Player p) {
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
+		
+		String uuid = p.getUniqueId().toString();
+		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
 
 		Objective ob = b.registerNewObjective("test", "dummy");
 
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		ob.setDisplayName(ChatColor.translateAlternateColorCodes('&', "     &c&lBATTLECRAFT    "));
 
-		Score s = ob.getScore(ChatColor.GREEN + "Welcome, " + ChatColor.YELLOW + p.getName() + "!");
+		Score s = ob.getScore(ChatColor.GREEN + "Welcome, " + ChatColor.YELLOW + fromUUID.getName() + "!");
 		s.setScore(9);
 
 		Score s1 = ob.getScore(ChatColor.RED + "" + ChatColor.BOLD + "Displayname:");
 		s1.setScore(7);
 
-		Score s2 = ob.getScore(p.getDisplayName());
+		Score s2 = ob.getScore(fromUUID.getDisplayName());
 		s2.setScore(6);
 
 		Score s3 = ob.getScore(ChatColor.YELLOW + "" + ChatColor.BOLD + "Players Online:");

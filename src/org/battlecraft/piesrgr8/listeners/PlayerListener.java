@@ -1,15 +1,16 @@
 package org.battlecraft.piesrgr8.listeners;
 
 import java.io.File;
+import java.util.UUID;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -36,10 +37,8 @@ public class PlayerListener implements Listener {
 		this.plugin = p;
 	}
 
-	static File f = ConfigMg.player;
-	static YamlConfiguration yaml = ConfigMg.playerY;
-
 	@EventHandler
+	//Whenever someone enchants an item, they will be told what the enchantment was, and play a soundeffect.
 	public void onItemEnchant(EnchantItemEvent e) {
 		Player p = e.getEnchanter();
 		p.sendMessage(ChatColor.GOLD + "" + "You have the " + ChatColor.GOLD + "" + ChatColor.ITALIC
@@ -54,18 +53,26 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		final Player p = e.getPlayer();
+		String uuid = p.getUniqueId().toString();
+		final Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
 
-		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + p.getName()
+		//Set the join message for everyone to see.
+		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + fromUUID.getName()
 				+ ChatColor.DARK_GREEN + "" + ChatColor.ITALIC + " joined");
 		
+		//Save the friends list and start the daily timer.
 		Friends.saveFriends(p);
 		TimerDaily.timer(p);
 
+		//For admins only. If dont have this perm, then this wont execute.
 		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
-			if (yaml.getBoolean(p.getName() + ".adminM")) {
+			File f = new File("plugins//BattlecraftServer//players//" + fromUUID.getUniqueId().toString() + ".yml");
+	        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	        
+			if (yaml.getBoolean(fromUUID.getName() + ".adminM")) {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW
+				fromUUID.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW
 						+ "You have admin messages on. This means when people execute commands"
 						+ " like /tp will be displayed to you. To toggle, use the /admin command.");
 					}
@@ -73,23 +80,31 @@ public class PlayerListener implements Listener {
 			}
 		}
 
-		if (yaml.contains(p.getName() + ".nick")) {
-			p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));
+		File f = new File("plugins//BattlecraftServer//players//" + fromUUID.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		if (yaml.contains(fromUUID.getName() + ".nick")) {
+			fromUUID.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(fromUUID.getName() + ".nick")));
 		}
 
+		//We will create the stats list for the player IF they dont have one already.
 		StatsManager.createStats(p);
 
-		PlayerTp.players.add(p.getName());
+		//Add them to a list so that other players can teleport to them.
+		PlayerTp.players.add(fromUUID.getName());
+		
+		//Lonely motd.
 		motd(p);
 
 		if (plugin.getConfig().getBoolean("titleonjoin") == true) {
 			PacketUtil.onJoin(plugin, p);
 		}
 
-		if (!p.getWorld().getName().equalsIgnoreCase("Hub1")) {
+		//If the player isnt in the hub, they will be teleported back to the hub.
+		if (!fromUUID.getWorld().getName().equalsIgnoreCase("Hub1")) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
-					p.teleport(new Location(Bukkit.getServer().getWorld("Hub1"), 1041, 11, 586));
+					fromUUID.teleport(new Location(Bukkit.getServer().getWorld("Hub1"), 1041, 11, 586));
 				}
 			}, 25);
 		}
@@ -101,6 +116,7 @@ public class PlayerListener implements Listener {
 		e.setQuitMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + p.getName()
 				+ ChatColor.DARK_RED + "" + ChatColor.ITALIC + " left");
 		PlayerTp.players.remove(p.getName());
+		ScoreboardMg.removeBoard(p);
 	}
 
 	@EventHandler
@@ -109,6 +125,9 @@ public class PlayerListener implements Listener {
 			e.allow();
 		}
 		Player p = e.getPlayer();
+		
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		if (yaml.contains(p.getName() + ".nick")) {
 			p.setDisplayName("*" + ChatColor.translateAlternateColorCodes('&', yaml.getString(p.getName() + ".nick")));

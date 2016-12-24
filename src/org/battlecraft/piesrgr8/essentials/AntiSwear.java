@@ -15,6 +15,8 @@ public class AntiSwear implements Listener {
 	}
 
 	@EventHandler
+	
+	//When a player uses a bad word, their message will be terminated. All bad words are in the general config.
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		for (String word : e.getMessage().split(" ")) {
 			if (plugin.getConfig().getStringList("badwords").contains(word)) {

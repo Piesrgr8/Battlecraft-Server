@@ -48,18 +48,23 @@ public class Kits implements CommandExecutor {
 				return true;
 			}
 
+			//So, lets see if they are eligable.
 			if (args.length <= 1) {
 				if (args[0].equalsIgnoreCase("starter")) {
 					if (!p.hasPermission("bc.kit.starter")) {
 						p.sendMessage(BattlecraftServer.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
+						//Looks like they aren't after all.
 					}
+					
+					//If they are part of the cooldown timer list, they will be told how much time they have left.
 					if (Cooldown.cooldownTime.containsKey(p)) {
 						Cooldown.cooldownMessage(p);
 						return true;
 					}
 
+					//If everything passed, then give the player the kit, and set the timers for when to remove the player from cooldown.
 					Kit.starter(p);
 					Cooldown.cooldownTime.put(p, 3600);
 					Cooldown.cooldownTask.put(p, new BukkitRunnable() {
@@ -77,6 +82,8 @@ public class Kits implements CommandExecutor {
 
 					return true;
 				}
+				
+				//THE REST IS THE SAAAAME!
 
 				if (args[0].equalsIgnoreCase("vip")) {
 					if (!p.hasPermission("bc.kit.vip")) {

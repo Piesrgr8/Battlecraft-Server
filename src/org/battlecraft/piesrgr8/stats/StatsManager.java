@@ -34,7 +34,7 @@ public class StatsManager implements CommandExecutor {
 				return true;
 			}
 
-			File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+			File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 			if (args.length == 1) {
@@ -73,7 +73,7 @@ public class StatsManager implements CommandExecutor {
 	}
 
 	public static void createStats(Player p) {
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		if (!f.exists()) {

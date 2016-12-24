@@ -2,9 +2,9 @@ package org.battlecraft.piesrgr8.staff;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.SoundEffects;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,7 +37,7 @@ public class Ask implements CommandExecutor{
 					if (on.hasPermission("bc.staff")) {
 						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
 								+ ChatColor.GREEN + bc);
-						SoundEffects.alertS(p);
+						on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 					}
 				}
 			}
@@ -75,7 +75,7 @@ public class Ask implements CommandExecutor{
 				
 				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.LIGHT_PURPLE + "Your Answer" + ": " + ChatColor.GREEN + msg);
 				p1.sendMessage(BattlecraftServer.prefixStaff + ChatColor.LIGHT_PURPLE + p.getName() + ": " + ChatColor.GREEN + msg);
-				SoundEffects.alertS(p1);
+				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 		}
 	}
 		return true;

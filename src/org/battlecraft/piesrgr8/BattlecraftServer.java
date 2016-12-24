@@ -28,6 +28,7 @@ import org.battlecraft.piesrgr8.menu.Sg;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
+import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.shop.ShopMaterial;
 import org.battlecraft.piesrgr8.shop.ShopMaterialStone;
@@ -61,6 +62,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
+	//The main stuff to be added.
 	Logger log = Logger.getLogger("Minecraft");
 	BattlecraftServer plugin = this;
 
@@ -147,6 +149,8 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onEnable() {
+		//Enabling other classes and saving several ymls.
+		
 		Cooldown.cooldownTime = new HashMap<Player, Integer>();
 		Cooldown.cooldownTask = new HashMap<Player, BukkitRunnable>();
 		getLogger().info("The Battlecraft Server Plugin is awake and alive!");
@@ -159,6 +163,8 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 	}
 
 	public void registerEvents() {
+		//Registering events for the game.
+		
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new Hub(this), this);
 		pm.registerEvents(new SilentJoin(this), this);
@@ -190,6 +196,9 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new PlayersYML(this), this);
 		pm.registerEvents(new Tablist(this), this);
 		pm.registerEvents(new RestartCommand(this), this);
+		pm.registerEvents(new Fireworks(this), this);
+		
+		pm.registerEvents(new Punish(this), this);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(this), this);
@@ -214,6 +223,8 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onDisable() {
+		//Disable the other classes, plus save everything.
+		
 		PlayerCountMessage.playerCountMessage(this);
 		ConfigMg.saveEverything(this);
 		getLogger().info("The Battlecraft Server Plugin is asleep!");

@@ -27,7 +27,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 
 	public enum Ranks {
 		OWNER, // 4
-		COWNER, //4
+		COWNER, // 4
 		DEV, // 4
 		LEADER, // 4
 		ADMIN, // 4
@@ -108,9 +108,10 @@ public class RanksEnum implements Listener, CommandExecutor {
 
 	// This checks whether the player <p> is a staff member (Includes helper)
 	public static boolean isStaff(Player p) {
-		if (arrayRanks.get(p) == Ranks.OWNER || arrayRanks.get(p) == Ranks.COWNER || arrayRanks.get(p) == Ranks.LEADER || arrayRanks.get(p) == Ranks.DEV
-				|| arrayRanks.get(p) == Ranks.ADMIN || arrayRanks.get(p) == Ranks.SRMOD
-				|| arrayRanks.get(p) == Ranks.MOD || arrayRanks.get(p) == Ranks.HELPER) {
+		if (arrayRanks.get(p) == Ranks.OWNER || arrayRanks.get(p) == Ranks.COWNER || arrayRanks.get(p) == Ranks.LEADER
+				|| arrayRanks.get(p) == Ranks.DEV || arrayRanks.get(p) == Ranks.ADMIN
+				|| arrayRanks.get(p) == Ranks.SRMOD || arrayRanks.get(p) == Ranks.MOD
+				|| arrayRanks.get(p) == Ranks.HELPER) {
 			return true;
 		} else
 			return false;
@@ -192,10 +193,65 @@ public class RanksEnum implements Listener, CommandExecutor {
 	public static boolean isAtLeast(Player p, Enum<Ranks> e) {
 
 		if (RanksEnum.getRank(p) != null) {
+			if (e.equals(Ranks.VIP)) {
+				if (RanksEnum.getRank(p).equals(Ranks.VIPPLUS) || RanksEnum.getRank(p).equals(Ranks.PLUSVIPPLUS)
+						|| RanksEnum.getRank(p).equals(Ranks.MASTER) || RanksEnum.getRank(p).equals(Ranks.PREMIUM)
+						|| RanksEnum.getRank(p).equals(Ranks.HELPER) || RanksEnum.getRank(p).equals(Ranks.MOD)
+						|| RanksEnum.getRank(p).equals(Ranks.ADMIN) || RanksEnum.getRank(p).equals(Ranks.DEV)
+						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
+			if (e.equals(Ranks.VIPPLUS)) {
+				if (RanksEnum.getRank(p).equals(Ranks.PLUSVIPPLUS) || RanksEnum.getRank(p).equals(Ranks.MASTER)
+						|| RanksEnum.getRank(p).equals(Ranks.PREMIUM) || RanksEnum.getRank(p).equals(Ranks.HELPER)
+						|| RanksEnum.getRank(p).equals(Ranks.MOD) || RanksEnum.getRank(p).equals(Ranks.ADMIN)
+						|| RanksEnum.getRank(p).equals(Ranks.DEV) || RanksEnum.getRank(p).equals(Ranks.LEADER)
+						|| RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
+			if (e.equals(Ranks.PLUSVIPPLUS)) {
+				if (RanksEnum.getRank(p).equals(Ranks.MASTER) || RanksEnum.getRank(p).equals(Ranks.PREMIUM)
+						|| RanksEnum.getRank(p).equals(Ranks.HELPER) || RanksEnum.getRank(p).equals(Ranks.MOD)
+						|| RanksEnum.getRank(p).equals(Ranks.ADMIN) || RanksEnum.getRank(p).equals(Ranks.DEV)
+						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
+			if (e.equals(Ranks.MASTER)) {
+				if (RanksEnum.getRank(p).equals(Ranks.PREMIUM) || RanksEnum.getRank(p).equals(Ranks.HELPER)
+						|| RanksEnum.getRank(p).equals(Ranks.MOD) || RanksEnum.getRank(p).equals(Ranks.ADMIN)
+						|| RanksEnum.getRank(p).equals(Ranks.DEV) || RanksEnum.getRank(p).equals(Ranks.LEADER)
+						|| RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
+			if (e.equals(Ranks.PREMIUM)) {
+				if (RanksEnum.getRank(p).equals(Ranks.HELPER) || RanksEnum.getRank(p).equals(Ranks.MOD)
+						|| RanksEnum.getRank(p).equals(Ranks.ADMIN) || RanksEnum.getRank(p).equals(Ranks.DEV)
+						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
 			if (e.equals(Ranks.HELPER)) {
 				if (RanksEnum.getRank(p).equals(Ranks.HELPER) || RanksEnum.getRank(p).equals(Ranks.MOD)
 						|| RanksEnum.getRank(p).equals(Ranks.ADMIN) || RanksEnum.getRank(p).equals(Ranks.DEV)
-						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
 					return true;
 				} else
 					return false;
@@ -221,7 +277,8 @@ public class RanksEnum implements Listener, CommandExecutor {
 
 			if (e.equals(Ranks.ADMIN)) {
 				if (RanksEnum.getRank(p).equals(Ranks.ADMIN) || RanksEnum.getRank(p).equals(Ranks.DEV)
-						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+						|| RanksEnum.getRank(p).equals(Ranks.LEADER) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
 					return true;
 				} else
 					return false;
@@ -236,7 +293,8 @@ public class RanksEnum implements Listener, CommandExecutor {
 			}
 
 			if (e.equals(Ranks.DEV)) {
-				if (RanksEnum.getRank(p).equals(Ranks.DEV) || RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+				if (RanksEnum.getRank(p).equals(Ranks.DEV) || RanksEnum.getRank(p).equals(Ranks.COWNER)
+						|| RanksEnum.getRank(p).equals(Ranks.OWNER)) {
 					return true;
 				} else
 					return false;

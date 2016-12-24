@@ -3,7 +3,6 @@ package org.battlecraft.piesrgr8.utils.online;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.config.PlayersYML;
@@ -38,27 +37,13 @@ public class TimerDaily implements Listener {
 			public void run() {
 				if (p != null) {
 					
-				list.add(p);
 				p.sendMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
 						+ "You have completed your daily login for 5 minutes! Come back tomorrow to increase the numbers!");
 				PlayersYML.setLogins(p, 1);
-				resetDaily(p);
 			}
 			}
 		}, 6000L);
 	}
-		public static void resetDaily(final Player p) {
-			Calendar c = Calendar.getInstance();
-			c.set(Calendar.HOUR, 0);
-			c.set(Calendar.MINUTE, 0);
-			c.set(Calendar.SECOND, 0);
-			c.set(Calendar.MILLISECOND, 0);
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-					list.remove(p);
-				}
-			}, c.getTimeInMillis());
-		}
 
 	public String getRemainingTime(long millis) {
 		long sec = millis / 1000;

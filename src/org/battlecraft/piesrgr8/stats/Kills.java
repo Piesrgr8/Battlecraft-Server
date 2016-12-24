@@ -26,7 +26,7 @@ public class Kills implements Listener {
 		   return;
 	   }
 	   
-		File f = new File("plugins//BattlecraftServer//stats//" + k.getName() + ".yml");
+		File f = new File("plugins//BattlecraftServer//stats//" + k.getUniqueId().toString() + ".yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
         
 		if (e.getEntity().isDead() && f.exists()) {
