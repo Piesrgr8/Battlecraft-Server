@@ -16,8 +16,6 @@ public class StatsManager implements CommandExecutor {
 
 	BattlecraftServer plugin;
 
-	public static HashMap<Player, Integer> stats = new HashMap<Player, Integer>();
-
 	public StatsManager(BattlecraftServer p) {
 		this.plugin = p;
 	}
