@@ -2,8 +2,8 @@ package org.battlecraft.piesrgr8.essentials;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 
 public class Health implements CommandExecutor {
 
-	String prefix = BattlecraftServer.prefixHealth;
+	String prefix = Prefix.prefixHealth;
 
 	//Everything here is for healing and killing, and it also has their own methods for targeting players too.
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

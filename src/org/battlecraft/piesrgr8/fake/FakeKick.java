@@ -2,7 +2,7 @@ package org.battlecraft.piesrgr8.fake;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,18 +15,18 @@ public class FakeKick implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fakek")) {
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "Access denied!");
+				sender.sendMessage(Prefix.prefixMain + ChatColor.RED + "Access denied!");
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "Fake a kick! Just type the name!");
+				sender.sendMessage(Prefix.prefixMain + ChatColor.RED + "Fake a kick! Just type the name!");
 				return true;
 			}
 			if (args.length == 1) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Sent successfully!");
+				sender.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Sent successfully!");
 
 				if (!(args[0] == null)) {
-					Bukkit.getServer().broadcastMessage(BattlecraftServer.prefixPunish + ChatColor.YELLOW + "Player "
+					Bukkit.getServer().broadcastMessage(Prefix.prefixPunish + ChatColor.YELLOW + "Player "
 							+ args[0] + " has been kicked by " + sender.getName() + "!");
 
 					Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "" + ChatColor.ITALIC + "" + ChatColor.BOLD

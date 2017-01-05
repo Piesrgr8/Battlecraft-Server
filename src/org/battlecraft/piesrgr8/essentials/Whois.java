@@ -3,7 +3,7 @@ package org.battlecraft.piesrgr8.essentials;
 import java.io.File;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +16,7 @@ public class Whois implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("whois")) {
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixNick + ChatColor.YELLOW + "Please type in a nickname that you saw on the server!");
+				sender.sendMessage(Prefix.prefixNick + ChatColor.YELLOW + "Please type in a nickname that you saw on the server!");
 				return true;
 			}
 			

@@ -30,8 +30,9 @@ public class Dynamicmotd implements Listener {
 					+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.10 " + ChatColor.RED + "/"
 					+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.11 ");
 		} else if (random == 1) {
-			e.setMotd(permanent + "    " + ChatColor.GOLD + "" + ChatColor.BOLD
-					+ "We are always working to improve!");
+			e.setMotd(permanent + "                     " + ChatColor.RED + "" + ChatColor.BOLD
+					+ "    HAPPY " + ChatColor.GREEN + "" + ChatColor.BOLD
+					+  "HOLIDAYS!");
 		} else if (random == 2) {
 			e.setMotd(permanent + "    " + ChatColor.translateAlternateColorCodes('&',
 					"&7&l( &cMinigames " + "&7- &6SkyBlock &7- &eFactions &7- &2SG &7- &bSW &7&l)"));

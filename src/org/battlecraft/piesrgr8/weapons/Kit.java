@@ -3,7 +3,7 @@ package org.battlecraft.piesrgr8.weapons;
 import java.util.Arrays;
 import java.util.List;
 
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -49,7 +49,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.STONE_SWORD), ChatColor.GRAY + "Starter Sword",
 				Arrays.asList("This is an axe" + " specifically for beginners!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "Starter " + ChatColor.GREEN + "kit!");
 
 		inv.addItem(item1);
@@ -81,7 +81,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), vip + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "VIP " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
@@ -121,7 +121,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), vip1 + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "VIP+ " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
@@ -161,7 +161,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), vip2 + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "+VIP+ " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
@@ -201,7 +201,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), master + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "Master " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
@@ -249,7 +249,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), premium + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "Premium " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
@@ -296,7 +296,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), staff + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "Staff " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
@@ -336,7 +336,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.IRON_SWORD), yt + ChatColor.GREEN + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "YT " + ChatColor.GREEN + "kit!");
 
 		item1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
@@ -376,7 +376,7 @@ public class Kit {
 		ItemStack item6 = setMeta(new ItemStack(Material.DIAMOND_SWORD), op + ChatColor.RED + "Sword",
 				Arrays.asList("This is a sword", "specifically for buyers of VIP!"));
 
-		p.sendMessage(BattlecraftServer.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.RED + ""
+		p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "You were given the " + ChatColor.RED + ""
 				+ ChatColor.BOLD + "OP " + ChatColor.GREEN + "kit!");
 
 		item1.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1000);

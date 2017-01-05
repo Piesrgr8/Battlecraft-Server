@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Debug;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,12 +29,12 @@ public class StaffCommand implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("staff")) {
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				p.sendMessage(
-						BattlecraftServer.prefixStaff + ChatColor.RED + "You are not allowed to use this command!");
+						Prefix.prefixStaff + ChatColor.RED + "You are not allowed to use this command!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.RED + "Arguments Missing!: " + ChatColor.YELLOW
+				p.sendMessage(Prefix.prefixStaff + ChatColor.RED + "Arguments Missing!: " + ChatColor.YELLOW
 						+ "/staff check, /staff job, /staff list, /staff register");
 				return true;
 			}
@@ -53,7 +53,7 @@ public class StaffCommand implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("remove")) {
 					StaffList.removeStaff(p);
-					p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN
+					p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN
 							+ "Removed! If you ever want to have this system, do /staff register!");
 					return true;
 				}
@@ -63,14 +63,14 @@ public class StaffCommand implements CommandExecutor {
 					pl = yaml.getStringList("players");
 					if (pl != null) {
 						if (pl.size() >= 1) {
-							p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN
+							p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN
 									+ "These are the players of honorary mention!");
 							Debug.debugConsole(
 									"A player used /staff list and there are some people already on that list!");
 						}
 					} else {
 						Debug.debugConsole("A player used /staff list and the list doesnt exist!");
-						p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN
+						p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN
 								+ "There are no players in the list :(");
 					}
 
@@ -86,12 +86,12 @@ public class StaffCommand implements CommandExecutor {
 					if (jobs != null) {
 						if (jobs.size() > 0) {
 							Debug.debugConsole("A player used /staff job and they have jobs currently available!");
-							p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN
+							p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN
 									+ "You have jobs that are currently available!");
 						}
 					} else {
 						Debug.debugConsole("A player used /staff job and they are not even on the list!");
-						p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN + "You dont have any jobs!");
+						p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN + "You dont have any jobs!");
 					}
 
 					for (int i = 0; i < jobs.size(); i++) {

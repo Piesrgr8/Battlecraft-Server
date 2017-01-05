@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public class Punish implements Listener, CommandExecutor {
 		WARNING, KICK, MUTE, BAN
 	}
 
-	final String prefix = BattlecraftServer.prefixPunish;
+	final String prefix = Prefix.prefixPunish;
 	String exline = "\n";
 	String website = ChatColor.GREEN + "www.bcpvp101.enjin.com/forum";
 

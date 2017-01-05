@@ -2,10 +2,14 @@ package org.battlecraft.piesrgr8.utils.online;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.config.PlayersYML;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -37,7 +41,7 @@ public class TimerDaily implements Listener {
 			public void run() {
 				if (p != null) {
 					
-				p.sendMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
+				p.sendMessage(Prefix.prefixMain + ChatColor.YELLOW
 						+ "You have completed your daily login for 5 minutes! Come back tomorrow to increase the numbers!");
 				PlayersYML.setLogins(p, 1);
 			}
@@ -45,18 +49,22 @@ public class TimerDaily implements Listener {
 		}, 6000L);
 	}
 
-	public String getRemainingTime(long millis) {
-		long sec = millis / 1000;
-		long min = 0;
-		while (sec > 60) {
-			sec -= 60;
-			min++;
-		}
-		long hour = 0;
-		while (min > 60) {
-			min -= 60;
-			hour++;
-		}
-		return hour + "h " + min + "m " + sec + "s ";
+	public static String getTime() {
+		long current = System.currentTimeMillis();
+		Date currentD = new Date(current);
+		
+		DateFormat df = new SimpleDateFormat("h:mm aa");
+		
+		String time = df.format(currentD);
+		return time;
+	}
+	
+	public static String getFullTime() {
+		long current = System.currentTimeMillis();
+		Date currentD = new Date(current);
+		
+		String full = currentD.toString();
+		
+		return full;
 	}
 }

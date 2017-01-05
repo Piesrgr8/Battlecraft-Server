@@ -2,7 +2,7 @@ package org.battlecraft.piesrgr8.inventory;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,13 +23,13 @@ public class Clear implements CommandExecutor {
 			Player p = (Player) sender;
 
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED
+				p.sendMessage(Prefix.prefixInv + ChatColor.RED
 						+ "You dont have permission to clear your inventory!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.GREEN + "Inventory cleared!");
+				p.sendMessage(Prefix.prefixInv + ChatColor.GREEN + "Inventory cleared!");
 				p.getInventory().clear();
 				return true;
 			}
@@ -37,9 +37,9 @@ public class Clear implements CommandExecutor {
 			if (args.length == 1) {
 				Player tar = Bukkit.getServer().getPlayer(args[0]);
 				Inventory inv = tar.getInventory();
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED + "This player isnt online.");
+				p.sendMessage(Prefix.prefixInv + ChatColor.RED + "This player isnt online.");
 
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.GREEN + tar.getName()
+				p.sendMessage(Prefix.prefixInv + ChatColor.GREEN + tar.getName()
 						+ "'s inventory has been cleared!");
 				inv.clear();
 				;

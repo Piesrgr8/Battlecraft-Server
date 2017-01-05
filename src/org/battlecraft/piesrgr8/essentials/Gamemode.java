@@ -2,9 +2,9 @@ package org.battlecraft.piesrgr8.essentials;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.Debug;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 public class Gamemode implements CommandExecutor {
 
-	String prefix = BattlecraftServer.prefixGamemode;
+	String prefix = Prefix.prefixGamemode;
 
 	@SuppressWarnings("deprecation")
 	

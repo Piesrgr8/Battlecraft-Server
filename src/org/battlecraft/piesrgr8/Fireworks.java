@@ -37,16 +37,14 @@ public class Fireworks implements Listener {
 		if (p.getWorld().getName().equals("Hub1")) {
 			if (p.getItemInHand().getType().equals(Material.FIREWORK)) {
 				if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-			inv.remove(new ItemStack(Material.FIREWORK, 10));		
 			e.setCancelled(true);
 			
+			inv.remove(new ItemStack(Material.FIREWORK, 10));
 			Firework fw = (Firework) p.getWorld().spawn(p.getTargetBlock((HashSet<Byte>) null, 10).getLocation(), Firework.class);
 			FireworkMeta fwm = fw.getFireworkMeta();
 
 			// Our random generator
 			Random r = new Random();
-			
-			System.currentTimeMillis();
 
 			// Get the type
 			int rt = r.nextInt(4) + 1;

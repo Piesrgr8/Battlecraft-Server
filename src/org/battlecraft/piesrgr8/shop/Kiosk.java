@@ -2,6 +2,7 @@ package org.battlecraft.piesrgr8.shop;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.signs.Buy;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -52,7 +53,7 @@ public class Kiosk implements Listener, CommandExecutor {
        try {
 		p.openInventory(inv);
        }catch (Exception e) {
-    	   p.sendMessage(BattlecraftServer.prefixShop + "You haven't bought anything!");
+    	   p.sendMessage(Prefix.prefixShop + "You haven't bought anything!");
        }
 	}
 

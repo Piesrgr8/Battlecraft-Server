@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Debug;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -27,19 +28,19 @@ public class StaffList {
 	public static void checkStaffList(Player p) {
 		if (yaml.contains(p.getName())) {
 			Debug.debugConsole("A staff memeber is on the list already!");
-			p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.GREEN + "You are on the list!");
+			p.sendMessage(Prefix.prefixStaff + ChatColor.GREEN + "You are on the list!");
 		} else {
 			Debug.debugConsole("A member is not on the list!");
 			p.sendMessage(
-					BattlecraftServer.prefixStaff + ChatColor.RED + "You are not on the list! Adding to the list...");
+					Prefix.prefixStaff + ChatColor.RED + "You are not on the list! Adding to the list...");
 			if (p.hasPermission("bc.staff")) {
 				registerPlayer(p);
 				registerName(p);
 				staff.add(p.getName());
 				p.sendMessage(
-						BattlecraftServer.prefixStaff + ChatColor.GREEN + "Congratz on becoming staff on Battlecraft!");
+						Prefix.prefixStaff + ChatColor.GREEN + "Congratz on becoming staff on Battlecraft!");
 			} else {
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.RED + "Looks like you are not part of staff!");
+				p.sendMessage(Prefix.prefixStaff + ChatColor.RED + "Looks like you are not part of staff!");
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package org.battlecraft.piesrgr8.menu;
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.hub.NavGame;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -31,7 +31,7 @@ public class MainPvP implements Listener {
 		player.teleport(new Location(world, x, y, z));
 
 		if (world == null) {
-			player.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "This world doesnt exist!");
+			player.sendMessage(Prefix.prefixHub + ChatColor.RED + "This world doesnt exist!");
 		}
 	}
 
@@ -142,7 +142,7 @@ public class MainPvP implements Listener {
 		// GAME 1
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("1"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -155,7 +155,7 @@ public class MainPvP implements Listener {
 		// GAME 2
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("2"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -168,7 +168,7 @@ public class MainPvP implements Listener {
 		// GAME 3
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("3"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -181,7 +181,7 @@ public class MainPvP implements Listener {
 		// GAME 4
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("4"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -193,7 +193,7 @@ public class MainPvP implements Listener {
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("5"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
@@ -205,7 +205,7 @@ public class MainPvP implements Listener {
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("6"))) {
 			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {

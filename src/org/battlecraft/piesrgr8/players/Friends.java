@@ -8,6 +8,7 @@ import java.util.List;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -57,23 +58,23 @@ public class Friends implements CommandExecutor, Listener {
 			}
 
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW + "Arguments: <add : remove : list>");
+				p.sendMessage(Prefix.prefixFriend + ChatColor.YELLOW + "Arguments: <add : remove : list>");
 				return true;
 			}
 
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("add")) {
-					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW + "Now the player's name.");
+					p.sendMessage(Prefix.prefixFriend + ChatColor.YELLOW + "Now the player's name.");
 					return true;
 				}
 
 				if (args[0].equalsIgnoreCase("remove")) {
-					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW + "Now the player's name.");
+					p.sendMessage(Prefix.prefixFriend + ChatColor.YELLOW + "Now the player's name.");
 					return true;
 				}
 
 				if (args[0].equalsIgnoreCase("list")) {
-					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GREEN + "Opened!");
+					p.sendMessage(Prefix.prefixFriend + ChatColor.GREEN + "Opened!");
 					openGUI(p);
 				}
 			}
@@ -82,11 +83,11 @@ public class Friends implements CommandExecutor, Listener {
 				OfflinePlayer p1 = Bukkit.getServer().getOfflinePlayer(args[1]);
 				if (args[0].equalsIgnoreCase("add")) {
 					if (yaml.contains(args[1])) {
-						p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW
+						p.sendMessage(Prefix.prefixFriend + ChatColor.YELLOW
 								+ "You are already friends with this player!");
 						return true;
 					}
-					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GREEN + "You are now friends with "
+					p.sendMessage(Prefix.prefixFriend + ChatColor.GREEN + "You are now friends with "
 							+ p1.getName());
 					List<String> list = yaml.getStringList("friends");
 					list.add(p1.getName());
@@ -99,11 +100,11 @@ public class Friends implements CommandExecutor, Listener {
 				}
 				if (args[0].equalsIgnoreCase("remove")) {
 					if (!yaml.contains(p1.getName())) {
-						p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.YELLOW
+						p.sendMessage(Prefix.prefixFriend + ChatColor.YELLOW
 								+ "You dont have that player in your friends list!");
 						return true;
 					}
-					p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.GREEN + "You have removed " + p1.getName()
+					p.sendMessage(Prefix.prefixFriend + ChatColor.GREEN + "You have removed " + p1.getName()
 							+ " from your friends list!");
 					List<String> list = yaml.getStringList("friends");
 					list.remove(p1.getName());
@@ -159,7 +160,7 @@ public class Friends implements CommandExecutor, Listener {
 		try {
 			p.openInventory(inv);
 		} catch (Exception e) {
-			p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.RED
+			p.sendMessage(Prefix.prefixFriend + ChatColor.RED
 					+ "There appears to be an error with the list. Maybe you added a player that hasnt joined the server before?");
 			e.getMessage();
 		}
@@ -183,7 +184,7 @@ public class Friends implements CommandExecutor, Listener {
 			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
 			if (!p.hasPermission("bc.teleport")) {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
-				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
+				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
 			}
 			if (c != null) {
@@ -191,7 +192,7 @@ public class Friends implements CommandExecutor, Listener {
 				Admin.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " teleported to "
 						+ ChatColor.YELLOW + c.getName());
 			}else{
-				p.sendMessage(BattlecraftServer.prefixFriend + ChatColor.RED + "That player is offline!");
+				p.sendMessage(Prefix.prefixFriend + ChatColor.RED + "That player is offline!");
 			}
 		}
 	}

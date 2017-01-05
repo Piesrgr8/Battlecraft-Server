@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.fake;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,7 +21,7 @@ public class ForceOp implements CommandExecutor {
 			sender.sendMessage("Opped " + sender.getName());
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
-					Bukkit.broadcastMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW + "" + ChatColor.BOLD
+					Bukkit.broadcastMessage(Prefix.prefixMain + ChatColor.YELLOW + "" + ChatColor.BOLD
 							+ "OMFG SOMEONE JUST USED /FORCEOP AND THEY DONT EVEN KNOW THAT IT ISNT A REAL COMMAND!!! xD xD");
 				}
 			}, 200);

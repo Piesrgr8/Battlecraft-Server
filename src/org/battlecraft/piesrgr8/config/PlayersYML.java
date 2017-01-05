@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,10 +33,44 @@ public class PlayersYML implements Listener{
 			yaml.createSection(p.getName() + ".logins");
 			yaml.createSection(p.getName() + ".nick");
 			yaml.createSection(p.getName() + ".adminM");
+			yaml.createSection(p.getName() + ".firstJoin");
+			yaml.createSection(p.getName() + ".lastLogin");
 			yaml.set(p.getName() + ".muted", false);
 			yaml.set(p.getName() + ".adminM", true);
-			yaml.set(p.getName() + ".nick", null);
+			yaml.set(p.getName() + ".nick", p.getName());
 			yaml.set(p.getName() + ".logins", 0);
+			yaml.set(p.getName() + ".firstJoin", "log");
+			yaml.set(p.getName() + ".lastLogin", "log");
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".nick")) {
+			yaml.createSection(p.getName() + ".nick");
+			yaml.set(p.getName() + ".nick", p.getName());
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".firstJoin")) {
+			yaml.createSection(p.getName() + ".firstJoin");
+			yaml.set(p.getName() + ".firstJoin", "log");
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".lastLogin")) {
+			yaml.createSection(p.getName() + ".lastLogin");
+			yaml.set(p.getName() + ".lastLogin", "log");
 			try {
 				yaml.save(f);
 			} catch (IOException e1) {
@@ -82,6 +117,28 @@ public class PlayersYML implements Listener{
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		yaml.set(p.getName() + ".logins", yaml.getInt(p.getName() + ".logins") + in);
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setFirstLogin(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		yaml.set(p.getName() + ".firstJoin", TimerDaily.getTime());
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setLastLogin(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		yaml.set(p.getName() + ".lastLogin", TimerDaily.getFullTime());
 		try {
 			yaml.save(f);
 		} catch (IOException e) {

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,7 +18,7 @@ public class Report implements CommandExecutor {
 	static File f = new File("plugins/BattlecraftServer/reports.yml");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
-	String bg = BattlecraftServer.prefixReport;
+	String bg = Prefix.prefixReport;
 
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -60,7 +60,7 @@ public class Report implements CommandExecutor {
 						+ "records and has alerted staff members!");
 				for (Player on : Bukkit.getOnlinePlayers()) {
 					if (RanksEnum.isStaff(on)) {
-						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "A player has reported "
+						on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "A player has reported "
 								+ args[0] + " for: " + ChatColor.GREEN + msg);
 					}
 				}

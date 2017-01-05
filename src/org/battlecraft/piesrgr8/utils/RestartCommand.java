@@ -27,7 +27,7 @@ public class RestartCommand implements Listener {
 			if (array[0].equalsIgnoreCase("/restart")) {
 				e.setCancelled(true);
 				p.sendMessage(
-						BattlecraftServer.prefixAdmin + ChatColor.YELLOW + "SERVER IS RESTARTING UNDER YOUR COMMAND!");
+						Prefix.prefixAdmin + ChatColor.YELLOW + "SERVER IS RESTARTING UNDER YOUR COMMAND!");
 				restartMessage();
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
@@ -39,11 +39,11 @@ public class RestartCommand implements Listener {
 			if (array[0].equalsIgnoreCase("/reload")) {
 				e.setCancelled(true);
 				p.sendMessage(
-						BattlecraftServer.prefixAdmin + ChatColor.YELLOW + "SERVER IS RELOADING UNDER YOUR COMMAND!");
+						Prefix.prefixAdmin + ChatColor.YELLOW + "SERVER IS RELOADING UNDER YOUR COMMAND!");
 				reloadMessage();
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Bukkit.broadcastMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
+						Bukkit.broadcastMessage(Prefix.prefixMain + ChatColor.YELLOW
 								+ "Server reloading! Please dont move! If you were in a game, please navigate yourself to the hub!");
 						Bukkit.getServer().reload();
 					}
@@ -52,12 +52,12 @@ public class RestartCommand implements Listener {
 
 			if (array[0].equalsIgnoreCase("/stop")) {
 				e.setCancelled(true);
-				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW
+				p.sendMessage(Prefix.prefixAdmin + ChatColor.YELLOW
 						+ "SERVER IS SHUTTING DOWN UNDER YOUR COMMAND!");
 				shuttingDown();
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						Bukkit.broadcastMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
+						Bukkit.broadcastMessage(Prefix.prefixMain + ChatColor.YELLOW
 								+ "Server reloading! Please dont move! If you were in a game, please navigate yourself to the hub!");
 						Bukkit.getServer().shutdown();
 					}
@@ -72,7 +72,7 @@ public class RestartCommand implements Listener {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
 				Bukkit.broadcastMessage(
-						BattlecraftServer.prefixMain + ChatColor.RED + "" + ChatColor.BOLD + "SERVER RELOADING!");
+						Prefix.prefixMain + ChatColor.RED + "" + ChatColor.BOLD + "SERVER RELOADING!");
 			}
 		}, 13L, 10L);
 	}
@@ -80,7 +80,7 @@ public class RestartCommand implements Listener {
 	public void restartMessage() {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
-				Bukkit.broadcastMessage(BattlecraftServer.prefixMain + "SERVER RESTARTING!");
+				Bukkit.broadcastMessage(Prefix.prefixMain + "SERVER RESTARTING!");
 			}
 		}, 13L, 10L);
 	}
@@ -88,7 +88,7 @@ public class RestartCommand implements Listener {
 	public void shuttingDown() {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
-				Bukkit.broadcastMessage(BattlecraftServer.prefixMain + "SERVER SHUTTING DOWN!");
+				Bukkit.broadcastMessage(Prefix.prefixMain + "SERVER SHUTTING DOWN!");
 			}
 		}, 13L, 10L);
 	}

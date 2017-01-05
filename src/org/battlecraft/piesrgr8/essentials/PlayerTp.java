@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -63,7 +64,7 @@ public class PlayerTp implements Listener {
 			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
 			if (!p.hasPermission("bc.teleport")) {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
-				p.sendMessage(BattlecraftServer.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
+				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
 			}
 			if (c != null) {

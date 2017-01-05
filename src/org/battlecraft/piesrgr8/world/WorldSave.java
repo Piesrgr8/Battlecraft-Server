@@ -3,6 +3,7 @@ package org.battlecraft.piesrgr8.world;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,10 +24,10 @@ public class WorldSave implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("save")) {
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 				sender.sendMessage(
-						BattlecraftServer.prefixWorld + ChatColor.RED + "You don't have permission to save worlds!");
+						Prefix.prefixWorld + ChatColor.RED + "You don't have permission to save worlds!");
 			}
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-			sender.sendMessage(BattlecraftServer.prefixWorld + ChatColor.GREEN + "WORLDS SAVED!");
+			sender.sendMessage(Prefix.prefixWorld + ChatColor.GREEN + "WORLDS SAVED!");
 			return true;
 		}
 		return true;

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,7 +19,7 @@ public class Issue implements CommandExecutor {
 	static File f = new File("plugins/BattlecraftServer/Issues.yml");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
-	String bg = BattlecraftServer.prefixReport;
+	String bg = Prefix.prefixReport;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("issue")) {
@@ -47,7 +47,7 @@ public class Issue implements CommandExecutor {
 						+ "and they will try the best they can to help solve the issue!");
 				for (Player on : Bukkit.getOnlinePlayers()) {
 					if (RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
-						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "A player has made an issue: "
+						on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "A player has made an issue: "
 								+ ChatColor.GREEN + bc);
 					}
 				}

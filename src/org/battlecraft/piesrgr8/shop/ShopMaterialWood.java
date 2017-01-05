@@ -13,7 +13,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import me.Chase.main.API;
 
 public class ShopMaterialWood implements Listener {
 
@@ -61,28 +64,28 @@ public class ShopMaterialWood implements Listener {
 		// Setting the meta, or names, of all of the blocks that will be added
 		// to the inventory.
 
-		block_1.setDisplayName(ChatColor.YELLOW + "Oak Wood Planks");
-		block_1.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_1.setDisplayName("1. " + ChatColor.YELLOW + "Oak Wood Planks");
+		block_1.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block1.setItemMeta(block_1);
 
-		block_2.setDisplayName(ChatColor.YELLOW + "Spruce Wood Planks");
-		block_2.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_2.setDisplayName("2. " + ChatColor.YELLOW + "Spruce Wood Planks");
+		block_2.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block2.setItemMeta(block_2);
 
-		block_3.setDisplayName(ChatColor.YELLOW + "Birch Wood Planks");
-		block_3.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_3.setDisplayName("3. " + ChatColor.YELLOW + "Birch Wood Planks");
+		block_3.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block3.setItemMeta(block_3);
 
-		block_4.setDisplayName(ChatColor.YELLOW + "Jungle Wood Planks");
-		block_4.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_4.setDisplayName("4. " + ChatColor.YELLOW + "Jungle Wood Planks");
+		block_4.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block4.setItemMeta(block_4);
 
-		block_5.setDisplayName(ChatColor.YELLOW + "Acacia Wood Planks");
-		block_5.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_5.setDisplayName("5. " + ChatColor.YELLOW + "Acacia Wood Planks");
+		block_5.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block5.setItemMeta(block_5);
 
-		block_6.setDisplayName(ChatColor.YELLOW + "Dark Oak Wood Planks");
-		block_6.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.50"));
+		block_6.setDisplayName("6. " + ChatColor.YELLOW + "Dark Oak Wood Planks");
+		block_6.setLore(Arrays.asList(ChatColor.GREEN + "Price: " + ChatColor.GOLD + "$2.00"));
 		block6.setItemMeta(block_6);
 
 		back1.setDisplayName(ChatColor.RED + "Back");
@@ -168,11 +171,24 @@ public class ShopMaterialWood implements Listener {
 		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Wood"))
 			return;
 		e.setCancelled(true);
+		
+		Player p = (Player) e.getWhoClicked();
+		PlayerInventory inv = p.getInventory();
 
 		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)
 				|| !e.getCurrentItem().hasItemMeta()) {
 			e.setCancelled(true);
 			return;
 		}
+			
+			if (e.getCurrentItem().getType().equals(Material.ARROW)) {
+				ShopMaterial.openGUI(p);
+			}
+			
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("1.")) {
+				inv.addItem(new ItemStack(Material.WOOD));
+				p.sendMessage("You bought WOOD");
+				API.setBal(p, API.getBal(p) - 2);
+			}
 	}
 }

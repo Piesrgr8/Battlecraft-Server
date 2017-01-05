@@ -2,8 +2,8 @@ package org.battlecraft.piesrgr8.inventory;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,20 +23,20 @@ public class Invsee implements CommandExecutor {
 			}
 			Player p = (Player) sender;
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.MOD)) {
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED
+				p.sendMessage(Prefix.prefixInv + ChatColor.RED
 						+ "You dont have permission to see another player's inventory!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED + "Now the players name.");
+				p.sendMessage(Prefix.prefixInv + ChatColor.RED + "Now the players name.");
 				return true;
 			}
 
 			if (args.length == 1) {
 				Player tar = Bukkit.getServer().getPlayer(args[0]);
 				Inventory inv = tar.getInventory();
-				p.sendMessage(BattlecraftServer.prefixInv + ChatColor.GREEN + tar.getName()
+				p.sendMessage(Prefix.prefixInv + ChatColor.GREEN + tar.getName()
 							+ "'s inventory has been opened!");
 					p.openInventory(inv);
 						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN

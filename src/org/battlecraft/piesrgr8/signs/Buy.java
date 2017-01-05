@@ -3,6 +3,7 @@ package org.battlecraft.piesrgr8.signs;
 import java.util.HashMap;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -34,7 +35,7 @@ public class Buy implements Listener{
 		}
 		
 		if (e.getLine(0).equalsIgnoreCase("Buy")) {
-			p.sendMessage(BattlecraftServer.prefixSigns + ChatColor.GREEN + "Added a buy sign!");
+			p.sendMessage(Prefix.prefixSigns + ChatColor.GREEN + "Added a buy sign!");
 			e.setLine(0, ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BUY" + ChatColor.GRAY + "]");
 		}
 	}
@@ -54,24 +55,24 @@ public class Buy implements Listener{
 			}
 			
 			if (s.getLine(3).isEmpty()) {
-				p.sendMessage(BattlecraftServer.prefixSigns + ChatColor.RED + "There is no cost on this sign! Must be 0 if its free.");
+				p.sendMessage(Prefix.prefixSigns + ChatColor.RED + "There is no cost on this sign! Must be 0 if its free.");
 			} else
 			
 			if (s.getLine(1).isEmpty()) {
 				try {
 					Integer.parseInt(s.getLine(1));
 				}catch (Exception e1) {
-					p.sendMessage(BattlecraftServer.prefixSigns + ChatColor.RED + "The second line must be a number!");
+					p.sendMessage(Prefix.prefixSigns + ChatColor.RED + "The second line must be a number!");
 					e1.getMessage();
 				}
 			}else{
 				
 			try {
 				p.getInventory().addItem(new ItemStack(Material.getMaterial(s.getLine(2)), Integer.parseInt(s.getLine(1))));
-				p.sendMessage(BattlecraftServer.prefixSigns + ChatColor.GREEN + "You bought a(n) " + ChatColor.YELLOW + s.getLine(2)
+				p.sendMessage(Prefix.prefixSigns + ChatColor.GREEN + "You bought a(n) " + ChatColor.YELLOW + s.getLine(2)
 						+ ChatColor.GREEN + " for " + ChatColor.YELLOW + "$" + s.getLine(3));
 			} catch (Exception e1) {
-				p.sendMessage(BattlecraftServer.prefixSigns + ChatColor.RED + "Item doesnt exist!");
+				p.sendMessage(Prefix.prefixSigns + ChatColor.RED + "Item doesnt exist!");
 				e1.getMessage();
 			}
 			try {

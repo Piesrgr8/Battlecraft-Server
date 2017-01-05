@@ -19,7 +19,7 @@ public class Cooldown {
 	}
 
 	public static void cooldownMessage(Player p) {
-		p.sendMessage(BattlecraftServer.prefixCooldown + ChatColor.RED + "You must wait " + ChatColor.YELLOW
+		p.sendMessage(Prefix.prefixCooldown + ChatColor.RED + "You must wait " + ChatColor.YELLOW
 				+ Cooldown.cooldownTime.get(p) + ChatColor.YELLOW + " seconds!");
 	}
 }

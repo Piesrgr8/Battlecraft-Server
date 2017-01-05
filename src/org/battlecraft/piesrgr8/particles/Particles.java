@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.particles;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class Particles implements CommandExecutor {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("particle")) {
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "Please specify a particle #");
+				sender.sendMessage(Prefix.prefixMain + ChatColor.RED + "Please specify a particle #");
 				return true;
 			}
 			if (args.length == 1) {

@@ -13,10 +13,10 @@ import org.battlecraft.piesrgr8.fake.FakeKick;
 import org.battlecraft.piesrgr8.fake.ForceOp;
 import org.battlecraft.piesrgr8.fake.Spammer;
 import org.battlecraft.piesrgr8.hub.Hub;
-import org.battlecraft.piesrgr8.hub.Menus;
 import org.battlecraft.piesrgr8.inventory.Clear;
 import org.battlecraft.piesrgr8.inventory.Enderchest;
 import org.battlecraft.piesrgr8.inventory.Invsee;
+import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.particles.Particles;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
@@ -27,10 +27,12 @@ import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.staff.Ask;
 import org.battlecraft.piesrgr8.staff.StaffCommand;
 import org.battlecraft.piesrgr8.stats.StatsManager;
+import org.battlecraft.piesrgr8.support.Help;
 import org.battlecraft.piesrgr8.support.Issue;
 import org.battlecraft.piesrgr8.support.Report;
 import org.battlecraft.piesrgr8.utils.ClickChat;
 import org.battlecraft.piesrgr8.utils.MaintenanceCommand;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.Skulls;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.weapons.Armors;
@@ -75,6 +77,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("g1").setExecutor(new Gamemode());
 		plugin.getCommand("g2").setExecutor(new Gamemode());
 		plugin.getCommand("heal").setExecutor(new Health());
+		plugin.getCommand("help").setExecutor(new Help());
 		plugin.getCommand("hub").setExecutor(new Hub(plugin));
 		plugin.getCommand("information").setExecutor(new Commands(plugin));
 		plugin.getCommand("invsee").setExecutor(new Invsee());
@@ -106,7 +109,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("tpc").setExecutor(new Teleportation());
 		plugin.getCommand("tphere").setExecutor(new Teleportation());
 		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
-		plugin.getCommand("vs").setExecutor(new Invisibility());
+		plugin.getCommand("vs").setExecutor(new Invisibility(plugin));
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));
 		plugin.getCommand("warp").setExecutor(new Teleportation());
 		plugin.getCommand("whois").setExecutor(new Whois());
@@ -122,14 +125,14 @@ public class Commands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("bc")) {
 			if (!sender.hasPermission("bc.main")) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED + "You don't have permission to use "
+				sender.sendMessage(Prefix.prefixMain + ChatColor.RED + "You don't have permission to use "
 						+ ChatColor.YELLOW + "/bc!");
 				return true;
 			}
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Version: "
+				sender.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Version: "
 						+ plugin.getDescription().getVersion());
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Creator: " + ChatColor.GOLD
+				sender.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Creator: " + ChatColor.GOLD
 						+ plugin.getDescription().getAuthors());
 				return true;
 			}
@@ -140,7 +143,7 @@ public class Commands implements CommandExecutor {
 				if (args.length == 1) {
 					plugin.reloadConfig();
 					sender.sendMessage(
-							BattlecraftServer.prefixMain + ChatColor.GREEN + "This has been passed successfully!");
+							Prefix.prefixMain + ChatColor.GREEN + "This has been passed successfully!");
 					return true;
 				}
 			}
@@ -156,7 +159,7 @@ public class Commands implements CommandExecutor {
 				for (String message : args) {
 					bc = (bc + ChatColor.translateAlternateColorCodes('&', message) + " ");
 				}
-				Bukkit.getServer().broadcastMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + bc);
+				Bukkit.getServer().broadcastMessage(Prefix.prefixMain + ChatColor.GREEN + bc);
 			}
 		}
 

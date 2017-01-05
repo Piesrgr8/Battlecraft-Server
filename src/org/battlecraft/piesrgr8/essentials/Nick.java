@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -33,12 +33,12 @@ public class Nick implements CommandExecutor {
 
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
 				fromUUID.sendMessage(
-						BattlecraftServer.prefixNick + ChatColor.RED + "You dont have permission to set your nickname");
+						Prefix.prefixNick + ChatColor.RED + "You dont have permission to set your nickname");
 				return true;
 			}
 
 			if (args.length == 0) {
-				fromUUID.sendMessage(BattlecraftServer.prefixNick + ChatColor.YELLOW + "What will be your nickname?");
+				fromUUID.sendMessage(Prefix.prefixNick + ChatColor.YELLOW + "What will be your nickname?");
 				return true;
 			}
 
@@ -50,15 +50,15 @@ public class Nick implements CommandExecutor {
 
 				if (args[0].equals("off")) {
 					fromUUID.setDisplayName(ChatColor.WHITE + fromUUID.getName());
-					fromUUID.sendMessage(BattlecraftServer.prefixNick + "Successfully reset nickname!");
-					PlayersYML.setNick(p, null);
+					fromUUID.sendMessage(Prefix.prefixNick + "Successfully reset nickname!");
+					PlayersYML.setNick(p, p.getName());
 					return true;
 				}
 
 				fromUUID.setDisplayName(ChatColor.translateAlternateColorCodes('&', yaml.getString(fromUUID.getName() + ".nick")));
 				PlayersYML.setNick(p, bc);
 				fromUUID.sendMessage(
-						BattlecraftServer.prefixNick + ChatColor.GREEN + "Successfully set nick name! Your nick is now "
+						Prefix.prefixNick + ChatColor.GREEN + "Successfully set nick name! Your nick is now "
 								+ yaml.getString(fromUUID.getName() + ".nick"));
 				fromUUID.sendMessage(ChatColor.YELLOW + "Loggout or do this command again if your nick doesnt appear.");
 				Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
@@ -68,5 +68,16 @@ public class Nick implements CommandExecutor {
 			}
 		}
 		return true;
+	}
+	
+	public static String getNick(Player p) {
+		String uuid = p.getUniqueId().toString();
+		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+		
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		String nick = ChatColor.translateAlternateColorCodes('&', yaml.getString(fromUUID.getName() + ".nick"));
+		return nick;
 	}
 }

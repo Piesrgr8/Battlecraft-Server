@@ -1,10 +1,9 @@
-package org.battlecraft.piesrgr8.hub;
+package org.battlecraft.piesrgr8.menu;
 
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.menu.MainPvP;
-import org.battlecraft.piesrgr8.menu.Sg;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -32,7 +31,7 @@ public class NavGame implements Listener {
 		player.teleport(new Location(world, x, y, z));
 
 		if (world == null) {
-			player.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "This world doesnt exist!");
+			player.sendMessage(Prefix.prefixHub + ChatColor.RED + "This world doesnt exist!");
 		}
 	}
 
@@ -152,7 +151,7 @@ public class NavGame implements Listener {
 				Bukkit.getServer().dispatchCommand(p, "sw join");
 			}
 		}, 40);
-		p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "SkyWars");
 	}
 
@@ -162,7 +161,7 @@ public class NavGame implements Listener {
 				Bukkit.getServer().dispatchCommand(p, "oitc join Coliseum");
 			}
 		}, 40);
-		p.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
+		p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 				+ ChatColor.BOLD + "Minigames");
 	}
 

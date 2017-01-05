@@ -2,11 +2,12 @@ package org.battlecraft.iHersh.ranks;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.Debug;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,6 +23,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class RanksEnum implements Listener, CommandExecutor {
 
 	public static Map<Player, Enum<Ranks>> arrayRanks = new HashMap<Player, Enum<Ranks>>();
+	public static ArrayList<Player> admin = new ArrayList<Player>();
+	public static ArrayList<Player> staff = new ArrayList<Player>();
 	static File f = new File("plugins/BattlecraftServer/ranks.yml");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
@@ -89,7 +92,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 		return "";
 	}
 
-	// only to make the file for ranks. used in BattlecraftServer.java as an
+	// only to make the file for ranks. used in Prefix.java as an
 	// initiator
 	public static void startRanks(BattlecraftServer plugin) {
 		if (!new File(plugin.getDataFolder(), "ranks.yml").exists()) {
@@ -147,10 +150,10 @@ public class RanksEnum implements Listener, CommandExecutor {
 					}
 
 					p.sendMessage(c(
-							BattlecraftServer.prefixRanks + target.getName() + "'s rank is now &6" + rank.toString()));
+							Prefix.prefixRanks + target.getName() + "'s rank is now &6" + rank.toString()));
 					return true;
 				} else {
-					p.sendMessage(c(BattlecraftServer.prefixRanks + "This requires permission rank [&6DEV&7]."));
+					p.sendMessage(c(Prefix.prefixRanks + "This requires permission rank [&6DEV&7]."));
 					return true;
 				}
 			}
@@ -170,7 +173,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 					e.printStackTrace();
 				}
 
-				console.sendMessage(c(BattlecraftServer.prefixRanks + "&6" + target.getName() + "&7's rank is now &6"
+				console.sendMessage(c(Prefix.prefixRanks + "&6" + target.getName() + "&7's rank is now &6"
 						+ rank.toString()));
 				return true;
 			}
@@ -325,11 +328,19 @@ public class RanksEnum implements Listener, CommandExecutor {
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent e) {
 		Player p = e.getPlayer();
-		Debug.debugConsole("A player is logging in!");
 		if (yaml.contains(p.getName())) {
 			RanksEnum.setRank(p, getEnum(yaml.getString(p.getName())));
 		}
-
+		
+		if (isStaff(p)) {
+			staff.add(p);
+		}
+		
+		if (isAtLeast(p, Ranks.ADMIN)) {
+			if (staff.contains(p)) {
+				staff.remove(p);
+			}
+			admin.add(p);
+		}
 	}
-
 }

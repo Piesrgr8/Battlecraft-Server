@@ -1,12 +1,11 @@
 package org.battlecraft.piesrgr8.utils;
 
-import java.io.File;
 import java.util.UUID;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -44,8 +43,6 @@ public class ScoreboardMg implements Listener {
 	}
 
 	public static void board1(Player p) {
-		File f = new File("plugins//BattlecraftServer//stats//" + p.getUniqueId().toString() + ".yml");
-		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
@@ -58,47 +55,42 @@ public class ScoreboardMg implements Listener {
 		// OTHER THINGS
 
 		Score s6 = ob.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "            STATS    ");
-		s6.setScore(13);
+		s6.setScore(11);
 
 		Score s7 = ob.getScore(ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "------------------");
 		s7.setScore(1);
 
-		// SETS
+		// SETS (UNUSED: s2, s3)
 
-		Score s = ob.getScore(ChatColor.GREEN + "Kills: " + ChatColor.YELLOW + yaml.getInt("stats.kills"));
-		s.setScore(12);
+		Score s = ob.getScore(ChatColor.GREEN + "Kills: " + ChatColor.YELLOW + StatsManager.getKills(p));
+		s.setScore(10);
 
-		Score s1 = ob.getScore(ChatColor.GREEN + "Deaths: " + ChatColor.YELLOW + yaml.getInt("stats.deaths"));
-		s1.setScore(10);
+		Score s1 = ob.getScore(ChatColor.GREEN + "Deaths: " + ChatColor.YELLOW + StatsManager.getDeaths(p));
+		s1.setScore(8);
 
-		Score s2 = ob.getScore(ChatColor.GREEN + "DmgDealt: " + ChatColor.YELLOW + yaml.getInt("stats.damagedelt"));
-		s2.setScore(8);
-
-		Score s3 = ob.getScore(ChatColor.GREEN + "DmgTaken: " + ChatColor.YELLOW + yaml.getInt("stats.damagetaken"));
-		s3.setScore(6);
-
-		Score s4 = ob.getScore(ChatColor.GREEN + "MinedBlocks: " + ChatColor.YELLOW + yaml.getInt("stats.blockbreaks"));
-		s4.setScore(4);
+		Score s4 = ob.getScore(ChatColor.GREEN + "MinedBlocks: " + ChatColor.YELLOW + StatsManager.getBlockBreaks(p));
+		s4.setScore(6);
 
 		Score s5 = ob
-				.getScore(ChatColor.GREEN + "Created Items: " + ChatColor.YELLOW + yaml.getInt("stats.itemcreations"));
-		s5.setScore(2);
+				.getScore(ChatColor.GREEN + "Created Items: " + ChatColor.YELLOW + StatsManager.getItemCreations(p));
+		s5.setScore(4);
+		
+		Score s8 = ob
+				.getScore(ChatColor.GREEN + "Enchanted Items: " + ChatColor.YELLOW + StatsManager.getEnchantedItems(p));
+		s8.setScore(2);
 
 		// SPACES
 		Score space = ob.getScore(" ");
-		space.setScore(11);
+		space.setScore(3);
 
 		Score space1 = ob.getScore("  ");
-		space1.setScore(9);
+		space1.setScore(5);
 
 		Score space2 = ob.getScore("   ");
 		space2.setScore(7);
 
 		Score space3 = ob.getScore("    ");
-		space3.setScore(5);
-
-		Score space4 = ob.getScore("     ");
-		space4.setScore(3);
+		space3.setScore(9);
 
 		p.setScoreboard(b);
 	}

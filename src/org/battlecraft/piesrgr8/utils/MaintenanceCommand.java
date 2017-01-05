@@ -21,12 +21,12 @@ public class MaintenanceCommand implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("maintenance")) {
 			if (!sender.isOp()) {
 				sender.sendMessage(
-						BattlecraftServer.prefixMain + ChatColor.RED + "You must be an operator to do this!");
+						Prefix.prefixMain + ChatColor.RED + "You must be an operator to do this!");
 				return true;
 			}
 
 			if (args.length < 1) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW + "What would you like to do?");
+				sender.sendMessage(Prefix.prefixMain + ChatColor.YELLOW + "What would you like to do?");
 				sender.sendMessage(
 						ChatColor.GOLD + "/maintenance schedule" + " - " + ChatColor.YELLOW + "Schedule maintenance.");
 				sender.sendMessage(
@@ -38,7 +38,7 @@ public class MaintenanceCommand implements CommandExecutor {
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("schedule")) {
 					sender.sendMessage(
-							BattlecraftServer.prefixMain + ChatColor.YELLOW + "Usage: /maintenance schedule <time>");
+							Prefix.prefixMain + ChatColor.YELLOW + "Usage: /maintenance schedule <time>");
 					return true;
 				}
 
@@ -48,7 +48,7 @@ public class MaintenanceCommand implements CommandExecutor {
 						public void run() {
 							if (input != -1 && input != 0) {
 								Bukkit.broadcastMessage(
-										BattlecraftServer.prefixMain + ChatColor.DARK_RED + "MAINTENANCE IN " + input);
+										Prefix.prefixMain + ChatColor.DARK_RED + "MAINTENANCE IN " + input);
 								input--;
 							} else {
 								MaintenanceMain.startMaintenance();

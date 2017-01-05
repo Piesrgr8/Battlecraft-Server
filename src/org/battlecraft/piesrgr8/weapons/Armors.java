@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -31,18 +31,18 @@ public class Armors implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("armor")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED + "Must be a player.");
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED + "Must be a player.");
 				return true;
 			}
 
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.ADMIN)) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED
 						+ "You dont have permission to recieve this armor!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED + "Please specify an armor #.");
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED + "Please specify an armor #.");
 				return true;
 			}
 

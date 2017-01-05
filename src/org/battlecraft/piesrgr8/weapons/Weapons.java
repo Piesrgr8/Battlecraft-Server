@@ -9,6 +9,7 @@ import net.minecraft.server.v1_9_R2.SoundCategory;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -38,18 +39,18 @@ public class Weapons implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("sword")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED + "You must be a player!");
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED + "You must be a player!");
 				return true;
 			}
 
 			if (!sender.hasPermission("bc.sword")) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED
 						+ "You dont have permission to recieve swords!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED + "Please specify a sword #.");
+				sender.sendMessage(Prefix.prefixWeapons + ChatColor.RED + "Please specify a sword #.");
 				return true;
 			}
 
@@ -285,7 +286,7 @@ public class Weapons implements CommandExecutor {
 				}
 			} else {
 				Player p = (Player) sender;
-				p.sendMessage(BattlecraftServer.prefixWeapons + ChatColor.RED + "That weapon doesn't exist!");
+				p.sendMessage(Prefix.prefixWeapons + ChatColor.RED + "That weapon doesn't exist!");
 			}
 		}
 		return true;

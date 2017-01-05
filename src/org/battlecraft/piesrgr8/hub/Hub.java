@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.ErrorUtil;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,7 +41,7 @@ public class Hub implements Listener, CommandExecutor {
 		player.teleport(new Location(world, x, y, z));
 
 		if (world == null) {
-			player.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "This world doesnt exist!");
+			player.sendMessage(Prefix.prefixHub + ChatColor.RED + "This world doesnt exist!");
 		}
 	}
 
@@ -197,42 +198,42 @@ public class Hub implements Listener, CommandExecutor {
 		case COBBLESTONE:
 			teleportInWorld(p, Bukkit.getWorld("world"), 843, 2, 541);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			break;
 
 		case SLIME_BALL:
 			teleportInWorld(p, Bukkit.getWorld("Minigame"), -266.5, 114, 284.5);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Minigames.");
 			break;
 
 		case BOW:
 			teleportInWorld(p, Bukkit.getWorld("Skywars_1"), -2.5, 99, -4.5);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "SkyWars.");
 			break;
 
 		case CHEST:
 			teleportInWorld(p, Bukkit.getWorld("world"), 2076.5, 4, 783);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Survival Games.");
 			break;
 			
 		case DIAMOND_SWORD:
 			teleportInWorld(p, Bukkit.getWorld("world"), 1565.633, 6.63153, 585.487);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "KitPvP.");
 			break;
 
 		case IRON_SWORD:
 			teleportInWorld(p, Bukkit.getWorld("Factions"), -110.5, 67, -236.5);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Factions.");
 			break;
 
@@ -242,7 +243,7 @@ public class Hub implements Listener, CommandExecutor {
 			// 663.5);
 			p.closeInventory();
 			/*
-			 * p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN +
+			 * p.sendMessage(Prefix.prefixHub + ChatColor.GREEN +
 			 * "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD +
 			 * "Creative.");
 			 */
@@ -252,21 +253,21 @@ public class Hub implements Listener, CommandExecutor {
 		case LAVA_BUCKET:
 			teleportInWorld(p, Bukkit.getWorld("Hub1"), 1082, 5, 618.5);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "SkyBlock.");
 			break;
 
 		case ENDER_PEARL:
 			teleportInWorld(p, Bukkit.getWorld("Hub1"), 1041, 11, 586);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Hub.");
 			break;
 
 		case EXP_BOTTLE:
 			teleportInWorld(p, Bukkit.getWorld("world"), 1816, 4, 577);
 			p.closeInventory();
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Shop.");
 			break;
 
@@ -285,24 +286,27 @@ public class Hub implements Listener, CommandExecutor {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Action a = e.getAction();
 		ItemStack is = e.getItem();
+		Player p = e.getPlayer();
 
-		if (a == Action.PHYSICAL || is == null || is.getType().equals(Material.AIR))
+		if (a == Action.PHYSICAL || is == null || is.getType().equals(Material.AIR)) {
 			return;
+		}
 
-		if (is.getType().equals(Material.NETHER_STAR) && is.hasItemMeta())
-			openGUI(e.getPlayer());
+		if (is.getType().equals(Material.NETHER_STAR) && is.hasItemMeta()) {
+			openGUI(p);
+		}
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("sethub")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(BattlecraftServer.prefixHub + "Cant set spawn as a computer.");
+				sender.sendMessage(Prefix.prefixHub + "Cant set spawn as a computer.");
 				return true;
 			}
 
 			Player p = (Player) sender;
 			if (!p.hasPermission("bc.sethub")) {
-				p.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "You are not allowed to set the hub!");
+				p.sendMessage(Prefix.prefixHub + ChatColor.RED + "You are not allowed to set the hub!");
 				return true;
 			}
 
@@ -320,18 +324,18 @@ public class Hub implements Listener, CommandExecutor {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Spawn set for the hub!");
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Spawn set for the hub!");
 			return true;
 		}
 
 		if (cmd.getName().equalsIgnoreCase("hub") || cmd.getName().equalsIgnoreCase("spawn")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "Cant spawn in as a computer.");
+				sender.sendMessage(Prefix.prefixHub + ChatColor.RED + "Cant spawn in as a computer.");
 				return true;
 			}
 			if (yaml.get("hub.world") == null && yaml.get("hub.x") == null && yaml.get("hub.y") == null
 					&& yaml.get("hub.z") == null) {
-				sender.sendMessage(BattlecraftServer.prefixHub + ChatColor.RED + "The hub hasnt been set yet!");
+				sender.sendMessage(Prefix.prefixHub + ChatColor.RED + "The hub hasnt been set yet!");
 				return true;
 			}
 
@@ -343,7 +347,7 @@ public class Hub implements Listener, CommandExecutor {
 			p.teleport(new Location(w, x, y, z));
 			p.setHealth(20);
 			p.setFoodLevel(20);
-			p.sendMessage(BattlecraftServer.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
+			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Hub.");
 			return true;
 		}

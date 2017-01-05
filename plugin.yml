@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.7.1.07, 1.9
+version: 1.8.1.01, 1.9
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -55,6 +55,8 @@ commands:
     aliases: [gmsp,gsp]
   heal:
     description: Heal yourself.
+  help:
+    description: Gets the help menu!
   hub:
     description: Spawn in the hub.
   information:

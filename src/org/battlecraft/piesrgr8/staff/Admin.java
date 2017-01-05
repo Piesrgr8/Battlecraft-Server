@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -26,7 +27,7 @@ public class Admin implements CommandExecutor{
 	public static void sendMessage(String s) {
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
 			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
-		on.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.WHITE + s);
+		on.sendMessage(Prefix.prefixAdmin + ChatColor.WHITE + s);
 		on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 			}
 		}
@@ -62,25 +63,25 @@ public class Admin implements CommandExecutor{
 	        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 	        
 			if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
-				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.RED + "You are not an admin on this server!");
+				p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "You are not an admin on this server!");
 				return true;
 			}
 			
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW + "<toggle>");
+				p.sendMessage(Prefix.prefixAdmin + ChatColor.YELLOW + "<toggle>");
 				return true;
 			}
 			
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("toggle")) {
-					p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW + "Toggle what? <msg>");
+					p.sendMessage(Prefix.prefixAdmin + ChatColor.YELLOW + "Toggle what? <msg>");
 					return true;
 				}
 			}
 			
 			if (args.length == 2) {
 				if (args[1].equalsIgnoreCase("msg")) {
-					p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.YELLOW + "Yes or No?");
+					p.sendMessage(Prefix.prefixAdmin + ChatColor.YELLOW + "Yes or No?");
 					return true;
 				}
 			}
@@ -90,10 +91,10 @@ public class Admin implements CommandExecutor{
 					if (yaml.contains(p.getName() + ".adminM", false)) {
 						try {
 							yaml.set(p.getName() + ".adminM", true);
-							p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.GREEN + "You will receive admin messages!");
+							p.sendMessage(Prefix.prefixAdmin + ChatColor.GREEN + "You will receive admin messages!");
 							yaml.save(f);
 						}catch (IOException e) {
-							p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
+							p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
 							e.printStackTrace();
 						}
 						return true;
@@ -104,10 +105,10 @@ public class Admin implements CommandExecutor{
 					if (yaml.contains(p.getName() + ".adminM", true)) {
 						try {
 							yaml.set(p.getName() + ".adminM", false);
-							p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.GREEN + "You will no longer receive admin messages!");
+							p.sendMessage(Prefix.prefixAdmin + ChatColor.GREEN + "You will no longer receive admin messages!");
 							yaml.save(f);
 						}catch (IOException e) {
-							p.sendMessage(BattlecraftServer.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
+							p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
 							e.printStackTrace();
 						}
 						return true;

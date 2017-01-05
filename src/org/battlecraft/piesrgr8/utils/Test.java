@@ -1,10 +1,6 @@
 package org.battlecraft.piesrgr8.utils;
 
-import java.util.UUID;
-
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.online.TimerDaily;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -45,6 +41,7 @@ public class Test implements Listener, CommandExecutor {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
@@ -59,14 +56,14 @@ public class Test implements Listener, CommandExecutor {
 				return;
 			}
 
-			if (!p.getEquipment().getItemInMainHand().equals(new ItemStack(Material.getMaterial(s.getLine(2))))) {
+			if (!p.getEquipment().getItemInHand().equals(new ItemStack(Material.getMaterial(s.getLine(2))))) {
 				Debug.debugBroadcast(
 						"You dont have that item in your hand! " + p.getInventory().getItemInMainHand());
 				return;
 			}
 
-			if (p.getInventory().getItemInMainHand().getType().equals(
-					new ItemStack(Material.getMaterial(s.getLine(2))).getAmount() >= Integer.parseInt(s.getLine(1)))) {
+			if (p.getInventory().getItemInHand().getType().equals(
+					new ItemStack(Material.getMaterial(s.getLine(2))).getAmount() < Integer.parseInt(s.getLine(1)))) {
 				Debug.debugBroadcast("You have less of that amount " + p.getInventory().getItemInMainHand().getAmount());
 				return;
 			}
@@ -101,14 +98,8 @@ public class Test implements Listener, CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-		Player p = (Player) sender;
 		
 		//Use this method for UUID switches!
-
-		String uuid = p.getUniqueId().toString();
-		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
-		
 		
 		if (cmd.getName().equalsIgnoreCase("test")) {
 			if (!sender.hasPermission("bc.test")) {
@@ -117,11 +108,11 @@ public class Test implements Listener, CommandExecutor {
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage("This class is testing buy signs and sell signs!");
-				sender.sendMessage("" + p.getInventory().getItemInMainHand());
-				sender.sendMessage(TimerDaily.list.size()+ "");
-				sender.sendMessage("" + uuid);
-				sender.sendMessage("" + fromUUID.getName());
+				String msg = ChatColor.RED + "-----------------------------------------";
+				sender.sendMessage(msg);
+				sender.sendMessage("        This class is testing buy signs and sell signs!");
+				// sender.sendMessage("" + p.getInventory().getItemInMainHand());
+				sender.sendMessage(msg);
 				return true;
 			}
 		}

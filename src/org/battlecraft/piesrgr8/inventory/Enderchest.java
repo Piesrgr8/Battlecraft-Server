@@ -2,7 +2,7 @@ package org.battlecraft.piesrgr8.inventory;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -31,9 +31,9 @@ public class Enderchest implements CommandExecutor {
 				Player tar = Bukkit.getServer().getPlayer(args[0]);
 				Inventory inv = tar.getEnderChest();
 				if (!(tar == null)) {
-					p.sendMessage(BattlecraftServer.prefixInv + ChatColor.RED + "This player isnt online.");
+					p.sendMessage(Prefix.prefixInv + ChatColor.RED + "This player isnt online.");
 
-					p.sendMessage(BattlecraftServer.prefixInv + ChatColor.GREEN + tar.getName()
+					p.sendMessage(Prefix.prefixInv + ChatColor.GREEN + tar.getName()
 							+ "'s inventory has been opened!");
 					p.openInventory(inv);
 					return true;

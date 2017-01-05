@@ -5,6 +5,7 @@ import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -67,7 +68,7 @@ public class Send implements CommandExecutor {
 					}
 					if (args[0].equalsIgnoreCase("bc")) {
 						Bukkit.broadcastMessage(
-								BattlecraftServer.prefixMain + ChatColor.translateAlternateColorCodes('&', msg));
+								Prefix.prefixMain + ChatColor.translateAlternateColorCodes('&', msg));
 						return true;
 					}
 				}

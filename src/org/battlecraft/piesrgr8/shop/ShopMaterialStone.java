@@ -195,10 +195,15 @@ public class ShopMaterialStone implements Listener {
 			return;
 		e.setCancelled(true);
 
+		Player p = (Player) e.getWhoClicked();
+		
 		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)
 				|| !e.getCurrentItem().hasItemMeta()) {
 			e.setCancelled(true);
 			return;
+		}
+		if (e.getCurrentItem().getType().equals(Material.ARROW)) {
+			ShopMaterial.openGUI(p);
 		}
 	}
 

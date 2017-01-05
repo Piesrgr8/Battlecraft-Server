@@ -1,7 +1,7 @@
 package org.battlecraft.piesrgr8.staff;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -21,7 +21,7 @@ public class Ask implements CommandExecutor{
 			}
 			Player p = (Player) sender;
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "Please continue your question so we can help you!");
+				p.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "Please continue your question so we can help you!");
 				return true;
 			}
 			if (args.length >= 1) {
@@ -31,11 +31,11 @@ public class Ask implements CommandExecutor{
 					bc = (bc + message + " ");
 				}
 				
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
+				p.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
 								+ ChatColor.GREEN + bc);
 				for (Player on : Bukkit.getOnlinePlayers()) {
 					if (on.hasPermission("bc.staff")) {
-						on.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
+						on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
 								+ ChatColor.GREEN + bc);
 						on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 					}
@@ -50,18 +50,18 @@ public class Ask implements CommandExecutor{
 			Player p = (Player) sender;
 			
 			if (!RanksEnum.isStaff(p)) {
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "You are not part of our staff team!");
+				p.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "You are not part of our staff team!");
 				return true;
 			}
 			if (args.length == 0) {
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.YELLOW + "Please continue your question so we can help you!");
+				p.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "Please continue your question so we can help you!");
 				return true;
 			}
 			
 			if (args.length == 1) {
 				Player p1 = Bukkit.getServer().getPlayer(args[0]);
 				if (p1 == null) {
-					p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.RED + "That player is either offline or is not a player at all!");
+					p.sendMessage(Prefix.prefixStaff + ChatColor.RED + "That player is either offline or is not a player at all!");
 					return true;
 				}
 			}
@@ -73,8 +73,8 @@ public class Ask implements CommandExecutor{
     					sb.append(args[i]).append(" ");
 				msg = sb.toString();
 				
-				p.sendMessage(BattlecraftServer.prefixStaff + ChatColor.LIGHT_PURPLE + "Your Answer" + ": " + ChatColor.GREEN + msg);
-				p1.sendMessage(BattlecraftServer.prefixStaff + ChatColor.LIGHT_PURPLE + p.getName() + ": " + ChatColor.GREEN + msg);
+				p.sendMessage(Prefix.prefixStaff + ChatColor.LIGHT_PURPLE + "Your Answer" + ": " + ChatColor.GREEN + msg);
+				p1.sendMessage(Prefix.prefixStaff + ChatColor.LIGHT_PURPLE + p.getName() + ": " + ChatColor.GREEN + msg);
 				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
 		}
 	}

@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.fake;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,12 +21,12 @@ public class Spammer implements CommandExecutor, Listener {
 		if (cmd.getName().equalsIgnoreCase("spam")) {
 			if (!sender.isOp()) {
 				sender.sendMessage(
-						BattlecraftServer.prefixMain + ChatColor.RED + "You must be an operator to execute this task!");
+						Prefix.prefixMain + ChatColor.RED + "You must be an operator to execute this task!");
 				return true;
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.RED
+				sender.sendMessage(Prefix.prefixMain + ChatColor.RED
 						+ "Enter a string or use /spam cancel to end task!");
 				return true;
 			}
@@ -33,7 +34,7 @@ public class Spammer implements CommandExecutor, Listener {
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("cancel")) {
 					Bukkit.getServer().getScheduler().cancelTasks(plugin);
-					sender.sendMessage(BattlecraftServer.prefixMain + ChatColor.GREEN + "The spammer has stopped!");
+					sender.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "The spammer has stopped!");
 					return true;
 				}
 			}

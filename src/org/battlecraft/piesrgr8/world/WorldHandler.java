@@ -1,8 +1,10 @@
 package org.battlecraft.piesrgr8.world;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.hub.HubInv;
 import org.battlecraft.piesrgr8.inventory.RestoreInventory;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,7 +44,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 					+ ChatColor.BOLD + "" + ChatColor.STRIKETHROUGH + "--------------");
 		} else if (e.getFrom().getName().equals("Creative")) {
 			inv.clear();
-			p.sendMessage(BattlecraftServer.prefixMain + ChatColor.YELLOW
+			p.sendMessage(Prefix.prefixMain + ChatColor.YELLOW
 					+ "You left the Creative world! Inventory Cleared!");
 		}
 
@@ -52,6 +54,8 @@ public class WorldHandler implements Listener, CommandExecutor {
 					RestoreInventory.saveInventory(p);
 					HubInv.hubInv(p);
 					ScoreboardMg.createBoard(p);
+					Invisibility.showAllPlayers(p);
+					Invisibility.vanish.remove(p);
 				}
 			}, 10);
 		} else if (e.getFrom().getName().equals("Hub1")) {
@@ -59,6 +63,8 @@ public class WorldHandler implements Listener, CommandExecutor {
 				public void run() {
 					RestoreInventory.loadInventory(p);
 					ScoreboardMg.removeBoard(p);
+					Invisibility.showAllPlayers(p);
+					Invisibility.vanish.remove(p);
 				}
 			}, 10);
 		}
@@ -88,7 +94,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("world")) {
 			Player p = (Player) sender;
 			String world = p.getLocation().getWorld().getName();
-			p.sendMessage(BattlecraftServer.prefixWorld + ChatColor.GREEN + "You are in this world: " + world);
+			p.sendMessage(Prefix.prefixWorld + ChatColor.GREEN + "You are in this world: " + world);
 			return true;
 		}
 		return true;

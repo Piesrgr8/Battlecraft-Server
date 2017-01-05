@@ -1,6 +1,6 @@
 package org.battlecraft.piesrgr8.chat;
 
-import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class Tell implements CommandExecutor {
 
-	String bg = BattlecraftServer.prefixMain;
+	String bg = Prefix.prefixMain;
 
 	@SuppressWarnings("deprecation")
 	

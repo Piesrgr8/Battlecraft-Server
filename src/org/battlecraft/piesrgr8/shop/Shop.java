@@ -147,7 +147,13 @@ public class Shop implements Listener {
 		inv.setItem(51, custom);
 		inv.setItem(52, custom);
 		inv.setItem(53, custom);
-
+		
+		try{
+		p.openInventory(inv);
+		}catch (Exception e) {
+			p.sendMessage("The SHOP inventory couldnt be opened!");
+			e.printStackTrace();
+		}
 	}
 
 	@EventHandler
