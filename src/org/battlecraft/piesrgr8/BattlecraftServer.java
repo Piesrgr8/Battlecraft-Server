@@ -54,5 +54,5 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
 	public static JavaPlugin getInstance() {
 		return instance;
-	}
+	}	
 }

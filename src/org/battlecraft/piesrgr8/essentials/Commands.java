@@ -7,6 +7,7 @@ import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Send;
 import org.battlecraft.piesrgr8.chat.Tell;
+import org.battlecraft.piesrgr8.clans.ClanCmd;
 import org.battlecraft.piesrgr8.fake.FakeBan;
 import org.battlecraft.piesrgr8.fake.FakeJoin;
 import org.battlecraft.piesrgr8.fake.FakeKick;
@@ -62,6 +63,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("answer").setExecutor(new Ask());
 		plugin.getCommand("ask").setExecutor(new Ask());
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
+		plugin.getCommand("clan").setExecutor(new ClanCmd(plugin));
 		plugin.getCommand("clear").setExecutor(new Clear());
 		plugin.getCommand("death").setExecutor(new Health());
 		plugin.getCommand("enchant").setExecutor(new CommandEnchant(plugin));

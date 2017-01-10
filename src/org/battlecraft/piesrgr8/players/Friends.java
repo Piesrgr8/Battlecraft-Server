@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.Prefix;
@@ -13,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.SkullType;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -134,19 +136,19 @@ public class Friends implements CommandExecutor, Listener {
 																			// array
 			// of the players in-game
 			String playerName = yaml.getStringList("friends").get(i);
-			Player p1 = Bukkit.getServer().getPlayer(playerName);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM);
+			OfflinePlayer p1 = Bukkit.getServer().getOfflinePlayer(playerName);
+			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
 			ItemMeta meta = item.getItemMeta();
 
 			String on = null;
 			String pref = null;
 
-			if (p1 == null) {
+			if (!p1.isOnline()) {
 				on = ChatColor.RED + "OFFLINE";
-				pref = "Cant Recieve";
+				pref =  ChatColor.translateAlternateColorCodes('&', RanksEnum.getPrefix(RanksEnum.getOfflineRank(p1)));
 			} else {
 				on = ChatColor.GREEN + "ONLINE";
-				pref = RanksEnum.getPrefix(RanksEnum.getRank(p1));
+				pref = ChatColor.translateAlternateColorCodes('&', RanksEnum.getPrefix(RanksEnum.getOfflineRank(p1)));
 			}
 
 			meta.setDisplayName(ChatColor.YELLOW + playerName);
@@ -181,11 +183,12 @@ public class Friends implements CommandExecutor, Listener {
 			return;
 		}
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
-			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
-			if (!p.hasPermission("bc.teleport")) {
+			Player c = Bukkit.getPlayer(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
+			if (RanksEnum.isAtLeast(p, Ranks.VIP)) {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
-				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
+				p.sendMessage(Prefix.prefixFriend + RanksEnum.sendErrorMessage(Ranks.VIP));
 				e.setCancelled(true);
+				return;
 			}
 			if (c != null) {
 				p.teleport(c.getLocation());

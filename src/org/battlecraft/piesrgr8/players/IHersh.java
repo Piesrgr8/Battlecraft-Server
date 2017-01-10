@@ -1,6 +1,5 @@
 package org.battlecraft.piesrgr8.players;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
@@ -19,8 +18,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class IHersh implements Listener {
 
 	BattlecraftServer plugin;
-	
-	public static ArrayList<Player> spoken = new ArrayList<Player>();
 	
 	String name = ChatColor.RED + "" + ChatColor.BOLD + "iHersh";
 
@@ -49,7 +46,6 @@ public class IHersh implements Listener {
 					|| e.getMessage().contains("brb") && p1.getName().equals("iHersh")) {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						spoken.add(p);
 						Random rand = new Random();
 						int r = rand.nextInt(5);
 						if (r == 0 || r == 1) {
@@ -72,14 +68,10 @@ public class IHersh implements Listener {
 					|| e.getMessage().equalsIgnoreCase("ihersh")
 					|| e.getMessage().equalsIgnoreCase("hersh")
 					|| e.getMessage().contains("hersh") && p1.getName().equals("iHersh")) {
-				if (spoken.contains(p)) {
-					return;
-				}
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						spoken.add(p);
 						Random rand = new Random();
-						int r = rand.nextInt(4);
+						int r = rand.nextInt(5);
 						if (r == 0 || r == 1) {
 							Chat.sendFormattedMessage(p1, "Yes?");
 						} else if (r == 2) {
@@ -89,22 +81,6 @@ public class IHersh implements Listener {
 						} else if (r == 4) {
 							Chat.sendFormattedMessage(p1, "Whats up?");
 						}
-					}
-				}, 30);
-			}
-			
-			if (e.getMessage().equalsIgnoreCase("dev") || e.getMessage().contains("dev")
-					|| e.getMessage().contains("ihersh")
-					|| e.getMessage().equalsIgnoreCase("ihersh")
-					|| e.getMessage().equalsIgnoreCase("hersh")
-					|| e.getMessage().contains("hersh") && p1.getName().equals("iHersh")) {
-				if (!spoken.contains(p)) {
-					return;
-				}
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					public void run() {
-							Chat.sendFormattedMessage(p1, "yeeeees?????");
-							spoken.remove(p);
 					}
 				}, 30);
 			}

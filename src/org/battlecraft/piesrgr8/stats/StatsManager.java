@@ -2,7 +2,6 @@ package org.battlecraft.piesrgr8.stats;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;

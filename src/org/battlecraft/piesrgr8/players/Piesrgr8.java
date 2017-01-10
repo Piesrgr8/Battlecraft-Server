@@ -1,6 +1,5 @@
 package org.battlecraft.piesrgr8.players;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
@@ -19,8 +18,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class Piesrgr8 implements Listener {
 
 	BattlecraftServer plugin;
-	
-	public static ArrayList<Player> spoken = new ArrayList<Player>();
 
 	public Piesrgr8(BattlecraftServer p) {
 		this.plugin = p;
@@ -71,9 +68,8 @@ public class Piesrgr8 implements Listener {
 					|| e.getMessage().contains("Pies") && p1.getName().equals("Piesrgr8")) {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						spoken.add(p);
 						Random rand = new Random();
-						int r = rand.nextInt(4);
+						int r = rand.nextInt(5);
 						if (r == 0 || r == 1) {
 							Chat.sendFormattedMessage(p1, "Yes?");
 						} else if (r == 2) {
@@ -83,21 +79,6 @@ public class Piesrgr8 implements Listener {
 						} else if (r == 4) {
 							Chat.sendFormattedMessage(p1, "Whats up?");
 						}
-					}
-				}, 30);
-			}
-			
-			if (e.getMessage().equalsIgnoreCase("owner") || e.getMessage().contains("owner")
-					|| e.getMessage().contains("Piesrgr8")
-					|| e.getMessage().equalsIgnoreCase("Piesrgr8")
-					|| e.getMessage().equalsIgnoreCase("pies")
-					|| e.getMessage().contains("Pies") && p1.getName().equals("Piesrgr8")) {
-				if (!spoken.contains(p)) {
-					return;
-				}
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					public void run() {
-							Chat.sendFormattedMessage(p1, "yeeeees?????");
 					}
 				}, 30);
 			}

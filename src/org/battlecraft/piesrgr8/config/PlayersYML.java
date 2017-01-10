@@ -2,9 +2,12 @@ package org.battlecraft.piesrgr8.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +38,7 @@ public class PlayersYML implements Listener{
 			yaml.createSection(p.getName() + ".adminM");
 			yaml.createSection(p.getName() + ".firstJoin");
 			yaml.createSection(p.getName() + ".lastLogin");
+			yaml.createSection(p.getName() + ".claninvites");
 			yaml.set(p.getName() + ".muted", false);
 			yaml.set(p.getName() + ".adminM", true);
 			yaml.set(p.getName() + ".nick", p.getName());
@@ -71,6 +75,18 @@ public class PlayersYML implements Listener{
 		if (!yaml.contains(p.getName() + ".lastLogin")) {
 			yaml.createSection(p.getName() + ".lastLogin");
 			yaml.set(p.getName() + ".lastLogin", "log");
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".claninvites")) {
+			yaml.createSection(p.getName() + ".claninvites");
+			List<String> val = new ArrayList<String>();
+			val.add("Meh");
+			yaml.set(p.getName() + ".claninvites", val);
 			try {
 				yaml.save(f);
 			} catch (IOException e1) {
@@ -144,5 +160,27 @@ public class PlayersYML implements Listener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void setClanInvites(OfflinePlayer off, List<String> l) {
+		File f = new File("plugins//BattlecraftServer//players//" + off.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+        
+		yaml.set(off.getName() + ".claninvites", l);
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean adminToggleEnable(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+        if (yaml.getBoolean(p.getName() + ".adminM") == true) {
+        	return true;
+        }else{
+        	return false;
+        }
 	}
 }

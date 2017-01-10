@@ -1,6 +1,5 @@
 package org.battlecraft.piesrgr8.players;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
@@ -19,8 +18,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class LilyMc101 implements Listener {
 
 	BattlecraftServer plugin;
-	
-	public static ArrayList<Player> spoken = new ArrayList<Player>();
 	
 	String name = ChatColor.GREEN + "" + ChatColor.BOLD + "LilyMc101";
 
@@ -65,18 +62,15 @@ public class LilyMc101 implements Listener {
 					}
 				}, 30);
 			}
+			
 
 			if (e.getMessage().equalsIgnoreCase("builder") || e.getMessage().contains("builder")
 					|| e.getMessage().contains("lily")
 					|| e.getMessage().equalsIgnoreCase("lily") && p1.getName().equals("LilyMc101")) {
-				if (spoken.contains(p)) {
-					return;
-				}
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						spoken.add(p);
 						Random rand = new Random();
-						int r = rand.nextInt(4);
+						int r = rand.nextInt(5);
 						if (r == 0 || r == 1) {
 							Chat.sendFormattedMessage(p1, "Yes?");
 						} else if (r == 2) {
@@ -86,21 +80,6 @@ public class LilyMc101 implements Listener {
 						} else if (r == 4) {
 							Chat.sendFormattedMessage(p1, "Whats up?");
 						}
-					}
-				}, 30);
-			}
-			
-			if (e.getMessage().equalsIgnoreCase("builder") || e.getMessage().contains("builder")
-					|| e.getMessage().contains("lily")
-					|| e.getMessage().equalsIgnoreCase("lily") && p1.getName().equals("LilyMc101")) {
-				
-				if (!spoken.contains(p)) {
-					return;
-				}
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					public void run() {
-							Chat.sendFormattedMessage(p1, "yeeeees?????");
-							spoken.remove(p);
 					}
 				}, 30);
 			}

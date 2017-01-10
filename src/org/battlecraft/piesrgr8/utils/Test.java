@@ -1,6 +1,10 @@
 package org.battlecraft.piesrgr8.utils;
 
+import java.util.ArrayList;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.clans.Clans;
+import org.battlecraft.piesrgr8.inventory.InvMethods;
+import org.battlecraft.piesrgr8.listeners.PlayerListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -20,6 +24,7 @@ import me.Chase.main.API;
 public class Test implements Listener, CommandExecutor {
 
 	BattlecraftServer plugin;
+	static ArrayList<Player> lol = new ArrayList<Player>();
 
 	public Test(BattlecraftServer p) {
 		this.plugin = p;
@@ -51,20 +56,22 @@ public class Test implements Listener, CommandExecutor {
 
 		if (e.getClickedBlock().getState() instanceof Sign) {
 			Sign s = (Sign) e.getClickedBlock().getState();
+			ItemStack it = new ItemStack(Material.getMaterial(s.getLine(2)));
+			ItemStack inv = p.getInventory().getItemInHand();
+			int amount = inv.getAmount();
 
 			if (!s.getLine(0).contains(ChatColor.stripColor("SELL"))) {
 				return;
 			}
 
-			if (!p.getEquipment().getItemInHand().equals(new ItemStack(Material.getMaterial(s.getLine(2))))) {
-				Debug.debugBroadcast(
-						"You dont have that item in your hand! " + p.getInventory().getItemInMainHand());
+			if (!inv.equals(it)) {
+				Debug.debugBroadcast("You dont have that item in your hand! " + inv);
 				return;
 			}
 
-			if (p.getInventory().getItemInHand().getType().equals(
-					new ItemStack(Material.getMaterial(s.getLine(2))).getAmount() < Integer.parseInt(s.getLine(1)))) {
-				Debug.debugBroadcast("You have less of that amount " + p.getInventory().getItemInMainHand().getAmount());
+			if (amount < Integer.parseInt(s.getLine(1))) {
+				Debug.debugBroadcast(
+						"You have less of that amount " + amount);
 				return;
 			}
 
@@ -82,7 +89,10 @@ public class Test implements Listener, CommandExecutor {
 			} else {
 
 				try {
-					p.getInventory().removeItem(new ItemStack(Material.getMaterial(s.getLine(2)), Integer.parseInt(s.getLine(1))));
+					//p.getInventory().removeItem(
+							//new ItemStack(Material.getMaterial(s.getLine(2)), Integer.parseInt(s.getLine(1))));
+					InvMethods.removeItemStack(p, it, Integer.parseInt(s.getLine(1)));
+					p.updateInventory();
 					p.sendMessage("You sold a(n) " + Material.getMaterial(s.getLine(2)));
 				} catch (Exception e1) {
 					p.sendMessage("Item doesnt exist!");
@@ -98,9 +108,11 @@ public class Test implements Listener, CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		//Use this method for UUID switches!
-		
+
+		Player p = (Player) sender;
+
+		// Use this method for UUID switches!
+
 		if (cmd.getName().equalsIgnoreCase("test")) {
 			if (!sender.hasPermission("bc.test")) {
 				sender.sendMessage("No permission");
@@ -111,9 +123,32 @@ public class Test implements Listener, CommandExecutor {
 				String msg = ChatColor.RED + "-----------------------------------------";
 				sender.sendMessage(msg);
 				sender.sendMessage("        This class is testing buy signs and sell signs!");
-				// sender.sendMessage("" + p.getInventory().getItemInMainHand());
+				// sender.sendMessage("" +
+				// p.getInventory().getItemInMainHand());
+				sender.sendMessage("Using ArrayList w/ players: " + PlayerListener.defaults.toString());
+				sender.sendMessage("" + Clans.getPlayerList());
+				sender.sendMessage("" + lol.size());
+				//sender.sendMessage("" + Clans.testMethodForTesting());
+				sender.sendMessage("" + Clans.getClanTag(p));
 				sender.sendMessage(msg);
 				return true;
+			}
+			
+			if (args.length == 1) {
+				if (args[0].equalsIgnoreCase("val")) {
+					
+					if (!lol.contains(p)) {
+						sender.sendMessage("You valid?");
+						lol.add(p);
+						return true;
+					}
+					
+					if (lol.contains(p)) {
+						sender.sendMessage("You valid!");
+						lol.remove(p);
+						return true;
+					}
+				}
 			}
 		}
 		return true;

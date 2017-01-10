@@ -10,6 +10,7 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -51,7 +52,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 
 	}
 
-	public static String getPrefix(Enum<Ranks> e) {
+	/*public static String getPrefix(Enum<Ranks> e) {
 
 		if (e != null) {
 			if (e.equals(Ranks.OWNER))
@@ -87,6 +88,44 @@ public class RanksEnum implements Listener, CommandExecutor {
 				return "&6&lPREMIUM&r";
 			else if (e.equals(Ranks.MASTER))
 				return "&3&lMASTER&r";
+		}
+
+		return "";
+	} */
+	
+	public static String getPrefix(Enum<Ranks> e) {
+
+		if (e != null) {
+			if (e.equals(Ranks.OWNER))
+				return "&8[&4&lOWNER&8]&4&o";
+			else if (e.equals(Ranks.COWNER))
+				return "&8[&4&lCO-OWNER&8]&4&o";
+			else if (e.equals(Ranks.DEV))
+				return "&8[&c&l&oDEV&8]&c&o";
+			else if (e.equals(Ranks.ADMIN))
+				return "&8[&c&lADMIN&8]&c&o";
+			else if (e.equals(Ranks.SRMOD))
+				return "&8[&6&lSR.MOD&8]&6&o";
+			else if (e.equals(Ranks.MOD))
+				return "&8[&6&lMod&8]&6";
+			else if (e.equals(Ranks.HELPER))
+				return "&8[&2&lHELPER&8]&2&o";
+
+			else if (e.equals(Ranks.BUILDER))
+				return "&8[&9&lBUILDER&8]&9&o";
+			else if (e.equals(Ranks.ARCHITECT))
+				return "&8[&9ARCHITECT&8]&9&o";
+
+			else if (e.equals(Ranks.VIP))
+				return "&8[&a&lVIP&8]&r";
+			else if (e.equals(Ranks.VIPPLUS))
+				return "&8[&a&lVIP&b+&8]&r";
+			else if (e.equals(Ranks.PLUSVIPPLUS))
+				return "&8[&b+&a&lVIP&b+&8]&r";
+			else if (e.equals(Ranks.PREMIUM))
+				return "&8[&6&l&oPremium&8]&r";
+			else if (e.equals(Ranks.MASTER))
+				return "&8[&5&l&oMaster&8]&r";
 		}
 
 		return "";
@@ -128,6 +167,13 @@ public class RanksEnum implements Listener, CommandExecutor {
 		} else
 			return null;
 	}
+	
+	public static Enum<Ranks> getOfflineRank(OfflinePlayer p) {
+		if (arrayRanks.containsKey(p)) {
+			return arrayRanks.get(p);
+		} else
+			return null;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -149,8 +195,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 						e.printStackTrace();
 					}
 
-					p.sendMessage(c(
-							Prefix.prefixRanks + target.getName() + "'s rank is now &6" + rank.toString()));
+					p.sendMessage(c(Prefix.prefixRanks + target.getName() + "'s rank is now &6" + rank.toString()));
 					return true;
 				} else {
 					p.sendMessage(c(Prefix.prefixRanks + "This requires permission rank [&6DEV&7]."));
@@ -173,8 +218,8 @@ public class RanksEnum implements Listener, CommandExecutor {
 					e.printStackTrace();
 				}
 
-				console.sendMessage(c(Prefix.prefixRanks + "&6" + target.getName() + "&7's rank is now &6"
-						+ rank.toString()));
+				console.sendMessage(
+						c(Prefix.prefixRanks + "&6" + target.getName() + "&7's rank is now &6" + rank.toString()));
 				return true;
 			}
 		}
@@ -325,17 +370,23 @@ public class RanksEnum implements Listener, CommandExecutor {
 		return null;
 	}
 
+	public static String sendErrorMessage(Enum<Ranks> e) {
+		String msg = ChatColor.RED + "You are not entitled to the " + e + ChatColor.RED
+				+ " rank! You can buy this rank from our website, at www.bcpvp101.enjin.com";
+		return msg;
+	}
+
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent e) {
 		Player p = e.getPlayer();
 		if (yaml.contains(p.getName())) {
 			RanksEnum.setRank(p, getEnum(yaml.getString(p.getName())));
 		}
-		
+
 		if (isStaff(p)) {
 			staff.add(p);
 		}
-		
+
 		if (isAtLeast(p, Ranks.ADMIN)) {
 			if (staff.contains(p)) {
 				staff.remove(p);

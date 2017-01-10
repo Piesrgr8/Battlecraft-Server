@@ -92,6 +92,7 @@ public class Invisibility implements CommandExecutor,Listener {
 		}
 		
 		if (is.getType().equals(Material.CLAY) || is.getType().equals(Material.STAINED_CLAY) && is.hasItemMeta()) {
+			e.setCancelled(true);
 			if (Invisibility.vanish.contains(p)) {
 				Invisibility.showAllPlayers(p);
 				inv.setItem(7, item2);

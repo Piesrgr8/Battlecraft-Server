@@ -3,9 +3,10 @@ package org.battlecraft.piesrgr8.listeners;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.Fireworks;
+import org.battlecraft.piesrgr8.chat.AntiSwear;
 import org.battlecraft.piesrgr8.chat.Chat;
+import org.battlecraft.piesrgr8.clans.ClansGUI;
 import org.battlecraft.piesrgr8.config.PlayersYML;
-import org.battlecraft.piesrgr8.essentials.AntiSwear;
 import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.fake.SilentJoin;
@@ -18,7 +19,10 @@ import org.battlecraft.piesrgr8.menu.MainPvP;
 import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.menu.NavGame;
 import org.battlecraft.piesrgr8.menu.Sg;
+import org.battlecraft.piesrgr8.players.DarthLaser123;
 import org.battlecraft.piesrgr8.players.Friends;
+import org.battlecraft.piesrgr8.players.IHersh;
+import org.battlecraft.piesrgr8.players.LilyMc101;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
 import org.battlecraft.piesrgr8.punish.Punish;
@@ -65,7 +69,6 @@ public class EventRegistery {
 		pm.registerEvents(new SilentJoin(plugin), plugin);
 		pm.registerEvents(new PlayerListener(plugin), plugin);
 		pm.registerEvents(new BCBlockListener(), plugin);
-		pm.registerEvents(new Piesrgr8(plugin), plugin);
 		pm.registerEvents(new AntiSwear(plugin), plugin);
 		pm.registerEvents(new WorldHandler(plugin), plugin);
 		pm.registerEvents(new Guns(plugin), plugin);
@@ -95,6 +98,12 @@ public class EventRegistery {
 		pm.registerEvents(new Punish(plugin), plugin);
 		pm.registerEvents(new SmartConsole(plugin), plugin);
 		pm.registerEvents(new Invisibility(plugin), plugin);
+		
+		//FOR PLAYERS
+		pm.registerEvents(new Piesrgr8(plugin), plugin);
+		pm.registerEvents(new IHersh(plugin), plugin);
+		pm.registerEvents(new LilyMc101(plugin), plugin);
+		pm.registerEvents(new DarthLaser123(plugin), plugin);
 
 		// FOR STATS
 		pm.registerEvents(new Kills(plugin), plugin);
@@ -113,6 +122,9 @@ public class EventRegistery {
 		
 		//FOR SIGNS
 		pm.registerEvents(new Buy(plugin), plugin);
+		
+		//FOR CLANS
+		pm.registerEvents(new ClansGUI(plugin), plugin);
 		
 		//FOR MENUS
 		pm.registerEvents(new MainPvP(plugin), plugin);

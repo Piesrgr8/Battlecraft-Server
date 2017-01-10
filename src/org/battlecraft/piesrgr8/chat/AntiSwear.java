@@ -1,4 +1,4 @@
-package org.battlecraft.piesrgr8.essentials;
+package org.battlecraft.piesrgr8.chat;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.ChatColor;

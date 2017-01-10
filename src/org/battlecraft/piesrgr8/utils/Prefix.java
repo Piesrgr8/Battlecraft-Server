@@ -75,6 +75,9 @@ public class Prefix {
 		public static String prefixRanks = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 				+ ChatColor.BLUE + "" + ChatColor.BOLD + "Ranks" + ChatColor.GRAY + "] ";
 		
+		public static String prefixClans = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
+				+ ChatColor.BLUE + "" + ChatColor.BOLD + "Clans" + ChatColor.GRAY + "] ";
+		
 		public static String prefixAdmin = ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BC"
 				+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Admin" + ChatColor.GRAY + "] ";
 

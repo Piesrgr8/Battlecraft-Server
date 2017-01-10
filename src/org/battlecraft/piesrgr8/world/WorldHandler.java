@@ -8,6 +8,7 @@ import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 public class WorldHandler implements Listener, CommandExecutor {
@@ -87,6 +89,15 @@ public class WorldHandler implements Listener, CommandExecutor {
 					HubInv.hubInv(p);
 				}
 			}, 50);
+		}
+	}
+	
+	@EventHandler
+	public void onWeatherChanges(WeatherChangeEvent e) {
+		World w = e.getWorld();
+		
+		if (w.getName().equals("Hub1")) {
+			e.setCancelled(true);
 		}
 	}
 

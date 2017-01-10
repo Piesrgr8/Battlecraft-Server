@@ -1,6 +1,7 @@
 package org.battlecraft.piesrgr8.listeners;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
@@ -34,6 +35,7 @@ import net.minecraft.server.v1_9_R2.SoundCategory;
 public class PlayerListener implements Listener {
 
 	BattlecraftServer plugin;
+	public static ArrayList<String> defaults = new ArrayList<String>();
 
 	public PlayerListener(BattlecraftServer p) {
 		this.plugin = p;
@@ -58,6 +60,7 @@ public class PlayerListener implements Listener {
 		final Player p = e.getPlayer();
 		String uuid = p.getUniqueId().toString();
 		final Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+		defaults.add(p.getName());
 
 		// Set the join message for everyone to see.
 		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + fromUUID.getName()
@@ -135,7 +138,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent e) {
-		if (e.getResult() == Result.KICK_FULL && e.getPlayer().hasPermission("bc.full")) {
+		if (e.getResult() == Result.KICK_FULL && RanksEnum.isAtLeast(e.getPlayer(), Ranks.VIP)) {
 			e.allow();
 		}
 		Player p = e.getPlayer();

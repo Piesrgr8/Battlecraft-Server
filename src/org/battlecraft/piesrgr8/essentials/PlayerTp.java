@@ -9,6 +9,7 @@ import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,7 +35,7 @@ public class PlayerTp implements Listener {
 		for (int i = 0; i < players.size(); i++) { // Where players is an array
 													// of the players in-game
 			String playerName = players.get(i);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM);
+			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
 			ItemMeta meta = item.getItemMeta();
 
 			meta.setDisplayName(playerName);
@@ -49,8 +50,9 @@ public class PlayerTp implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Player Teleportation"))
+		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Player Teleportation")) {
 			return;
+		}
 
 		Player p = (Player) e.getWhoClicked();
 		e.setCancelled(true);
@@ -60,6 +62,7 @@ public class PlayerTp implements Listener {
 			e.setCancelled(true);
 			return;
 		}
+		
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
 			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
 			if (!p.hasPermission("bc.teleport")) {
@@ -68,10 +71,11 @@ public class PlayerTp implements Listener {
 				e.setCancelled(true);
 			}
 			if (c != null) {
-
 				p.teleport(c);
 				Admin.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " teleported to " + ChatColor.YELLOW + c.getName());
 			}
 		}
+		
+		
 	}
 }

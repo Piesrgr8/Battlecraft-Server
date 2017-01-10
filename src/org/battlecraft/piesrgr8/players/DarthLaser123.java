@@ -1,6 +1,5 @@
 package org.battlecraft.piesrgr8.players;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
@@ -19,8 +18,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class DarthLaser123 implements Listener {
 
 	BattlecraftServer plugin;
-
-	public static ArrayList<Player> spoken = new ArrayList<Player>();
 
 	String specialName = ChatColor.RED + "" + ChatColor.MAGIC + "k" + ChatColor.DARK_RED + "" + ChatColor.BOLD + ""
 			+ ChatColor.ITALIC + "DarthLaser123" + ChatColor.RED + "" + ChatColor.MAGIC + "k" + ChatColor.RESET + " ";
@@ -71,14 +68,10 @@ public class DarthLaser123 implements Listener {
 					|| e.getMessage().contains("DarthLaser123") || e.getMessage().equalsIgnoreCase("DarthLaser123")
 					|| e.getMessage().equalsIgnoreCase("darth")
 					|| e.getMessage().contains("darth") && p1.getName().equals("DarthLaser123")) {
-				if (spoken.contains(p)) {
-					return;
-				}
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					public void run() {
-						spoken.add(p);
 						Random rand = new Random();
-						int r = rand.nextInt(4);
+						int r = rand.nextInt(5);
 						if (r == 0 || r == 1) {
 							Chat.sendFormattedMessage(p1, "Yes?");
 						} else if (r == 2) {
@@ -88,21 +81,6 @@ public class DarthLaser123 implements Listener {
 						} else if (r == 4) {
 							Chat.sendFormattedMessage(p1, "Whats up?");
 						}
-					}
-				}, 30);
-			}
-			
-			if (e.getMessage().equalsIgnoreCase("coowner") || e.getMessage().contains("coowner")
-					|| e.getMessage().contains("DarthLaser123") || e.getMessage().equalsIgnoreCase("DarthLaser123")
-					|| e.getMessage().equalsIgnoreCase("darth")
-					|| e.getMessage().contains("darth") && p1.getName().equals("DarthLaser123")) {
-				if (!spoken.contains(p)) {
-					return;
-				}
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					public void run() {
-							Chat.sendFormattedMessage(p1, "yeeeees?????");
-							spoken.remove(p);
 					}
 				}, 30);
 			}

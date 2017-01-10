@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.clans.Clans;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -60,6 +61,7 @@ public class ConfigMg {
 		savePollYaml(plugin);
 		saveStaffYaml(plugin);
 		saveConsoleYaml(plugin);
+		Clans.createClans();
 	}
 
 	//Then the list continues, saving every individual yml.

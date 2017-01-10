@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.clans.Clans;
 import org.battlecraft.piesrgr8.essentials.Nick;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -56,6 +57,20 @@ public class Chat implements Listener {
 					e.setFormat(ChatColor.translateAlternateColorCodes('&',
 							RanksEnum.getPrefix(RanksEnum.getRank(p)) + " *" + nick + " " + ChatColor.GRAY + ""
 									+ ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
+				} catch (Exception e1) {
+					e.setFormat(ChatColor.RED + "" + ChatColor.BOLD + "ERR " + ChatColor.GRAY
+							+ fromUUID.getDisplayName() + " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "
+							+ ChatColor.GRAY + e.getMessage());
+					e1.getMessage();
+				}
+			}
+			
+			if (Clans.isInClan(fromUUID)) {
+				try {
+					e.setFormat(ChatColor.translateAlternateColorCodes('&',
+							RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + fromUUID.getDisplayName() + " " + ChatColor.GRAY + "["
+									+ Clans.getClanTag(p) + "] " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "
+									+ ChatColor.RESET + e.getMessage()));
 				} catch (Exception e1) {
 					e.setFormat(ChatColor.RED + "" + ChatColor.BOLD + "ERR " + ChatColor.GRAY
 							+ fromUUID.getDisplayName() + " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "

@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.8.1.01, 1.9
+version: 1.8.3.01, 1.9
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -17,6 +17,8 @@ commands:
     aliases: [a]
   bc:
     description: The main command for the plugin.
+  clan:
+    description: View, edit, and create clans!
   clear:
     description: Clear your inventory.
   death:

@@ -1,11 +1,11 @@
 package org.battlecraft.piesrgr8.staff;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,8 +27,10 @@ public class Admin implements CommandExecutor{
 	public static void sendMessage(String s) {
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
 			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
+				if (PlayersYML.adminToggleEnable(on)) {
 		on.sendMessage(Prefix.prefixAdmin + ChatColor.WHITE + s);
 		on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
+				}
 			}
 		}
 	}
@@ -38,7 +40,7 @@ public class Admin implements CommandExecutor{
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
         
 		for (@SuppressWarnings("unused") Player on : Bukkit.getServer().getOnlinePlayers()) {
-		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
+		if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 			while (yaml.getInt(p.getName() + ".logins") >= 0) {
 			if (yaml.getInt(p.getName() + ".logins") == 10) {
 				sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " has logged in " + ChatColor.YELLOW + "10 times!");
@@ -59,8 +61,6 @@ public class Admin implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("admin")) {
 			Player p = (Player) sender;
-			File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
-	        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 	        
 			if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 				p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "You are not an admin on this server!");
@@ -88,29 +88,17 @@ public class Admin implements CommandExecutor{
 			
 			if (args.length == 3) {
 				if (args[2].equalsIgnoreCase("yes")) {
-					if (yaml.contains(p.getName() + ".adminM", false)) {
-						try {
-							yaml.set(p.getName() + ".adminM", true);
+					if (!PlayersYML.adminToggleEnable(p)) {
+							PlayersYML.setAdminM(p, true);
 							p.sendMessage(Prefix.prefixAdmin + ChatColor.GREEN + "You will receive admin messages!");
-							yaml.save(f);
-						}catch (IOException e) {
-							p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
-							e.printStackTrace();
-						}
 						return true;
 					}
 				}
 				
 				if (args[2].equalsIgnoreCase("no")) {
-					if (yaml.contains(p.getName() + ".adminM", true)) {
-						try {
-							yaml.set(p.getName() + ".adminM", false);
+					if (PlayersYML.adminToggleEnable(p)) {
+							PlayersYML.setAdminM(p, false);
 							p.sendMessage(Prefix.prefixAdmin + ChatColor.GREEN + "You will no longer receive admin messages!");
-							yaml.save(f);
-						}catch (IOException e) {
-							p.sendMessage(Prefix.prefixAdmin + ChatColor.RED + "There seems to be an issue with saving!");
-							e.printStackTrace();
-						}
 						return true;
 					}
 				}
