@@ -2,9 +2,8 @@ package org.battlecraft.piesrgr8.utils;
 
 import java.util.ArrayList;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.clans.Clans;
 import org.battlecraft.piesrgr8.inventory.InvMethods;
-import org.battlecraft.piesrgr8.listeners.PlayerListener;
+import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -125,11 +124,7 @@ public class Test implements Listener, CommandExecutor {
 				sender.sendMessage("        This class is testing buy signs and sell signs!");
 				// sender.sendMessage("" +
 				// p.getInventory().getItemInMainHand());
-				sender.sendMessage("Using ArrayList w/ players: " + PlayerListener.defaults.toString());
-				sender.sendMessage("" + Clans.getPlayerList());
-				sender.sendMessage("" + lol.size());
-				//sender.sendMessage("" + Clans.testMethodForTesting());
-				sender.sendMessage("" + Clans.getClanTag(p));
+				sender.sendMessage(TimerDaily.getTime());
 				sender.sendMessage(msg);
 				return true;
 			}

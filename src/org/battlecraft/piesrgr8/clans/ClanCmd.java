@@ -1,12 +1,8 @@
 package org.battlecraft.piesrgr8.clans;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.battlecraft.iHersh.ranks.RanksEnum;
-import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.utils.Prefix;
@@ -32,8 +28,6 @@ public class ClanCmd implements CommandExecutor {
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
-		File f = new File("plugins//BattlecraftServer//clans//" + sender.getName() + ".yml");
-		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
 		File f1 = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration py = YamlConfiguration.loadConfiguration(f1);
@@ -44,32 +38,42 @@ public class ClanCmd implements CommandExecutor {
 				return true;
 			}
 
-			if (!RanksEnum.isAtLeast(p, Ranks.VIP)) {
-				p.sendMessage(Prefix.prefixClans + RanksEnum.sendErrorMessage(Ranks.VIP));
-				return true;
-			}
-
 			if (args.length == 0) {
 				p.sendMessage(Prefix.prefixClans + ChatColor.RED + "Missing Arguments:");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan create <name>");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan leave");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan tp");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan invite <name>");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan invites");
-				p.sendMessage("     " + ChatColor.YELLOW + "/clan details");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan create <name>");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan edit <tag : name>");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan leave");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan tp");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan invite <name>");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan invites");
+				p.sendMessage("         " + ChatColor.YELLOW + "/clan details");
 				return true;
 			}
 
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("create")) {
-					if (f.exists()) {
+					if (Clans.isInClan(p)) {
 						p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW
 								+ "You will be renaming your clan to something else if you "
 								+ "proceed, we will note how many times you have changed your clan name.");
 						return true;
 					}
-					p.sendMessage(
-							Prefix.prefixClans + ChatColor.YELLOW + "Now, you must type in a name for your clan!");
+
+					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW
+							+ "Now, you must type in a name for your clan! BUT, please make it at least "
+							+ ChatColor.GREEN + "10 characters" + ChatColor.YELLOW + " long and not less than "
+							+ ChatColor.GREEN + "3 characters!");
+					return true;
+				}
+
+				if (args[0].equalsIgnoreCase("edit")) {
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
+					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW + "What would you like to edit? <tag : name>");
 					return true;
 				}
 
@@ -106,17 +110,24 @@ public class ClanCmd implements CommandExecutor {
 						return true;
 					}
 					if (Clans.isInClan(p)) {
-						p.sendMessage(Prefix.prefixClans + ChatColor.GREEN + "Clan: " + Clans.getClanName(p));
-						p.sendMessage("      " + ChatColor.GREEN + "Owner: " + Clans.getOwnerName(p));
-						p.sendMessage("      " + ChatColor.GREEN + "Members: " + Clans.getMembers(p));
+						p.sendMessage(
+								Prefix.prefixClans + ChatColor.YELLOW + "The details of your clan are as follows:");
+						p.sendMessage("        " + ChatColor.GREEN + "" + ChatColor.BOLD + "Clan: " + ChatColor.YELLOW
+								+ Clans.getClanName(p));
+						p.sendMessage("        " + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tag: "
+								+ ChatColor.YELLOW + Clans.getClanTag(p));
+						p.sendMessage("        " + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Owner: "
+								+ ChatColor.YELLOW + Clans.getOwnerName(p));
+						p.sendMessage("        " + ChatColor.AQUA + "" + ChatColor.BOLD + "Members: " + ChatColor.YELLOW
+								+ Clans.getMembers(p));
 						return true;
 					}
 				}
 
 				if (args[0].equalsIgnoreCase("invite")) {
-					if (!f.exists()) {
-						p.sendMessage(Prefix.prefixClans + ChatColor.RED
-								+ "You do not own a clan! You must use /clan create <clanName>!");
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
 						return true;
 					}
 					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW + "What is the players name?");
@@ -144,38 +155,57 @@ public class ClanCmd implements CommandExecutor {
 
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("create")) {
-					StringBuilder sb = new StringBuilder();
-					String msg;
-					for (int i = 1; i < args.length; i++)
-						sb.append(args[i]).append("");
-					msg = sb.toString();
-
-					if (!new File("plugins//BattlecraftServer//clans//" + p.getName() + ".yml").exists()) {
-						try {
-							new File("plugins//BattlecraftServer//clans//" + p.getName() + ".yml").createNewFile();
-						} catch (IOException e) {
-							p.sendMessage(Prefix.prefixClans + "There seems to be an issue with creating this clan!");
-							e.printStackTrace();
-						}
+					if (!Clans.getOwnerName(p).equals(p.getName()) && Clans.isInClan(p)) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED
+								+ "You must leave your current clan in order to proceed with this process!");
+						return true;
 					}
 
-					/*
-					 * if (!yaml.getString("Clan").isEmpty() &&
-					 * yaml.getString("Clan").contains(msg)) {
-					 * p.sendMessage(Prefix.prefixClans + ChatColor.RED +
-					 * "This clan already exists!"); return true; }
-					 */
+					if (!Clans.isInClan(p)) {
 
-					p.sendMessage(Prefix.prefixClans + ChatColor.GREEN
-							+ "You have successfuly created a new clan called " + ChatColor.YELLOW + msg + "!");
+						StringBuilder sb = new StringBuilder();
+						String msg;
+						for (int i = 1; i < args.length; i++)
+							sb.append(args[i]).append("");
+						msg = sb.toString();
 
-					yaml.set("NameChanges", yaml.getInt("NameChanges") + 1);
+						if (msg.length() <= 3) {
+							p.sendMessage(Prefix.prefixClans + ChatColor.RED
+									+ "Your clan name must be at least 10 characters, but no less than 4!");
+							return true;
+						}
 
-					Clans.createYamlClan(p, msg);
-					return true;
+						if (msg.length() > 10) {
+							p.sendMessage(Prefix.prefixClans + ChatColor.RED
+									+ "Your clan name must be at least 10 characters, but no less than 4!");
+							return true;
+						}
+
+						/*
+						 * if (!yaml.getString("Clan").isEmpty() &&
+						 * yaml.getString("Clan").contains(msg)) {
+						 * p.sendMessage(Prefix.prefixClans + ChatColor.RED +
+						 * "This clan already exists!"); return true; }
+						 */
+
+						p.sendMessage(Prefix.prefixClans + ChatColor.GREEN
+								+ "You have successfuly created a new clan called " + ChatColor.YELLOW + msg + "!");
+
+						Clans.setNameChanges(1);
+
+						Clans.createYamlClan(p, msg);
+						return true;
+					}
 				}
 
 				if (args[0].equalsIgnoreCase("invite")) {
+
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
 					StringBuilder sb = new StringBuilder();
 					String msg;
 					for (int i = 1; i < args.length; i++)
@@ -195,6 +225,93 @@ public class ClanCmd implements CommandExecutor {
 						off.getPlayer().sendMessage(Prefix.prefixClans + ChatColor.YELLOW + p.getName()
 								+ ChatColor.GREEN + " has invited you to be in their clan!");
 					}
+				}
+
+				if (args[0].equalsIgnoreCase("edit") && args[1].equalsIgnoreCase("tag")) {
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
+					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW + "What will the tag be?");
+					return true;
+				}
+
+				if (args[0].equalsIgnoreCase("edit") && args[1].equalsIgnoreCase("name")) {
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
+					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW + "What will the name be?");
+					return true;
+				}
+			}
+
+			if (args.length == 3) {
+				if (args[0].equalsIgnoreCase("edit") && args[1].equalsIgnoreCase("tag")) {
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
+					StringBuilder sb = new StringBuilder();
+					String msg;
+					for (int i = 2; i < args.length; i++)
+						sb.append(args[i]).append("");
+					msg = sb.toString();
+
+					if (msg.length() <= 3) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED
+								+ "Your clan tag must be at least 10 characters, but no less than 4!");
+						return true;
+					}
+
+					if (msg.length() > 10) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED
+								+ "Your clan tag must be at least 10 characters, but no less than 4!");
+						return true;
+					}
+
+					Clans.setClanTag(msg);
+					p.sendMessage(Prefix.prefixClans + ChatColor.GREEN + "You have changed the tag to: "
+							+ ChatColor.GRAY + "[" + msg + "]");
+					return true;
+				}
+
+				if (args[0].equalsIgnoreCase("edit") && args[1].equalsIgnoreCase("name")) {
+					if (!Clans.getOwnerName(p).equals(p.getName())) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED + "You are not an owner of a clan! Do "
+								+ ChatColor.YELLOW + "/clan create" + ChatColor.RED + " to make one!");
+						return true;
+					}
+
+					StringBuilder sb = new StringBuilder();
+					String msg;
+					for (int i = 2; i < args.length; i++)
+						sb.append(args[i]).append("");
+					msg = sb.toString();
+
+					if (msg.length() <= 3) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED
+								+ "Your clan name must be at least 10 characters, but no less than 4!");
+						return true;
+					}
+
+					if (msg.length() > 10) {
+						p.sendMessage(Prefix.prefixClans + ChatColor.RED
+								+ "Your clan name must be at least 10 characters, but no less than 4!");
+						return true;
+					}
+
+					Clans.setClanName(msg);
+					Clans.setNameChanges(1);
+					p.sendMessage(Prefix.prefixClans + ChatColor.GREEN + "You have changed the name of the clan to "
+							+ ChatColor.YELLOW + msg + "!");
+					return true;
 				}
 			}
 

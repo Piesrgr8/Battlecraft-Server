@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.Debug;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -96,7 +95,6 @@ public class Clans {
 		for (File p : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p);
 			if (a.getStringList("players").contains(pl.getName())) {
-				Debug.debugConsole("This player passes the test!");
 				try {
 					return a.getString("Tag");
 				} catch (Exception e) {
@@ -229,6 +227,54 @@ public class Clans {
 			
 			if (a.getString("Owner").equals(p.getName())) {
 				removeClanFile(p);
+			}
+		}
+	}
+	
+	public static void setNameChanges(int i) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			a.set("NameChanges", a.getInt("NameChanges") + i);
+			try {
+				a.save(p1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void setClanName(String msg) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			a.set("Clan", msg);
+			try {
+				a.save(p1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void setClanTag(String msg) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			a.set("Tag", msg);
+			try {
+				a.save(p1);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

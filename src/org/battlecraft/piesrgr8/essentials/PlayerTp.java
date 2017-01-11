@@ -3,6 +3,8 @@ package org.battlecraft.piesrgr8.essentials;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.Prefix;
@@ -65,7 +67,7 @@ public class PlayerTp implements Listener {
 		
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
 			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
-			if (!p.hasPermission("bc.teleport")) {
+			if (RanksEnum.isAtLeast(p, Ranks.HELPER)) {
 				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
 				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
