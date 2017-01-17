@@ -19,6 +19,7 @@ import org.battlecraft.piesrgr8.inventory.Enderchest;
 import org.battlecraft.piesrgr8.inventory.Invsee;
 import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.particles.Particles;
+import org.battlecraft.piesrgr8.party.PartyCmd;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.poll.Poll;
@@ -31,6 +32,8 @@ import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.support.Help;
 import org.battlecraft.piesrgr8.support.Issue;
 import org.battlecraft.piesrgr8.support.Report;
+import org.battlecraft.piesrgr8.teleportation.Teleportation;
+import org.battlecraft.piesrgr8.teleportation.Warp;
 import org.battlecraft.piesrgr8.utils.ClickChat;
 import org.battlecraft.piesrgr8.utils.MaintenanceCommand;
 import org.battlecraft.piesrgr8.utils.Prefix;
@@ -66,6 +69,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("clan").setExecutor(new ClanCmd(plugin));
 		plugin.getCommand("clear").setExecutor(new Clear());
 		plugin.getCommand("death").setExecutor(new Health());
+		plugin.getCommand("delwarp").setExecutor(new Warp());
 		plugin.getCommand("enchant").setExecutor(new CommandEnchant(plugin));
 		plugin.getCommand("enderchest").setExecutor(new Enderchest());
 		plugin.getCommand("fakej").setExecutor(new FakeJoin());
@@ -90,6 +94,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("menu").setExecutor(new Menus(plugin));
 		plugin.getCommand("nick").setExecutor(new Nick());
 		plugin.getCommand("particle").setExecutor(new Particles(plugin));
+		plugin.getCommand("party").setExecutor(new PartyCmd(plugin));
 		plugin.getCommand("player").setExecutor(new ListPlayer(plugin));
 		plugin.getCommand("poll").setExecutor(new Poll(plugin));
 		plugin.getCommand("punish").setExecutor(new Punish(plugin));
@@ -98,7 +103,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("scan").setExecutor(new WorldScanProx());
 		plugin.getCommand("send").setExecutor(new Send(plugin));
 		plugin.getCommand("sethub").setExecutor(new Hub(plugin));
-		plugin.getCommand("setwarp").setExecutor(new Teleportation());
+		plugin.getCommand("setwarp").setExecutor(new Warp());
 		plugin.getCommand("skull").setExecutor(new Skulls(plugin));
 		plugin.getCommand("spam").setExecutor(new Spammer(plugin));
 		plugin.getCommand("spawn").setExecutor(new Hub(plugin));
@@ -113,7 +118,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
 		plugin.getCommand("vs").setExecutor(new Invisibility(plugin));
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));
-		plugin.getCommand("warp").setExecutor(new Teleportation());
+		plugin.getCommand("warp").setExecutor(new Warp());
 		plugin.getCommand("whois").setExecutor(new Whois());
 		plugin.getCommand("world").setExecutor(new WorldHandler(plugin));
 	}

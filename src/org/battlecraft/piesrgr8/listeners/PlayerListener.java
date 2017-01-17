@@ -9,6 +9,7 @@ import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
+import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
@@ -134,6 +135,14 @@ public class PlayerListener implements Listener {
 		PlayerTp.players.remove(p.getName());
 		ScoreboardMg.removeBoard(p);
 		PlayersYML.setLastLogin(p);
+
+		if (Party.isInParty(p)) {
+			if (Party.getLeaderName(p).equals(p.getName())) {
+				Party.stopParty(p);
+			} else {
+				Party.removePartyMember(p, Party.getLeaderName(p));
+			}
+		}
 	}
 
 	@EventHandler

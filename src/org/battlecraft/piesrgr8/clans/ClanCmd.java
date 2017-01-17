@@ -133,7 +133,6 @@ public class ClanCmd implements CommandExecutor {
 					p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW + "What is the players name?");
 					return true;
 				}
-			}
 
 			if (args[0].equalsIgnoreCase("invites")) {
 				ClansGUI.openGUI(p);
@@ -152,6 +151,7 @@ public class ClanCmd implements CommandExecutor {
 					return true;
 				}
 			}
+		}
 
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("create")) {

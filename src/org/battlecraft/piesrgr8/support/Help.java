@@ -27,6 +27,9 @@ public class Help implements CommandExecutor{
 				p.sendMessage(ChatColor.YELLOW + "Punish people with " + ChatColor.AQUA + "/punish <player> " + ChatColor.YELLOW + "if people misbehave.");
 				p.sendMessage(ChatColor.YELLOW + "Our server usually stays up 24/7, so if you want to come hang, you know where to go ;)");
 			}
+			if (RanksEnum.isAtLeast(p, Ranks.COWNER) || RanksEnum.isAtLeast(p, Ranks.OWNER)) {
+				return false;
+			}
 		}
 		return true;
 	}

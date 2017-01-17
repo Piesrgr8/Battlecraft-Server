@@ -9,6 +9,7 @@ import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.battlecraft.piesrgr8.essentials.Commands;
 import org.battlecraft.piesrgr8.listeners.EventRegistery;
+import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.utils.Cooldown;
 import org.battlecraft.piesrgr8.utils.PlayerCountMessage;
 import org.bukkit.command.CommandExecutor;
@@ -46,6 +47,7 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 	public void onDisable() {
 		//Disable the other classes, plus save everything.
 		
+		Party.stopEveryParty();
 		PlayerCountMessage.playerCountMessage(this);
 		ConfigMg.saveEverything(this);
 		getLogger().info("The Battlecraft Server Plugin is asleep!");

@@ -1,10 +1,8 @@
 package org.battlecraft.piesrgr8.essentials;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,9 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Fly implements CommandExecutor {
-
-	//Using an array list to make things much more accurate.
-	List<Player> pl = new ArrayList<Player>();
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
@@ -30,20 +25,18 @@ public class Fly implements CommandExecutor {
 				p.sendMessage(Prefix.prefixMain + ChatColor.RED + "You don't have permission to fly!");
 				return true;
 			}
-			
-			if (pl.contains(p)) {
+
+			if (PlayersYML.getFlySetting(p, true)) {
 				p.setFlying(false);
 				p.setAllowFlight(false);
-				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW
-						+ "disabled!");
-				pl.remove(p);
+				PlayersYML.setFly(p, false);
+				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW + "disabled!");
 				return true;
-			} else if (!pl.contains(p)) {
+			} else if (PlayersYML.getFlySetting(p, false)) {
 				p.setAllowFlight(true);
 				p.setFlying(true);
-				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW
-						+ "enabled!");
-				pl.add(p);
+				PlayersYML.setFly(p, true);
+				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW + "enabled!");
 				return true;
 			} else {
 				return false;

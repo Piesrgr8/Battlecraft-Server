@@ -19,6 +19,7 @@ import org.battlecraft.piesrgr8.menu.MainPvP;
 import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.menu.NavGame;
 import org.battlecraft.piesrgr8.menu.Sg;
+import org.battlecraft.piesrgr8.party.PartyGUI;
 import org.battlecraft.piesrgr8.players.DarthLaser123;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.IHersh;
@@ -125,6 +126,9 @@ public class EventRegistery {
 		
 		//FOR CLANS
 		pm.registerEvents(new ClansGUI(plugin), plugin);
+		
+		//FOR PARTIES
+		pm.registerEvents(new PartyGUI(plugin), plugin);
 		
 		//FOR MENUS
 		pm.registerEvents(new MainPvP(plugin), plugin);

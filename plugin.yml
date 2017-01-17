@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.8.3.10, 1.9
+version: 1.8.4.16, 1.9
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -24,6 +24,8 @@ commands:
   death:
     description: Kill yourself.
     aliases: [kill,suicide,smite]
+  delwarp:
+    description: Delete warps with this command!
   enchant:
     description: Enchant an item.
   enderchest:
@@ -81,6 +83,8 @@ commands:
     description: Set a nickname for yourself.
   particle:
     description: Get particles.
+  party:
+    description: Create parties and play with friends.
   player:
     description: Add or remove a player from the list.
   poll:
