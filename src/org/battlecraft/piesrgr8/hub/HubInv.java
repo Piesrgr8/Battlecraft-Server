@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class HubInv {
 
@@ -44,5 +46,6 @@ public class HubInv {
 		inv.setItem(7, ns2);
 		inv.setItem(8, ns1);
 		}
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000000, 2));
 	}
 }

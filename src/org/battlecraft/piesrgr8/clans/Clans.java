@@ -8,24 +8,35 @@ import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class Clans {
 
 	BattlecraftServer plugin;
-	
+
 	static String err = "ERR";
 
 	public Clans(BattlecraftServer p) {
 		this.plugin = p;
 	}
 
-	public static void createClans() {
-		if (!new File("plugins//BattlecraftServer//clans//").exists()) {
+	public static void createClans(BattlecraftServer p) {
+		if (!new File("plugins//BattlecraftServer//clans//").isDirectory()) {
 			try {
-				new File("plugins//BattlecraftServer//clans//").createNewFile();
-			} catch (IOException e) {
+				new File("plugins//BattlecraftServer//clans//").mkdir();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void createClansAlt() {
+		if (!new File("plugins//BattlecraftServer//clans//").isDirectory()) {
+			try {
+				new File("plugins//BattlecraftServer//clans//").mkdir();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -39,14 +50,16 @@ public class Clans {
 		yaml.createSection("Owner");
 		yaml.createSection("Tag");
 		yaml.createSection("players");
-		yaml.createSection("NameChanges");
+		yaml.createSection("desc");
+		yaml.createSection("motd");
 		List<String> values = new ArrayList<String>();
 		values.add(p.getName());
 		yaml.set("players", values);
 		yaml.set("Owner", p.getName());
 		yaml.set("Tag", clanName);
 		yaml.set("Clan", clanName);
-		yaml.set("NameChanges", 0);
+		yaml.set("desc", "My clan is awesome!");
+		yaml.set("motd", "Welcome to the clan!");
 		try {
 			yaml.save(f);
 		} catch (IOException e) {
@@ -54,7 +67,7 @@ public class Clans {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void saveYML() {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -69,7 +82,7 @@ public class Clans {
 			}
 		}
 	}
-	
+
 	public static YamlConfiguration getYML() {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -79,7 +92,7 @@ public class Clans {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p);
 			try {
 				return a;
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -113,12 +126,12 @@ public class Clans {
 
 		for (File p : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p);
-			if (a.getStringList("players").contains(p1.getName())) 
+			if (a.getStringList("players").contains(p1.getName()))
 				return true;
 		}
 		return false;
 	}
-	
+
 	public static String getMembers(Player p) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -137,7 +150,7 @@ public class Clans {
 		}
 		return "";
 	}
-	
+
 	public static String getOwnerName(Player p) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -156,7 +169,7 @@ public class Clans {
 		}
 		return "";
 	}
-	
+
 	public static String getClanName(Player p) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -175,7 +188,45 @@ public class Clans {
 		}
 		return "";
 	}
-	
+
+	public static String getDesc(Player p) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			if (a.getStringList("players").contains(p.getName())) {
+				try {
+					return a.getString("desc");
+				} catch (Exception e) {
+					e.getCause().getMessage();
+					return "ERR";
+				}
+			}
+		}
+		return "";
+	}
+
+	public static String getMotd(Player p) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			if (a.getStringList("players").contains(p.getName())) {
+				try {
+					return a.getString("motd");
+				} catch (Exception e) {
+					e.getCause().getMessage();
+					return "ERR";
+				}
+			}
+		}
+		return "";
+	}
+
 	public static List<String> getPlayerList() {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -184,7 +235,7 @@ public class Clans {
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
 			try {
-			return a.getStringList("players");
+				return a.getStringList("players");
 			} catch (Exception e) {
 				return Arrays.asList(err);
 			}
@@ -192,12 +243,38 @@ public class Clans {
 		return null;
 	}
 	
+	public static boolean isInSameClan(Player p, Player p1) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File f : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(f);
+			if (a.getStringList("players").contains(p.getName()) && a.getStringList("players").contains(p1.getName()))
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean isInExactClan(Player p, String name) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File f : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(f);
+			if (a.getString("Clan").equals(name) && a.getStringList("players").contains(p.getName()))
+				return true;
+		}
+		return false;
+	}
+
 	public static void addPlayerToClan(Player p, String owner) {
 		File f = new File("plugins//BattlecraftServer//clans//" + owner + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-		
+
 		List<String> l = yaml.getStringList("players");
-		
+
 		l.add(p.getName());
 		yaml.set("players", l);
 		try {
@@ -206,7 +283,7 @@ public class Clans {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void removePlayerFromClan(Player p, String owner) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -215,7 +292,7 @@ public class Clans {
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
 			List<String> l = a.getStringList("players");
-			if (a.getString("Owner").equals(owner) && a.getStringList("players").contains(p.getName())) {
+			if (a.getStringList("players").contains(p.getName())) {
 				l.remove(p.getName());
 				a.set("players", l);
 				try {
@@ -224,29 +301,13 @@ public class Clans {
 					e.printStackTrace();
 				}
 			}
-			
-			if (a.getString("Owner").equals(p.getName())) {
+
+			if (p.getName().equals(a.getString("Owner"))) {
 				removeClanFile(p);
 			}
 		}
 	}
-	
-	public static void setNameChanges(int i) {
-		String path = "plugins//BattlecraftServer//clans//";
-		File folder = new File(path);
-		File[] listOfFiles = folder.listFiles();
 
-		for (File p1 : listOfFiles) {
-			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
-			a.set("NameChanges", a.getInt("NameChanges") + i);
-			try {
-				a.save(p1);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public static void setClanName(String msg) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -254,15 +315,15 @@ public class Clans {
 
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
-			a.set("Clan", msg);
-			try {
-				a.save(p1);
-			} catch (IOException e) {
-				e.printStackTrace();
+				a.set("Clan", msg);
+				try {
+					a.save(p1);
+				} catch (IOException e) {
+					e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public static void setClanTag(String msg) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
@@ -270,15 +331,75 @@ public class Clans {
 
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
-			a.set("Tag", msg);
-			try {
-				a.save(p1);
-			} catch (IOException e) {
-				e.printStackTrace();
+				a.set("Tag", msg);
+				try {
+					a.save(p1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	public static void setDesc(String msg) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+				a.set("desc", msg);
+				try {
+					a.save(p1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
+
+	public static void setMotd(String msg) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+				a.set("motd", msg);
+				try {
+					a.save(p1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
+	public static boolean isOwner(String name) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			if (p1.getName().equals(name) || a.getString("Owner").equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static void sendMotd(Player p) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			if (a.getStringList("players").contains(p.getName())) {
+				p.sendMessage(Prefix.prefixClans + ChatColor.GOLD + "Message of the Day: " + ChatColor.YELLOW + "" + ChatColor.ITALIC + a.getString("motd"));
 			}
 		}
 	}
-	
+
 	private static void removeClanFile(Player p) {
 		File f = new File("plugins//BattlecraftServer//clans//" + p.getName() + ".yml");
 		f.delete();

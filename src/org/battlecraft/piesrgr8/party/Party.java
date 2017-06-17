@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -42,7 +43,7 @@ public class Party {
 		f.delete();
 	}
 
-	public static void stopEveryParty() {
+	public static void stopEveryParty(BattlecraftServer plugin) {
 		String path = "plugins//BattlecraftServer//party//";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
@@ -76,7 +77,7 @@ public class Party {
 		return null;
 	}
 
-	public static String getMembers(Player p1) {
+	public static List<String> getMembers(Player p1) {
 		String path = "plugins//BattlecraftServer//party//";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
@@ -85,23 +86,23 @@ public class Party {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p);
 			if (a.getStringList("roster").contains(p1.getName())) {
 				try {
-					return a.getStringList("roster").toString();
+					return a.getStringList("roster");
 				} catch (Exception e) {
-					return "ERR";
+					return Arrays.asList("ERR");
 				}
 			}
 		}
-		return "";
+		return null;
 	}
 
-	public static String getLeaderName(Player p1) {
+	public static String getLeaderName(Player p) {
 		String path = "plugins//BattlecraftServer//party//";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 
-		for (File p : listOfFiles) {
-			YamlConfiguration a = YamlConfiguration.loadConfiguration(p);
-			if (a.getStringList("roster").contains(p1.getName())) {
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			if (a.getStringList("roster").contains(p.getName())) {
 				try {
 					return a.getString("leader");
 				} catch (Exception e) {
@@ -110,6 +111,20 @@ public class Party {
 			}
 		}
 		return "";
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static Player getLeader(Player p) {
+		String path = "plugins//BattlecraftServer//party//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			Player pl = Bukkit.getServer().getPlayer(a.getString("leader"));
+			return pl;
+			}
+		return null;
 	}
 
 	public static boolean isInParty(Player p1) {
@@ -140,19 +155,22 @@ public class Party {
 	}
 
 	public static void removePartyMember(Player p, String owner) {
-		File f = new File("plugins//BattlecraftServer//party//" + owner + ".yml");
-		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		if (!isInParty(p)) {
+			File f = new File("plugins//BattlecraftServer//party//" + owner + ".yml");
+			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 
-		List<String> val = yaml.getStringList("roster");
-		val.remove(p.getName());
-		yaml.set("roster", val);
-		try {
-			yaml.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
+			List<String> val = yaml.getStringList("roster");
+
+			val.remove(p.getName());
+			yaml.set("roster", val);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public static Integer partyLength() {
 		String path = "plugins//BattlecraftServer//party//";
 		File folder = new File(path);

@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.clans.Clans;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.party.Party;
@@ -20,15 +21,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 
 import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
 import net.minecraft.server.v1_9_R2.SoundCategory;
@@ -53,6 +55,22 @@ public class PlayerListener implements Listener {
 			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
 					"notify.notifyitemenchant", SoundCategory.MASTER, p.getLocation().getBlockX(),
 					p.getLocation().getBlockY(), p.getLocation().getBlockZ(), 100000.0F, 1.0F));
+		}
+	}
+
+	@EventHandler
+	public void noDamageClan(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
+			Player p = (Player) e.getEntity();
+			Player p1 = (Player) e.getDamager();
+
+			if (Clans.isInClan(p) && Clans.isInSameClan(p, p1)) {
+				try {
+					e.setCancelled(true);
+				} catch (Exception e1) {
+					e1.getMessage();
+				}
+			}
 		}
 	}
 

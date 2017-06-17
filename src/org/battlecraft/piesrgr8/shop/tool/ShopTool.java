@@ -1,8 +1,9 @@
-package org.battlecraft.piesrgr8.shop;
+package org.battlecraft.piesrgr8.shop.tool;
 
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -45,7 +46,7 @@ public class ShopTool implements Listener {
 		ItemStack fc = new ItemStack(Material.ENCHANTED_BOOK);
 		ItemMeta fc1 = fc.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getData());
+		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);

@@ -38,6 +38,13 @@ public class PartyCmd implements CommandExecutor {
 
 			if (args.length == 0) {
 				p.sendMessage(Prefix.prefixParty + ChatColor.RED + "Missing Arguments!:");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party start");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party stop");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party leave");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party roster");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party invite");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party invites");
+				p.sendMessage(ChatColor.YELLOW + "            " + "/party kick");
 				return true;
 			}
 
@@ -47,14 +54,15 @@ public class PartyCmd implements CommandExecutor {
 						Party.startParty(p);
 						p.sendMessage(Prefix.prefixParty + ChatColor.YELLOW
 								+ "You have reset your current party! Everyone that was in your party has now left!");
-						return true;
-					}
+						
+					} else {
 
 					Party.startParty(p);
 					p.sendMessage(Prefix.prefixParty + ChatColor.GREEN
 							+ "You have successfully created a party! Now use " + ChatColor.YELLOW
 							+ "/party invite <name>" + ChatColor.GREEN + " to invite people to your party!");
 					return true;
+				}
 				}
 
 				if (args[0].equalsIgnoreCase("stop")) {
@@ -87,6 +95,7 @@ public class PartyCmd implements CommandExecutor {
 
 					Party.removePartyMember(p, Party.getLeaderName(p));
 					p.sendMessage(Prefix.prefixParty + ChatColor.GREEN + "You have left the party!");
+					//TODO
 					return true;
 				}
 

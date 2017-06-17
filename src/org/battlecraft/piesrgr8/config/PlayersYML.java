@@ -39,11 +39,13 @@ public class PlayersYML implements Listener {
 			yaml.createSection(p.getName() + ".adminM");
 			yaml.createSection(p.getName() + ".firstJoin");
 			yaml.createSection(p.getName() + ".lastLogin");
+			yaml.createSection(p.getName() + ".logTime");
 			yaml.createSection(p.getName() + ".claninvites");
 			yaml.createSection(p.getName() + ".partyinvites");
 			yaml.set(p.getName() + ".muted", false);
 			yaml.set(p.getName() + ".fly", false);
 			yaml.set(p.getName() + ".adminM", true);
+			yaml.set(p.getName() + ".afk", false);
 			yaml.set(p.getName() + ".nick", p.getName());
 			yaml.set(p.getName() + ".logins", 0);
 			yaml.set(p.getName() + ".firstJoin", "log");
@@ -157,6 +159,22 @@ public class PlayersYML implements Listener {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		yaml.set(p.getName() + ".firstJoin", TimerDaily.getTime());
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setLoginTime(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		if (yaml.getString(p.getName() + ".logTime").isEmpty()) {
+			yaml.set(p.getName() + ".logTime", "meh");
+		}
+		
+		yaml.set(p.getName() + ".logTime", TimerDaily.getTime());
 		try {
 			yaml.save(f);
 		} catch (IOException e) {

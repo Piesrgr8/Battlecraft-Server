@@ -31,6 +31,9 @@ public class ConfigMg {
 	
 	public static File console = new File("plugins//BattlecraftServer//console.yml");
 	public static YamlConfiguration consoleY = YamlConfiguration.loadConfiguration(console);
+	
+	public static File chat = new File("plugins//BattlecraftServer//chat.yml");
+	public static YamlConfiguration chatY = YamlConfiguration.loadConfiguration(chat);
 
 	BattlecraftServer plugin;
 
@@ -61,7 +64,8 @@ public class ConfigMg {
 		savePollYaml(plugin);
 		saveStaffYaml(plugin);
 		saveConsoleYaml(plugin);
-		Clans.createClans();
+		saveChatYaml(plugin);
+		Clans.createClans(plugin);
 	}
 
 	//Then the list continues, saving every individual yml.
@@ -165,6 +169,21 @@ public class ConfigMg {
 		}
 		try {
 			consoleY.save(console);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveChatYaml(BattlecraftServer plugin) {
+		if (!new File(plugin.getDataFolder(), "chat.yml").exists()) {
+			try {
+				new File(plugin.getDataFolder(), "chat.yml").createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			chatY.save(chat);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

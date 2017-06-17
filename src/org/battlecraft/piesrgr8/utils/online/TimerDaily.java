@@ -49,11 +49,21 @@ public class TimerDaily implements Listener {
 		}, 6000L);
 	}
 
-	public static String getTime() {
+	public static String getCurrentTime() {
 		long current = System.currentTimeMillis();
 		Date currentD = new Date(current);
 		
 		DateFormat df = new SimpleDateFormat("h:mm aa");
+		
+		String time = df.format(currentD);
+		return time;
+	}
+	
+	public static String getTime() {
+		long current = System.currentTimeMillis();
+		Date currentD = new Date(current);
+		
+		DateFormat df = new SimpleDateFormat("h:mm");
 		
 		String time = df.format(currentD);
 		return time;

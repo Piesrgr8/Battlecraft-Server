@@ -12,10 +12,15 @@ import org.battlecraft.piesrgr8.listeners.EventRegistery;
 import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.utils.Cooldown;
 import org.battlecraft.piesrgr8.utils.PlayerCountMessage;
+import org.battlecraft.piesrgr8.world.WorldFallingBlocks;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
@@ -41,13 +46,14 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		//SmartConsole.theNextLogger();
 		Commands.registerCommands(this);
 		RanksEnum.startRanks(this);
+		WorldFallingBlocks.loadYAML();
 	}
 
 	@Override
 	public void onDisable() {
 		//Disable the other classes, plus save everything.
 		
-		Party.stopEveryParty();
+		Party.stopEveryParty(this);
 		PlayerCountMessage.playerCountMessage(this);
 		ConfigMg.saveEverything(this);
 		getLogger().info("The Battlecraft Server Plugin is asleep!");
@@ -56,5 +62,12 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 
 	public static JavaPlugin getInstance() {
 		return instance;
-	}	
+	}
+	
+	public static WorldEditPlugin getWE() {
+		Plugin p = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+		if (p instanceof WorldEditPlugin) 
+			return (WorldEditPlugin) p;
+		else return null;
+	}
 }

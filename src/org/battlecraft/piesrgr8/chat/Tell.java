@@ -1,5 +1,6 @@
 package org.battlecraft.piesrgr8.chat;
 
+import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,12 +10,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Tell implements CommandExecutor {
+	
+	BattlecraftServer plugin;
+	
+	public Tell(BattlecraftServer p) {
+		this.plugin = p;
+	}
 
 	String bg = Prefix.prefixMain;
-
-	@SuppressWarnings("deprecation")
 	
 	//Registering a command to be usable.
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("tell")) {
 			if (args.length == 0) {
@@ -37,7 +43,7 @@ public class Tell implements CommandExecutor {
 			}
 
 			//This will now send the message using the string build method.
-			if (args.length > 2) {
+			if (args.length > 1) {
 				StringBuilder sb = new StringBuilder();
 				String msg;
 				for(int i = 1; i < args.length; i++)

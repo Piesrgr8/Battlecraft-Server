@@ -21,15 +21,18 @@ public class ScoreboardMg implements Listener {
 	public ScoreboardMg(BattlecraftServer p) {
 		ScoreboardMg.plugin = p;
 	}
+	
+    static int id;
+    static int id2;
 
 	public static void createBoard(final Player p) {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
 				board1(p);
 			}
 		}, 90, 240);
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		id2 = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
 				board2(p);
 			}
@@ -39,7 +42,8 @@ public class ScoreboardMg implements Listener {
 	public static void removeBoard(Player p) {
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		p.setScoreboard(mg.getNewScoreboard());
-		Bukkit.getServer().getScheduler().cancelTasks(plugin);
+		Bukkit.getServer().getScheduler().cancelTask(id);
+		Bukkit.getServer().getScheduler().cancelTask(id2);
 	}
 
 	public static void board1(Player p) {

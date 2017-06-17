@@ -1,8 +1,9 @@
-package org.battlecraft.piesrgr8.shop;
+package org.battlecraft.piesrgr8.shop.material;
 
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -39,10 +40,10 @@ public class ShopMaterial implements Listener {
 		ItemStack sw = new ItemStack(Material.COAL_BLOCK);
 		ItemMeta sw1 = sw.getItemMeta();
 
-		ItemStack hg = new ItemStack(Material.WOOL, 1, DyeColor.LIME.getData());
+		ItemStack hg = new ItemStack(Material.WOOL, 1, DyeColor.LIME.getDyeData());
 		ItemMeta hg1 = hg.getItemMeta();
 
-		ItemStack fc = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.LIME.getData());
+		ItemStack fc = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.LIME.getDyeData());
 		ItemMeta fc1 = fc.getItemMeta();
 
 		ItemStack gm = new ItemStack(Material.GLASS);
@@ -60,7 +61,7 @@ public class ShopMaterial implements Listener {
 		ItemStack un = new ItemStack(Material.SAND);
 		ItemMeta un1 = un.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getData());
+		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -220,11 +221,11 @@ public class ShopMaterial implements Listener {
 			break;
 
 		case COAL_BLOCK:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			ShopMaterialResource.openGUI(p);
 			break;
 
 		case WOOL:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			ShopMaterialColorwool.openGUI(p);
 			break;
 
 		case STAINED_CLAY:

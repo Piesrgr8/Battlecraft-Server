@@ -30,7 +30,7 @@ public class Kits implements CommandExecutor {
 			}
 
 			final Player p = (Player) sender;
-			if (!RanksEnum.getRank((Player) sender).equals(Ranks.HELPER)) {
+			if (!RanksEnum.isAtLeast(p, Ranks.DEFAULT)) {
 				p.sendMessage(Prefix.prefixKit + ChatColor.RED + "You do not have permission to get kits!");
 				return true;
 			}
@@ -52,7 +52,7 @@ public class Kits implements CommandExecutor {
 			//So, lets see if they are eligable.
 			if (args.length <= 1) {
 				if (args[0].equalsIgnoreCase("starter")) {
-					if (!p.hasPermission("bc.kit.starter")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.DEFAULT)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -87,7 +87,7 @@ public class Kits implements CommandExecutor {
 				//THE REST IS THE SAAAAME!
 
 				if (args[0].equalsIgnoreCase("vip")) {
-					if (!p.hasPermission("bc.kit.vip")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.VIP)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -116,7 +116,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("vip+")) {
-					if (!p.hasPermission("bc.kit.vip1")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.VIPPLUS)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -145,7 +145,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("+vip+")) {
-					if (!p.hasPermission("bc.kit.vip2")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.PLUSVIPPLUS)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -174,7 +174,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("master")) {
-					if (!p.hasPermission("bc.kit.master")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.MASTER)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -203,7 +203,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("premium")) {
-					if (!p.hasPermission("bc.kit.premium")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.PREMIUM)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -232,7 +232,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("staff")) {
-					if (!p.hasPermission("bc.kit.staff")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.HELPER)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -290,7 +290,7 @@ public class Kits implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("op")) {
-					if (!p.hasPermission("bc.kit.op")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 						p.sendMessage(Prefix.prefixKit + ChatColor.RED
 								+ "You dont have permission to use this kit!");
 						return true;
@@ -321,6 +321,12 @@ public class Kits implements CommandExecutor {
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("reset")) {
+					if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
+						p.sendMessage(Prefix.prefixKit + ChatColor.RED
+								+ "You dont have permission to reset your cooldown!");
+						return true;
+					}
+					
 					Cooldown.cooldownTime.put(p, Cooldown.cooldownTime.get(p) - 1000);
 					p.sendMessage(Prefix.prefixKit + ChatColor.GREEN + "Cooldown time has been reset!");
 					return true;

@@ -45,54 +45,38 @@ public class RanksEnum implements Listener, CommandExecutor {
 		VIPPLUS, // ab
 		PLUSVIPPLUS, // ab
 		PREMIUM, // d
-		MASTER // e
+		MASTER, // e
+
+		DEFAULT
 	}
 
 	public RanksEnum(BattlecraftServer battlecraftServer) {
 
 	}
 
-	/*public static String getPrefix(Enum<Ranks> e) {
+	/*
+	 * public static String getPrefix(Enum<Ranks> e) {
+	 * 
+	 * if (e != null) { if (e.equals(Ranks.OWNER)) return "&4&lOWNER&r"; else if
+	 * (e.equals(Ranks.COWNER)) return "&4&lCO-OWNER"; else if
+	 * (e.equals(Ranks.DEV)) return "&4&lDEV&r"; else if
+	 * (e.equals(Ranks.LEADER)) return "&6&lLEADER&r"; else if
+	 * (e.equals(Ranks.ADMIN)) return "&c&lADMIN&r"; else if
+	 * (e.equals(Ranks.DEV)) return "&c&lDEV&r"; else if (e.equals(Ranks.MOD))
+	 * return "&6&lMOD&r"; else if (e.equals(Ranks.SRMOD)) return
+	 * "&6&lSR.MOD&r"; else if (e.equals(Ranks.HELPER)) return "&3&lHELPER&r";
+	 * 
+	 * else if (e.equals(Ranks.BUILDER)) return "&9&lBUILDER&r"; else if
+	 * (e.equals(Ranks.ARCHITECT)) return "&9&lARCHITECT&r"; else if
+	 * (e.equals(Ranks.VIP)) return "&a&lVIP&r"; else if
+	 * (e.equals(Ranks.VIPPLUS)) return "&a&lVIP&b&l+&r"; else if
+	 * (e.equals(Ranks.PLUSVIPPLUS)) return "&b&l+&a&lVIP&b&l+&r"; else if
+	 * (e.equals(Ranks.PREMIUM)) return "&6&lPREMIUM&r"; else if
+	 * (e.equals(Ranks.MASTER)) return "&3&lMASTER&r"; }
+	 * 
+	 * return ""; }
+	 */
 
-		if (e != null) {
-			if (e.equals(Ranks.OWNER))
-				return "&4&lOWNER&r";
-			else if (e.equals(Ranks.COWNER))
-				return "&4&lCO-OWNER";
-			else if (e.equals(Ranks.DEV))
-				return "&4&lDEV&r";
-			else if (e.equals(Ranks.LEADER))
-				return "&6&lLEADER&r";
-			else if (e.equals(Ranks.ADMIN))
-				return "&c&lADMIN&r";
-			else if (e.equals(Ranks.DEV))
-				return "&c&lDEV&r";
-			else if (e.equals(Ranks.MOD))
-				return "&6&lMOD&r";
-			else if (e.equals(Ranks.SRMOD))
-				return "&6&lSR.MOD&r";
-			else if (e.equals(Ranks.HELPER))
-				return "&3&lHELPER&r";
-
-			else if (e.equals(Ranks.BUILDER))
-				return "&9&lBUILDER&r";
-			else if (e.equals(Ranks.ARCHITECT))
-				return "&9&lARCHITECT&r";
-			else if (e.equals(Ranks.VIP))
-				return "&a&lVIP&r";
-			else if (e.equals(Ranks.VIPPLUS))
-				return "&a&lVIP&b&l+&r";
-			else if (e.equals(Ranks.PLUSVIPPLUS))
-				return "&b&l+&a&lVIP&b&l+&r";
-			else if (e.equals(Ranks.PREMIUM))
-				return "&6&lPREMIUM&r";
-			else if (e.equals(Ranks.MASTER))
-				return "&3&lMASTER&r";
-		}
-
-		return "";
-	} */
-	
 	public static String getPrefix(Enum<Ranks> e) {
 
 		if (e != null) {
@@ -167,7 +151,7 @@ public class RanksEnum implements Listener, CommandExecutor {
 		} else
 			return null;
 	}
-	
+
 	public static Enum<Ranks> getOfflineRank(OfflinePlayer p) {
 		if (arrayRanks.containsKey(p)) {
 			return arrayRanks.get(p);
@@ -241,6 +225,19 @@ public class RanksEnum implements Listener, CommandExecutor {
 	public static boolean isAtLeast(Player p, Enum<Ranks> e) {
 
 		if (RanksEnum.getRank(p) != null) {
+
+			if (e.equals(Ranks.DEFAULT)) {
+				if (RanksEnum.getRank(p).equals(Ranks.VIP) || RanksEnum.getRank(p).equals(Ranks.VIPPLUS)
+						|| RanksEnum.getRank(p).equals(Ranks.PLUSVIPPLUS) || RanksEnum.getRank(p).equals(Ranks.MASTER)
+						|| RanksEnum.getRank(p).equals(Ranks.PREMIUM) || RanksEnum.getRank(p).equals(Ranks.HELPER)
+						|| RanksEnum.getRank(p).equals(Ranks.MOD) || RanksEnum.getRank(p).equals(Ranks.ADMIN)
+						|| RanksEnum.getRank(p).equals(Ranks.DEV) || RanksEnum.getRank(p).equals(Ranks.LEADER)
+						|| RanksEnum.getRank(p).equals(Ranks.COWNER) || RanksEnum.getRank(p).equals(Ranks.OWNER)) {
+					return true;
+				} else
+					return false;
+			}
+
 			if (e.equals(Ranks.VIP)) {
 				if (RanksEnum.getRank(p).equals(Ranks.VIPPLUS) || RanksEnum.getRank(p).equals(Ranks.PLUSVIPPLUS)
 						|| RanksEnum.getRank(p).equals(Ranks.MASTER) || RanksEnum.getRank(p).equals(Ranks.PREMIUM)

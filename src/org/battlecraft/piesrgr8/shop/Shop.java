@@ -1,6 +1,9 @@
 package org.battlecraft.piesrgr8.shop;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterial;
+import org.battlecraft.piesrgr8.shop.tool.ShopTool;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,6 +16,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import me.Chase.main.API;
 
 public class Shop implements Listener {
 
@@ -49,7 +54,7 @@ public class Shop implements Listener {
 		ItemStack sb = new ItemStack(Material.SLIME_BALL);
 		ItemMeta sb1 = sb.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getData());
+		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta custom1 = custom.getItemMeta();
 
 		// Setting the meta, or names, of all of the blocks that will be added
@@ -203,5 +208,19 @@ public class Shop implements Listener {
 			e.setCancelled(true);
 			break;
 		}
+	}
+	
+	public static void addItem(Player p, ItemStack it) {
+		p.getInventory().addItem(it);
+	}
+	
+	public static String successfulMessage(Player p, String itemName, int i) {
+		String m = Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + itemName
+				+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$" + i + "!";
+		return m;
+	}
+	
+	public static void sub(Player p, double b) {
+		API.minBal(p, (double) b);
 	}
 }

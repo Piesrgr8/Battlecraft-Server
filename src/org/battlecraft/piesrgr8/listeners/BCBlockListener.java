@@ -4,11 +4,14 @@ import java.util.Random;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class BCBlockListener implements Listener {
 
@@ -40,5 +43,15 @@ public class BCBlockListener implements Listener {
 			return;
 		event.getBlock().setType(Material.AIR);
 		event.getBlock().getWorld().spawn(event.getBlock().getLocation().add(0.5, 0, 0.5), TNTPrimed.class);
+	}
+	
+	@EventHandler
+	public void onBlockBreakEvent(BlockBreakEvent e) {
+		Player p = e.getPlayer();
+		Block b = e.getBlock();
+		
+		if (p.getLocation().getWorld().getName().equals("Prison") || p.getLocation().getWorld().getName().equals("Factions")) {
+			p.getInventory().addItem(new ItemStack(b.getType(), 1));
+		}
 	}
 }

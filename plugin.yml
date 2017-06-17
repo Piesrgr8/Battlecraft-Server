@@ -1,12 +1,16 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.8.4.16, 1.9
+version: 1.9.3.01, 1.11.2
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
 commands:
   admin:
     description: Admin command.
+  application:
+    description: Apps for other players.
+  afk:
+    description: Go afk when you need to.
   armor:
     description: Grants the player armor for protection.
   answer:
@@ -17,6 +21,8 @@ commands:
     aliases: [a]
   bc:
     description: The main command for the plugin.
+  chat:
+    description: The chat command, that controls chat.
   clan:
     description: View, edit, and create clans!
   clear:
@@ -122,6 +128,8 @@ commands:
     aliases: [msg]
   test:
     description: Piesrgr8 tests methods with this command!
+  time:
+    description: Lemme check ma watch.
   tp:
     description: Teleportation at its finest!
   tpc:
@@ -136,6 +144,8 @@ commands:
     description: Vanish from players.
   website:
     description: Get the URL for the website!
+  weather:
+    description: Change the weather in the world.
   warp:
     description: Teleport to a location!
   whois:
@@ -174,18 +184,6 @@ permissions:
             bc.test: true
             bc.unmute: true
             bc.vanish: true
-    bc.kit.*:
-        description: Gives all kits to a player.
-        children:
-            bc.kit: true
-            bc.kit.starter: true
-            bc.kit.vip: true
-            bc.kit.vip1: true
-            bc.kit.vip2: true
-            bc.kit.master: true
-            bc.kit.premium: true
-            bc.kit.staff: true
-            bc.kit.yt: true
     bc.admin:
         description: Admins are equiped with this.
     bc.armor:
@@ -216,24 +214,6 @@ permissions:
         description: Bypasses the help message.
     bc.invsee:
         description: Open a players inventory.
-    bc.kit:
-        description: The main command for kits.
-    bc.kit.starter:
-        description: Gives starter kit!
-    bc.kit.vip:
-        description: Gives vip kit!
-    bc.kit.vip1:
-        description: Gives vip+ kit!
-    bc.kit.vip2:
-        description: Gives +vip+ kit!
-    bc.kit.master:
-        description: Gives master kit!
-    bc.kit.premium:
-        description: Gives premium kit!
-    bc.kit.staff:
-        description: Gives staff kit!
-    bc.kit.yt:
-        description: Gives yt kit!
     bc.main:
         description: The main plugin permission.
     bc.mutebypass:

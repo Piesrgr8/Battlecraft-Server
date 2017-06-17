@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.chat.Chat;
 import org.battlecraft.piesrgr8.chat.Send;
 import org.battlecraft.piesrgr8.chat.Tell;
 import org.battlecraft.piesrgr8.clans.ClanCmd;
@@ -62,10 +63,13 @@ public class Commands implements CommandExecutor {
 	//Any command that is in this plugin is registered here.
 	public static void registerCommands(BattlecraftServer plugin) {
 		plugin.getCommand("admin").setExecutor(new Admin(plugin));
+		plugin.getCommand("application").setExecutor(new ApplicationForm(plugin));
+		plugin.getCommand("afk").setExecutor(new AFK(plugin));
 		plugin.getCommand("armor").setExecutor(new Armors());
 		plugin.getCommand("answer").setExecutor(new Ask());
 		plugin.getCommand("ask").setExecutor(new Ask());
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
+		plugin.getCommand("chat").setExecutor(new Chat(plugin));
 		plugin.getCommand("clan").setExecutor(new ClanCmd(plugin));
 		plugin.getCommand("clear").setExecutor(new Clear());
 		plugin.getCommand("death").setExecutor(new Health());
@@ -110,14 +114,16 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("staff").setExecutor(new StaffCommand());
 		plugin.getCommand("stats").setExecutor(new StatsManager(plugin));
 		plugin.getCommand("sword").setExecutor(new Weapons(plugin));
-		plugin.getCommand("tell").setExecutor(new Tell());
+		plugin.getCommand("tell").setExecutor(new Tell(plugin));
 		plugin.getCommand("test").setExecutor(new Test(plugin));
+		plugin.getCommand("time").setExecutor(new WorldHandler(plugin));
 		plugin.getCommand("tp").setExecutor(new Teleportation());
 		plugin.getCommand("tpc").setExecutor(new Teleportation());
 		plugin.getCommand("tphere").setExecutor(new Teleportation());
 		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
 		plugin.getCommand("vs").setExecutor(new Invisibility(plugin));
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));
+		plugin.getCommand("weather").setExecutor(new WorldHandler(plugin));
 		plugin.getCommand("warp").setExecutor(new Warp());
 		plugin.getCommand("whois").setExecutor(new Whois());
 		plugin.getCommand("world").setExecutor(new WorldHandler(plugin));

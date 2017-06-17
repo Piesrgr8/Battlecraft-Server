@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Egg;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.TNTPrimed;
@@ -19,8 +20,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.projectiles.ProjectileSource;
 
 import net.minecraft.server.v1_9_R2.EnumParticle;
 import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
@@ -71,14 +75,30 @@ public class Guns implements Listener {
 			e2.getMessage();
 		}
 	}
+	
+    @EventHandler
+    public void onProjectileShoot(ProjectileLaunchEvent event) {
+        Projectile projectile = event.getEntity();
+        ProjectileSource shooter = projectile.getShooter();
+        if (shooter instanceof Player && (projectile instanceof Arrow || projectile instanceof Egg)) {
+                projectile.setMetadata("Explosive", new FixedMetadataValue(BattlecraftServer.getPlugin(BattlecraftServer.class), true));
+        }
+    }
 
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent e) {
+		Projectile entity = e.getEntity();
+        
 		if (e.getEntity() instanceof Arrow) {
 			arrows.remove(e.getEntity());
-
 		}
-	}
+		
+        if (entity.hasMetadata("Explosive")) {
+            Location loc = entity.getLocation();
+            entity.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(),10F, false, false);
+            entity.remove();
+    }
+}
 
 	public void addParticleEffect(final Projectile entity) {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {

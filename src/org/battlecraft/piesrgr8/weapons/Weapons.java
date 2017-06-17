@@ -3,9 +3,6 @@ package org.battlecraft.piesrgr8.weapons;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
-import net.minecraft.server.v1_9_R2.SoundCategory;
-
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
@@ -23,6 +20,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
+import net.minecraft.server.v1_9_R2.SoundCategory;
 
 public class Weapons implements CommandExecutor {
 

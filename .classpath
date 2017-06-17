@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/bukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/ProtocolLib.jar"/>
 	<classpathentry kind="lib" path="E:/Users/Piesrgr8/Desktop/Minecraft/Servers/Test Server/Test Server/plugins/Bconomy.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Piesrgr8/Downloads/spigot-api-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
+	<classpathentry kind="lib" path="E:/Users/Piesrgr8/Desktop/Minecraft/Servers/Server 12-23-16/plugins/worldedit-bukkit-6.1.2.jar"/>
+	<classpathentry kind="lib" path="E:/Piesrgr8/Downloads/ProtocolLib.jar"/>
+	<classpathentry kind="lib" path="E:/Piesrgr8/Downloads/bukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
+	<classpathentry kind="lib" path="E:/Piesrgr8/Downloads/craftbukkit-1.9.4-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

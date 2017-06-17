@@ -73,33 +73,33 @@ public class MainPvP implements Listener {
 		// Setting the meta, or names, of all of the blocks that will be added
 		// to the inventory.
 
-		g1.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Wood " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_BLUE + ChatColor.BOLD + "Stone! 1");
+		g1.setDisplayName("1. " + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Wood " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_BLUE + ChatColor.BOLD + "Stone!");
 		g1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		g.setItemMeta(g1);
 
-		a1.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Gold " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.WHITE + ChatColor.BOLD + "Iron! 2");
+		a1.setDisplayName("2. " + ChatColor.GOLD + "" + ChatColor.BOLD + "Gold " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.WHITE + ChatColor.BOLD + "Iron!");
 		a1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		a.setItemMeta(a1);
 
-		b1.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Emerald " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.AQUA + ChatColor.BOLD + "Diamond! 3");
+		b1.setDisplayName("3." + ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Emerald " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.AQUA + ChatColor.BOLD + "Diamond!");
 		b1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		b.setItemMeta(b1);
 
-		c1.setDisplayName(ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red! 4");
+		c1.setDisplayName("4. " + ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red!");
 		c1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		c.setItemMeta(c1);
 
-		d1.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Green " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red! 5");
+		d1.setDisplayName("5. " + ChatColor.GREEN + "" + ChatColor.BOLD + "Green " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.DARK_RED + ChatColor.BOLD + "Red!");
 		d1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		d.setItemMeta(d1);
 
-		e1.setDisplayName(ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
-				+ ChatColor.BOLD + "VS. " + ChatColor.GOLD + ChatColor.BOLD + "Gold! 6");
+		e1.setDisplayName("6. " + ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.ITALIC
+				+ ChatColor.BOLD + "VS. " + ChatColor.GOLD + ChatColor.BOLD + "Gold!");
 		e1.setLore(Arrays.asList(ChatColor.GRAY + "" + ChatColor.ITALIC + "Click to join!"));
 		e.setItemMeta(e1);
 
@@ -127,6 +127,7 @@ public class MainPvP implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
+		String test = "Test";
 		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Main PvP"))
 			return;
 
@@ -135,13 +136,12 @@ public class MainPvP implements Listener {
 
 		if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)
 				|| !e.getCurrentItem().hasItemMeta()) {
-			p.closeInventory();
 			return;
 		}
 
 		// GAME 1
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("1"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Stone!")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -153,8 +153,8 @@ public class MainPvP implements Listener {
 		}
 
 		// GAME 2
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("2"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Iron!")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -166,8 +166,8 @@ public class MainPvP implements Listener {
 		}
 
 		// GAME 3
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("3"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Diamond!")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -179,8 +179,8 @@ public class MainPvP implements Listener {
 		}
 
 		// GAME 4
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("4"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Blue")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -191,8 +191,8 @@ public class MainPvP implements Listener {
 
 		}
 
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("5"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Red!")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -203,8 +203,8 @@ public class MainPvP implements Listener {
 
 		}
 
-		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains(ChatColor.stripColor("6"))) {
-			teleportInWorld(p, Bukkit.getWorld("Waiting"), 0, 4, 0);
+		if (e.getCurrentItem().getItemMeta().getDisplayName().toString().contains("Gold!")) {
+			teleportInWorld(p, Bukkit.getWorld(test), 0, 4, 0);
 			p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Joined a game in " + ChatColor.GREEN + ""
 					+ ChatColor.BOLD + "Main PvP.");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {

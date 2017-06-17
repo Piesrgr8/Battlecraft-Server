@@ -17,6 +17,7 @@ public class Health implements CommandExecutor {
 	String prefix = Prefix.prefixHealth;
 
 	//Everything here is for healing and killing, and it also has their own methods for targeting players too.
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("heal")) {
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
@@ -49,7 +50,7 @@ public class Health implements CommandExecutor {
 							target.setFoodLevel(20);
 							target.playSound(target.getLocation(), Sound.BLOCK_LEVER_CLICK, 10, 1);
 							target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " healed you!");
-							p.sendMessage(prefix + ChatColor.GREEN + args[0]);
+							p.sendMessage(prefix + ChatColor.GREEN + args[0] + " has been healed!");
 								Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has healed "
 									+ ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
 							return true;
@@ -60,10 +61,9 @@ public class Health implements CommandExecutor {
 			}
 		}
 
-		if (cmd.getName().equalsIgnoreCase("death") || cmd.getName().equalsIgnoreCase("suicide")
-				|| cmd.getName().equalsIgnoreCase("kill")) {
+		if (cmd.getName().equalsIgnoreCase("death")) {
 			if (!sender.isOp()) {
-				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to heal yourself!");
+				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to kill yourself!");
 				return true;
 			}
 			Player p = (Player) sender;
@@ -77,7 +77,7 @@ public class Health implements CommandExecutor {
 
 			if (args.length == 1) {
 
-				for (Player target : Bukkit.getOnlinePlayers()) {
+				Player target = Bukkit.getServer().getPlayer(args[0]);
 					if (target == null) {
 						p.sendMessage(prefix + ChatColor.RED + "That player isn't on the server!");
 						return true;
@@ -89,8 +89,6 @@ public class Health implements CommandExecutor {
 					p.sendMessage(prefix + ChatColor.RED + args[0] + " has been killed!");
 					return true;
 				}
-
-			}
 		}
 		return true;
 	}

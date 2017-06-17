@@ -5,20 +5,28 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.Fireworks;
 import org.battlecraft.piesrgr8.chat.AntiSwear;
 import org.battlecraft.piesrgr8.chat.Chat;
+import org.battlecraft.piesrgr8.clans.ClanClaim;
 import org.battlecraft.piesrgr8.clans.ClansGUI;
 import org.battlecraft.piesrgr8.config.PlayersYML;
+import org.battlecraft.piesrgr8.essentials.AFK;
+import org.battlecraft.piesrgr8.essentials.ApplicationForm;
 import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.fake.SilentJoin;
 import org.battlecraft.piesrgr8.fake.Spammer;
+import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.hub.DoubleJump;
 import org.battlecraft.piesrgr8.hub.Hub;
 import org.battlecraft.piesrgr8.hub.Launchers;
 import org.battlecraft.piesrgr8.inventory.RestoreInventory;
+import org.battlecraft.piesrgr8.kitpvp.Events;
+import org.battlecraft.piesrgr8.kitpvp.WorldManager;
+import org.battlecraft.piesrgr8.kitpvp.challenges.SinglePlayerChal;
 import org.battlecraft.piesrgr8.menu.MainPvP;
 import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.menu.NavGame;
 import org.battlecraft.piesrgr8.menu.Sg;
+import org.battlecraft.piesrgr8.party.PartyEvents;
 import org.battlecraft.piesrgr8.party.PartyGUI;
 import org.battlecraft.piesrgr8.players.DarthLaser123;
 import org.battlecraft.piesrgr8.players.Friends;
@@ -28,10 +36,12 @@ import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
 import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Shop;
-import org.battlecraft.piesrgr8.shop.ShopMaterial;
-import org.battlecraft.piesrgr8.shop.ShopMaterialStone;
-import org.battlecraft.piesrgr8.shop.ShopMaterialWood;
-import org.battlecraft.piesrgr8.shop.ShopTool;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterial;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterialColorwool;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterialResource;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterialStone;
+import org.battlecraft.piesrgr8.shop.material.ShopMaterialWood;
+import org.battlecraft.piesrgr8.shop.tool.ShopTool;
 import org.battlecraft.piesrgr8.signs.Buy;
 import org.battlecraft.piesrgr8.stats.BlockBreaks;
 import org.battlecraft.piesrgr8.stats.DamageTaken;
@@ -50,6 +60,7 @@ import org.battlecraft.piesrgr8.utils.Tablist;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.battlecraft.piesrgr8.weapons.Guns;
+import org.battlecraft.piesrgr8.world.WorldFallingBlocks;
 import org.battlecraft.piesrgr8.world.WorldHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -72,6 +83,7 @@ public class EventRegistery {
 		pm.registerEvents(new BCBlockListener(), plugin);
 		pm.registerEvents(new AntiSwear(plugin), plugin);
 		pm.registerEvents(new WorldHandler(plugin), plugin);
+		pm.registerEvents(new WorldFallingBlocks(plugin), plugin);
 		pm.registerEvents(new Guns(plugin), plugin);
 		pm.registerEvents(new Poll(plugin), plugin);
 		pm.registerEvents(new PacketUtil(plugin), plugin);
@@ -99,6 +111,9 @@ public class EventRegistery {
 		pm.registerEvents(new Punish(plugin), plugin);
 		pm.registerEvents(new SmartConsole(plugin), plugin);
 		pm.registerEvents(new Invisibility(plugin), plugin);
+		pm.registerEvents(new EntityListener(plugin), plugin);
+		pm.registerEvents(new AFK(plugin), plugin);
+		pm.registerEvents(new ApplicationForm(plugin), plugin);
 		
 		//FOR PLAYERS
 		pm.registerEvents(new Piesrgr8(plugin), plugin);
@@ -119,6 +134,8 @@ public class EventRegistery {
 		pm.registerEvents(new ShopMaterial(plugin), plugin);
 		pm.registerEvents(new ShopMaterialWood(plugin), plugin);
 		pm.registerEvents(new ShopMaterialStone(plugin), plugin);
+		pm.registerEvents(new ShopMaterialResource(plugin), plugin);
+		pm.registerEvents(new ShopMaterialColorwool(plugin), plugin);
 		pm.registerEvents(new ShopTool(plugin), plugin);
 		
 		//FOR SIGNS
@@ -126,12 +143,23 @@ public class EventRegistery {
 		
 		//FOR CLANS
 		pm.registerEvents(new ClansGUI(plugin), plugin);
+		pm.registerEvents(new ClanClaim(plugin), plugin);
 		
 		//FOR PARTIES
 		pm.registerEvents(new PartyGUI(plugin), plugin);
+		pm.registerEvents(new PartyEvents(plugin), plugin);
 		
 		//FOR MENUS
 		pm.registerEvents(new MainPvP(plugin), plugin);
 		pm.registerEvents(new Sg(plugin), plugin);
+		
+		//FOR COSMETICS
+		pm.registerEvents(new GadgetGUI(plugin), plugin);
+		
+		//FOR KITPVP
+		pm.registerEvents(new WorldManager(plugin), plugin);
+		pm.registerEvents(new org.battlecraft.piesrgr8.kitpvp.challenges.Challenges(plugin), plugin);
+		pm.registerEvents(new Events(plugin), plugin);
+		pm.registerEvents(new SinglePlayerChal(plugin), plugin);
 	}
 }
