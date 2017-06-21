@@ -2,7 +2,6 @@ package org.battlecraft.piesrgr8.listeners;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.Fireworks;
 import org.battlecraft.piesrgr8.chat.AntiSwear;
 import org.battlecraft.piesrgr8.chat.Chat;
 import org.battlecraft.piesrgr8.clans.ClanClaim;
@@ -14,6 +13,8 @@ import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.fake.SilentJoin;
 import org.battlecraft.piesrgr8.fake.Spammer;
+import org.battlecraft.piesrgr8.firework.Fireworks;
+import org.battlecraft.piesrgr8.firework.InstantFw;
 import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.hub.DoubleJump;
 import org.battlecraft.piesrgr8.hub.Hub;
@@ -161,5 +162,6 @@ public class EventRegistery {
 		pm.registerEvents(new org.battlecraft.piesrgr8.kitpvp.challenges.Challenges(plugin), plugin);
 		pm.registerEvents(new Events(plugin), plugin);
 		pm.registerEvents(new SinglePlayerChal(plugin), plugin);
+		pm.registerEvents(new InstantFw(plugin), plugin);
 	}
 }

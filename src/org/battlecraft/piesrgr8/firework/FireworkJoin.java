@@ -1,4 +1,4 @@
-package org.battlecraft.piesrgr8.listeners;
+package org.battlecraft.piesrgr8.firework;
 
 public class FireworkJoin {
 

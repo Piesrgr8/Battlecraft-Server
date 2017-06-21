@@ -2,6 +2,8 @@ package org.battlecraft.piesrgr8.weapons;
 
 import java.util.ArrayList;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,43 +64,47 @@ public class Guns implements Listener {
 	@EventHandler
 	public void onShootBow(EntityShootBowEvent e) {
 		try {
-		if (!e.getBow().hasItemMeta()) {
-			return;
-		}
-		
-		if (!e.getBow().getItemMeta().getDisplayName().contains(ChatColor.stripColor("RARE"))) {
-			return;
-		}
-		arrows.add((Projectile) e.getProjectile());
-		addParticleEffect((Projectile) e.getProjectile());
-		}catch (Exception e2) {
+			if (!e.getBow().hasItemMeta()) {
+				return;
+			}
+
+			if (!e.getBow().getItemMeta().getDisplayName().contains(ChatColor.stripColor("RARE"))) {
+				return;
+			}
+			arrows.add((Projectile) e.getProjectile());
+			addParticleEffect((Projectile) e.getProjectile());
+		} catch (Exception e2) {
 			e2.getMessage();
 		}
 	}
-	
-    @EventHandler
-    public void onProjectileShoot(ProjectileLaunchEvent event) {
-        Projectile projectile = event.getEntity();
-        ProjectileSource shooter = projectile.getShooter();
-        if (shooter instanceof Player && (projectile instanceof Arrow || projectile instanceof Egg)) {
-                projectile.setMetadata("Explosive", new FixedMetadataValue(BattlecraftServer.getPlugin(BattlecraftServer.class), true));
-        }
-    }
+
+	@EventHandler
+	public void onProjectileShoot(ProjectileLaunchEvent event) {
+		Projectile projectile = event.getEntity();
+		ProjectileSource shooter = projectile.getShooter();
+		if (shooter instanceof Player) {
+			Player p = (Player) shooter;
+			if (RanksEnum.getRank(p).equals(Ranks.OWNER) && (projectile instanceof Arrow || projectile instanceof Egg)) {
+				projectile.setMetadata("Explosive",
+						new FixedMetadataValue(BattlecraftServer.getPlugin(BattlecraftServer.class), true));
+			}
+		}
+	}
 
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent e) {
 		Projectile entity = e.getEntity();
-        
+
 		if (e.getEntity() instanceof Arrow) {
 			arrows.remove(e.getEntity());
 		}
-		
-        if (entity.hasMetadata("Explosive")) {
-            Location loc = entity.getLocation();
-            entity.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(),10F, false, false);
-            entity.remove();
-    }
-}
+
+		if (entity.hasMetadata("Explosive")) {
+			Location loc = entity.getLocation();
+			entity.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), 10F, false, false);
+			entity.remove();
+		}
+	}
 
 	public void addParticleEffect(final Projectile entity) {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {

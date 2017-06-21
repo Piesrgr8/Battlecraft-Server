@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.firework.InstantFw;
 import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.inventory.InvMethods;
 import org.battlecraft.piesrgr8.kitpvp.challenges.Challenges;
@@ -133,6 +134,7 @@ public class Test implements Listener, CommandExecutor {
 				// p.getInventory().getItemInMainHand());
 				ClickChat.agreement(p, "Yes", "Agree to nothing!");
 				ClickChat.disagreement(p, "No", "Disagree to nothing!");
+				InstantFw.instant(p);
 				sender.sendMessage("" + Boolean.toString(Challenges.started));
 				sender.sendMessage(TimerDaily.getCurrentTime());
 				sender.sendMessage("" + currentD.getTime());

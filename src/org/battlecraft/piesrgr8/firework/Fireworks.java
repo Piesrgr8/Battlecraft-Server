@@ -1,10 +1,11 @@
-package org.battlecraft.piesrgr8;
+package org.battlecraft.piesrgr8.firework;
 
 import java.util.HashSet;
 import java.util.Random;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
+import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
