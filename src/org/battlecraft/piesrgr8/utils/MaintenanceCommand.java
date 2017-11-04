@@ -16,7 +16,6 @@ public class MaintenanceCommand implements CommandExecutor {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("maintenance")) {
 			if (!sender.isOp()) {
@@ -44,7 +43,7 @@ public class MaintenanceCommand implements CommandExecutor {
 
 				if (args.length == 2) {
 
-					Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+					Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 						public void run() {
 							if (input != -1 && input != 0) {
 								Bukkit.broadcastMessage(

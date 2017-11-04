@@ -76,7 +76,7 @@ public class ApplicationForm implements Listener, CommandExecutor{
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("application")) {
 			if (!RanksEnum.isAtLeast(p, Ranks.MOD)) {
-				ErrorUtil.noRank(p, Ranks.MOD);
+				ErrorUtil.noRank(p, RanksEnum.getPrefix(Ranks.MOD));
 				return true;
 			}
 			

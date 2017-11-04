@@ -39,7 +39,6 @@ public class Admin implements CommandExecutor{
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
         
-		for (@SuppressWarnings("unused") Player on : Bukkit.getServer().getOnlinePlayers()) {
 		if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 			while (yaml.getInt(p.getName() + ".logins") >= 0) {
 			if (yaml.getInt(p.getName() + ".logins") == 10) {
@@ -52,7 +51,6 @@ public class Admin implements CommandExecutor{
 			
 			if (yaml.getInt(p.getName() + ".logins") == 50) {
 				sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + " has logged in " + ChatColor.YELLOW + "50 times!");
-			}
 			}
 		}
 		}

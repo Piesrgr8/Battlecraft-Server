@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.9.3.01, 1.11.2
+version: 1.9.5.01, 1.12
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -19,6 +19,8 @@ commands:
   ask:
     description: Ask questions to staff members!
     aliases: [a]
+  banhammer:
+    description: Ban people with a hammer.
   bc:
     description: The main command for the plugin.
   chat:
@@ -45,12 +47,16 @@ commands:
     description: Fake a ban!
   fakek:
     description: Fake a kick!
+  find:
+    description: Find players on the server!
   fly:
     description: Use this command to fly!
   forceop:
     description: Fake an op!
   friend:
     description: Friend a player.
+  fw:
+    description: Get Fireworks!
   g0:
     description: Set gamemode to Survival.
     aliases: [gms,gs]
@@ -75,6 +81,9 @@ commands:
     description: Open up a players inventory.
   issue:
     description: Send an issue if you spot any problems.
+  jukebox:
+    description: Play a song for the world!
+    aliases: [jb]
   kit:
     description: Gives kits to players.
   kiosk:
@@ -91,6 +100,8 @@ commands:
     description: Get particles.
   party:
     description: Create parties and play with friends.
+  ping:
+    description: Ping a players connection!
   player:
     description: Add or remove a player from the list.
   poll:

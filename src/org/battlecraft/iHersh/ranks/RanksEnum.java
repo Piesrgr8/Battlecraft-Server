@@ -142,6 +142,15 @@ public class RanksEnum implements Listener, CommandExecutor {
 		} else
 			return false;
 	}
+	
+	public static boolean isNotStaff(Player p) {
+		if (arrayRanks.get(p) == Ranks.DEFAULT || arrayRanks.get(p) == Ranks.VIP || arrayRanks.get(p) == Ranks.VIPPLUS
+				|| arrayRanks.get(p) == Ranks.PLUSVIPPLUS || arrayRanks.get(p) == Ranks.MASTER
+				|| arrayRanks.get(p) == Ranks.PREMIUM) {
+			return true;
+		} else
+			return false;
+	}
 
 	// Just to get the rank of the player, will be used everywhere and many
 	// times.

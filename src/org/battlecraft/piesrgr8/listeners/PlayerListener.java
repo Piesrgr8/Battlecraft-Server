@@ -13,6 +13,9 @@ import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.stats.StatsManager;
+import org.battlecraft.piesrgr8.utils.Color;
+import org.battlecraft.piesrgr8.utils.Dynamicmotd;
+import org.battlecraft.piesrgr8.utils.MaintenanceMain;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
@@ -21,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +34,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 
 import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
 import net.minecraft.server.v1_9_R2.SoundCategory;
@@ -79,6 +82,7 @@ public class PlayerListener implements Listener {
 		final Player p = e.getPlayer();
 		String uuid = p.getUniqueId().toString();
 		final Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+
 		defaults.add(p.getName());
 
 		// Set the join message for everyone to see.
@@ -133,6 +137,17 @@ public class PlayerListener implements Listener {
 					+ ChatColor.AQUA + "First Login!" + ChatColor.YELLOW + ")");
 			PlayersYML.setFirstLogin(fromUUID);
 		}
+		
+		//Add player's ip to yml
+		String ip = p.getAddress().getAddress().toString();
+		ip = ip.replaceAll("/", "");
+		ip = ip.replaceAll("\\.", "-");
+		yaml.set(p.getName(), ip);
+		
+		//But also add to a map for later uses.
+		if (!(Dynamicmotd.motdPlayer.containsKey(ip))) {
+			Dynamicmotd.motdPlayer.put(ip, p.getName());
+		}
 
 		// If the player isnt in the hub, they will be teleported back to the
 		// hub.
@@ -165,10 +180,19 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent e) {
+		Player p = e.getPlayer();
+
+		if (MaintenanceMain.enabled == true && !p.isOp()) {
+
+			e.disallow(Result.KICK_WHITELIST,
+					Color.c("&7[&c&lBC&9&lMaintenance&7]&r\n"
+							+ "&eSorry, but the server is currently in maintenance mode!\n"
+							+ "&ePlease come back later when we are ready!"));
+		}
+
 		if (e.getResult() == Result.KICK_FULL && RanksEnum.isAtLeast(e.getPlayer(), Ranks.VIP)) {
 			e.allow();
 		}
-		Player p = e.getPlayer();
 
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);

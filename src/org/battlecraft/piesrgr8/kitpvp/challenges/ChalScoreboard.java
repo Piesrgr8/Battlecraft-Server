@@ -35,7 +35,7 @@ public class ChalScoreboard {
 	public static void setScore(Player p, Integer in) {
 		man = Bukkit.getScoreboardManager();
 		bo = man.getMainScoreboard();
-		obj = bo.getObjective("Challenge Progress");
+		obj = bo.getObjective(DisplaySlot.SIDEBAR);
 		s = obj.getScore(p);
 		
 		s.setScore(s.getScore() + in);
@@ -58,7 +58,7 @@ public class ChalScoreboard {
 	public static Score getScore(Player p) {
 		man = Bukkit.getScoreboardManager();
 		bo = man.getMainScoreboard();
-		obj = bo.getObjective("Challenge Progress");
+		obj = bo.getObjective(DisplaySlot.SIDEBAR);
 		s = obj.getScore(p);
 		return s;
 	}

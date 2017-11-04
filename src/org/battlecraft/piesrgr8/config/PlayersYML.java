@@ -32,6 +32,7 @@ public class PlayersYML implements Listener {
 
 		if (!yaml.contains(p.getName())) {
 			yaml.createSection(p.getName());
+			yaml.createSection(p.getName() + ".ip");
 			yaml.createSection(p.getName() + ".muted");
 			yaml.createSection(p.getName() + ".logins");
 			yaml.createSection(p.getName() + ".nick");
@@ -165,15 +166,15 @@ public class PlayersYML implements Listener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void setLoginTime(Player p) {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-		
+
 		if (yaml.getString(p.getName() + ".logTime").isEmpty()) {
 			yaml.set(p.getName() + ".logTime", "meh");
 		}
-		
+
 		yaml.set(p.getName() + ".logTime", TimerDaily.getTime());
 		try {
 			yaml.save(f);
@@ -239,6 +240,29 @@ public class PlayersYML implements Listener {
 		}
 	}
 
+	public static void setIp(Player p, String s) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+
+		if (!yaml.contains(p.getName() + ".ip")) {
+			yaml.createSection(p.getName() + ".ip");
+			yaml.set(p.getName() + ".ip", s);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+
+			yaml.set(p.getName() + ".ip", s);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public static boolean getFlySetting(Player p, boolean b) {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
@@ -247,6 +271,14 @@ public class PlayersYML implements Listener {
 			return true;
 		}
 		return false;
+	}
+
+	public static String getLastLogin(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+
+		String s = yaml.getString(p.getName() + ".lastLogin");
+		return s;
 	}
 
 	public static boolean adminToggleEnable(Player p) {

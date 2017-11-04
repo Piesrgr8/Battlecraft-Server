@@ -19,7 +19,8 @@ public class ClanCmd implements CommandExecutor {
 
 	BattlecraftServer plugin;
 
-	static ArrayList<Player> val = new ArrayList<Player>();
+	public static ArrayList<Player> val = new ArrayList<Player>();
+	public static ArrayList<Player> val2 = new ArrayList<Player>();
 
 	public ClanCmd(BattlecraftServer p) {
 		this.plugin = p;
@@ -52,11 +53,19 @@ public class ClanCmd implements CommandExecutor {
 			}
 
 			if (args.length == 1) {
+				if (args[0].equalsIgnoreCase("gui")) {
+					ClansGUI.clanMainGUI(p);
+					return true;
+				}
+				
 				if (args[0].equalsIgnoreCase("create")) {
 					if (Clans.isInClan(p)) {
 						p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW
 								+ "You will be renaming your clan to something else if you "
-								+ "proceed, we will note how many times you have changed your clan name.");
+								+ "proceed, we will note how many times you have changed your clan name." + " Please type in the new name "
+										+ "that you want to use. If you want to stop, type in cancel.");
+						val.add(p);
+						resetVal(p);
 						return true;
 					}
 
@@ -64,6 +73,8 @@ public class ClanCmd implements CommandExecutor {
 							+ "Now, you must type in a name for your clan! BUT, please make it at least "
 							+ ChatColor.GREEN + "10 characters" + ChatColor.YELLOW + " long and not less than "
 							+ ChatColor.GREEN + "3 characters!");
+					val.add(p);
+					resetVal(p);
 					return true;
 				}
 
@@ -97,18 +108,18 @@ public class ClanCmd implements CommandExecutor {
 					}
 
 					if (Clans.isInClan(p)) {
-						if (!val.contains(p)) {
+						if (!val2.contains(p)) {
 							p.sendMessage(
 									Prefix.prefixClans + ChatColor.YELLOW + "You are about remove yourself from the "
 											+ ChatColor.GREEN + Clans.getClanName(p) + ChatColor.YELLOW
 											+ " clan! If you are the owner of this clan, the clan will be completely wiped! You have "
 											+ ChatColor.GREEN + "15 seconds" + ChatColor.YELLOW + " to decide!");
-							val.add(p);
+							val2.add(p);
 							resetVal(p);
 							return true;
 						}
-
-						if (val.contains(p)) {
+						
+						if (val2.contains(p)) {
 							p.sendMessage(Prefix.prefixClans + ChatColor.GREEN + "You have removed yourself from the "
 									+ ChatColor.YELLOW + Clans.getClanName(p) + ChatColor.GREEN + " clan!");
 							Clans.removePlayerFromClan(p, Clans.getOwnerName(p));
@@ -180,6 +191,8 @@ public class ClanCmd implements CommandExecutor {
 					if (!Clans.getOwnerName(p).equals(p.getName()) && Clans.isInClan(p)) {
 						p.sendMessage(Prefix.prefixClans + ChatColor.RED
 								+ "You must leave your current clan in order to proceed with this process!");
+						if (val.contains(p))
+							val.remove(p);
 						return true;
 					}
 
@@ -210,10 +223,14 @@ public class ClanCmd implements CommandExecutor {
 						 * "This clan already exists!"); return true; }
 						 */
 
+						
+						Clans.createYamlClan(p, msg);
+						
+						if (val.contains(p))
+							val.remove(p);
+						
 						p.sendMessage(Prefix.prefixClans + ChatColor.GREEN
 								+ "You have successfuly created a new clan called " + ChatColor.YELLOW + msg + "!");
-
-						Clans.createYamlClan(p, msg);
 						return true;
 					}
 				}
@@ -428,15 +445,16 @@ public class ClanCmd implements CommandExecutor {
 	}
 
 	public void resetVal(final Player p) {
-		if (!val.contains(p)) {
+		if (!val.contains(p) || !val2.contains(p)) {
 			return;
 		}
 
-		if (val.contains(p)) {
+		if (val.contains(p) || val2.contains(p)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 					try {
 						val.remove(p);
+						val2.remove(p);
 					} catch (Exception e) {
 						e.getMessage();
 					}

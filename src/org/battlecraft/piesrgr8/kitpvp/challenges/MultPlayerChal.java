@@ -30,7 +30,7 @@ public class MultPlayerChal implements Listener {
 		if (Challenges.list.size() >= 2) {
 			if (Challenges.started == true && Challenges.num1 == chal) {
 
-				if (e.getEntity().isDead() && !(e.getEntity() instanceof Player)) {
+				if (e.getEntity().isDead() && (e.getEntity() instanceof Player)) {
 					ChalScoreboard.setScore(p, 1); // adds one
 				}
 
@@ -42,7 +42,7 @@ public class MultPlayerChal implements Listener {
 					ChalScoreboard.removeBoard();
 					Challenges.started = false;
 					Challenges.num1 = 0;
-					Challenges.beginC(p);
+					Challenges.beginC1(p);
 				}
 			}
 		}
@@ -60,7 +60,7 @@ public class MultPlayerChal implements Listener {
 		if (Challenges.list.size() >= 2) {
 			if (Challenges.started == true && Challenges.num1 == chal) {
 
-				if (e.getEntity().isDead() && e.getEntity() instanceof Skeleton && !(e.getEntity() instanceof Player)) {
+				if (e.getEntity().isDead() && e.getEntity() instanceof Skeleton && (e.getEntity() instanceof Player)) {
 					ChalScoreboard.setScore(p, 1); // adds one
 				}
 
@@ -72,7 +72,7 @@ public class MultPlayerChal implements Listener {
 					ChalScoreboard.removeBoard();
 					Challenges.started = false;
 					Challenges.num1 = 0;
-					Challenges.beginC(p);
+					Challenges.beginC1(p);
 				}
 			}
 		}

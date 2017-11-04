@@ -1,6 +1,8 @@
 package org.battlecraft.piesrgr8.chat;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.staff.Admin;
+import org.battlecraft.piesrgr8.utils.Color;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,6 +24,7 @@ public class Tell implements CommandExecutor {
 	//Registering a command to be usable.
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("tell")) {
 			if (args.length == 0) {
 				sender.sendMessage(bg + ChatColor.RED + "/tell <player> <message>");
@@ -50,14 +53,15 @@ public class Tell implements CommandExecutor {
     					sb.append(args[i]).append(" ");
 				msg = sb.toString();
 
-				String msg1 = ChatColor.GOLD + "" + ChatColor.BOLD + "[" + ChatColor.YELLOW + "" + ChatColor.BOLD
+				String msg1 = ChatColor.YELLOW + "" + ChatColor.BOLD
 						+ sender.getName() + " " + ChatColor.GOLD + "" + ChatColor.BOLD + "> " + ChatColor.YELLOW + ""
-						+ ChatColor.BOLD + tar.getName() + ChatColor.GOLD + "" + ChatColor.BOLD + "] ";
-				String msg2 = ChatColor.GOLD + "" + ChatColor.BOLD + "[" + ChatColor.YELLOW + "" + ChatColor.BOLD
+						+ ChatColor.BOLD + tar.getName() + ChatColor.GOLD + "" + ChatColor.BOLD + ": ";
+				String msg2 = ChatColor.YELLOW + "" + ChatColor.BOLD
 						+ tar.getName() + " " + ChatColor.GOLD + "" + ChatColor.BOLD + "< " + ChatColor.YELLOW + ""
-						+ ChatColor.BOLD + sender.getName() + ChatColor.GOLD + "" + ChatColor.BOLD + "] ";
-				sender.sendMessage(msg1 + ChatColor.YELLOW + "" + ChatColor.BOLD + msg);
-				tar.sendMessage(msg2 + ChatColor.YELLOW + "" + ChatColor.BOLD + msg);
+						+ ChatColor.BOLD + sender.getName() + ChatColor.GOLD + "" + ChatColor.BOLD + ": ";
+				sender.sendMessage(msg1 + Color.c(msg));
+				tar.sendMessage(msg2 + Color.c(msg));
+				Admin.sendMessage(Color.c("&e" + p.getName() + " &asaid to &e" + tar.getName() + ": &6" + msg));
 			}
 		}
 		return true;

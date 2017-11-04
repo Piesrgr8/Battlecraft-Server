@@ -35,4 +35,26 @@ public class Debug {
 	public DebugType getType() {
 		return t;
 	}
+
+	public static void debug(DebugType t, String s) {
+		if (t.equals(DebugType.START)) {
+			System.out.println("Debugging the " + s + " method!");
+		} else
+
+		if (t.equals(DebugType.END)) {
+			System.out.println("Ending of the " + s + " method!");
+		} else {
+			System.out.println("No debug type specified!");
+		}
+	}
+
+	public static String startDebugMsg(String s) {
+		System.out.println("Debug started with the " + s + " function!");
+		return s;
+	}
+
+	public static String stopDebugMsg(String s) {
+		System.out.println("Debug ended with the " + s + " function!");
+		return s;
+	}
 }

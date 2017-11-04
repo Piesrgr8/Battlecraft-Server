@@ -21,9 +21,9 @@ public class ScoreboardMg implements Listener {
 	public ScoreboardMg(BattlecraftServer p) {
 		ScoreboardMg.plugin = p;
 	}
-	
-    static int id;
-    static int id2;
+
+	static int id;
+	static int id2;
 
 	public static void createBoard(final Player p) {
 		id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
@@ -51,7 +51,7 @@ public class ScoreboardMg implements Listener {
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
 
-		Objective ob = b.registerNewObjective("test", "dummy");
+		Objective ob = b.registerNewObjective("Hub", "dummy");
 
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		ob.setDisplayName(ChatColor.translateAlternateColorCodes('&', "     &c&lBATTLECRAFT    "));
@@ -78,7 +78,7 @@ public class ScoreboardMg implements Listener {
 		Score s5 = ob
 				.getScore(ChatColor.GREEN + "Created Items: " + ChatColor.YELLOW + StatsManager.getItemCreations(p));
 		s5.setScore(4);
-		
+
 		Score s8 = ob
 				.getScore(ChatColor.GREEN + "Enchanted Items: " + ChatColor.YELLOW + StatsManager.getEnchantedItems(p));
 		s8.setScore(2);
@@ -96,17 +96,17 @@ public class ScoreboardMg implements Listener {
 		Score space3 = ob.getScore("    ");
 		space3.setScore(9);
 
-		p.setScoreboard(b);
+		p.setScoreboard(b.getObjective("Hub").getScoreboard());
 	}
 
 	public static void board2(Player p) {
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
-		
+
 		String uuid = p.getUniqueId().toString();
 		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
 
-		Objective ob = b.registerNewObjective("test", "dummy");
+		Objective ob = b.registerNewObjective("Hub", "dummy");
 
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		ob.setDisplayName(ChatColor.translateAlternateColorCodes('&', "     &c&lBATTLECRAFT    "));
@@ -140,6 +140,19 @@ public class ScoreboardMg implements Listener {
 		Score sa3 = ob.getScore("   ");
 		sa3.setScore(2);
 
-		p.setScoreboard(b);
+		p.setScoreboard(b.getObjective("Hub").getScoreboard());
+	}
+
+	public static void createNewBoard(Player p, String objectiveName, DisplaySlot display) {
+		ScoreboardManager mg = Bukkit.getScoreboardManager();
+		Scoreboard b = mg.getNewScoreboard();
+
+		if (p != null || objectiveName != null || display != null) {
+			Objective obj = b.getObjective(display);
+			obj.setDisplayName(objectiveName);
+			p.setScoreboard(b);
+		} else {
+			System.out.println("Cannot set scoreboard for different reasons!");
+		}
 	}
 }

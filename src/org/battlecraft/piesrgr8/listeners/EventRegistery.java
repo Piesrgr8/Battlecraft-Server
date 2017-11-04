@@ -5,7 +5,8 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.AntiSwear;
 import org.battlecraft.piesrgr8.chat.Chat;
 import org.battlecraft.piesrgr8.clans.ClanClaim;
-import org.battlecraft.piesrgr8.clans.ClansGUI;
+import org.battlecraft.piesrgr8.clans.ClansGUIListener;
+import org.battlecraft.piesrgr8.combat.ForceChoke;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.essentials.AFK;
 import org.battlecraft.piesrgr8.essentials.ApplicationForm;
@@ -13,12 +14,14 @@ import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.fake.SilentJoin;
 import org.battlecraft.piesrgr8.fake.Spammer;
+import org.battlecraft.piesrgr8.firework.FireworkJoin;
 import org.battlecraft.piesrgr8.firework.Fireworks;
 import org.battlecraft.piesrgr8.firework.InstantFw;
 import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.hub.DoubleJump;
 import org.battlecraft.piesrgr8.hub.Hub;
 import org.battlecraft.piesrgr8.hub.Launchers;
+import org.battlecraft.piesrgr8.inventory.InvMethods;
 import org.battlecraft.piesrgr8.inventory.RestoreInventory;
 import org.battlecraft.piesrgr8.kitpvp.Events;
 import org.battlecraft.piesrgr8.kitpvp.WorldManager;
@@ -35,6 +38,7 @@ import org.battlecraft.piesrgr8.players.IHersh;
 import org.battlecraft.piesrgr8.players.LilyMc101;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
 import org.battlecraft.piesrgr8.poll.Poll;
+import org.battlecraft.piesrgr8.punish.BanHammer;
 import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.shop.material.ShopMaterial;
@@ -52,11 +56,10 @@ import org.battlecraft.piesrgr8.stats.ItemCreations;
 import org.battlecraft.piesrgr8.stats.Kills;
 import org.battlecraft.piesrgr8.utils.Dynamicmotd;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.Prefixes;
 import org.battlecraft.piesrgr8.utils.RestartCommand;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.SignColors;
-import org.battlecraft.piesrgr8.utils.SmartConsole;
-import org.battlecraft.piesrgr8.utils.SoundEffects;
 import org.battlecraft.piesrgr8.utils.Tablist;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
@@ -104,17 +107,21 @@ public class EventRegistery {
 		pm.registerEvents(new TimerDaily(plugin), plugin);
 		pm.registerEvents(new Friends(plugin), plugin);
 		pm.registerEvents(new RanksEnum(plugin), plugin);
-		pm.registerEvents(new SoundEffects(plugin), plugin);
 		pm.registerEvents(new PlayersYML(plugin), plugin);
 		pm.registerEvents(new Tablist(plugin), plugin);
 		pm.registerEvents(new RestartCommand(plugin), plugin);
 		pm.registerEvents(new Fireworks(plugin), plugin);
 		pm.registerEvents(new Punish(plugin), plugin);
-		pm.registerEvents(new SmartConsole(plugin), plugin);
 		pm.registerEvents(new Invisibility(plugin), plugin);
 		pm.registerEvents(new EntityListener(plugin), plugin);
 		pm.registerEvents(new AFK(plugin), plugin);
 		pm.registerEvents(new ApplicationForm(plugin), plugin);
+		pm.registerEvents(new Prefixes(plugin), plugin);
+		pm.registerEvents(new InvMethods(plugin), plugin);
+		pm.registerEvents(new BanHammer(plugin), plugin);
+		
+		//FOR HOLIDAYS
+		pm.registerEvents(new FireworkJoin(plugin), plugin);
 		
 		//FOR PLAYERS
 		pm.registerEvents(new Piesrgr8(plugin), plugin);
@@ -142,8 +149,11 @@ public class EventRegistery {
 		//FOR SIGNS
 		pm.registerEvents(new Buy(plugin), plugin);
 		
+		//FOR COMBAT
+		pm.registerEvents(new ForceChoke(plugin), plugin);
+		
 		//FOR CLANS
-		pm.registerEvents(new ClansGUI(plugin), plugin);
+		pm.registerEvents(new ClansGUIListener(plugin), plugin);
 		pm.registerEvents(new ClanClaim(plugin), plugin);
 		
 		//FOR PARTIES
