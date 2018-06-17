@@ -1,4 +1,4 @@
-package org.battlecraft.piesrgr8.essentials;
+package org.battlecraft.piesrgr8.teleportation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

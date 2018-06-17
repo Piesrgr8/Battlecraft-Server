@@ -2,6 +2,7 @@ package org.battlecraft.piesrgr8.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
@@ -43,6 +44,7 @@ public class PlayersYML implements Listener {
 			yaml.createSection(p.getName() + ".logTime");
 			yaml.createSection(p.getName() + ".claninvites");
 			yaml.createSection(p.getName() + ".partyinvites");
+			yaml.createSection(p.getName() + ".messagelist");
 			yaml.set(p.getName() + ".muted", false);
 			yaml.set(p.getName() + ".fly", false);
 			yaml.set(p.getName() + ".adminM", true);
@@ -81,6 +83,17 @@ public class PlayersYML implements Listener {
 		if (!yaml.contains(p.getName() + ".lastLogin")) {
 			yaml.createSection(p.getName() + ".lastLogin");
 			yaml.set(p.getName() + ".lastLogin", "log");
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".messagelist")) {
+			yaml.createSection(p.getName() + ".messagelist");
+			List<String> m = new ArrayList<String>();
+			yaml.set(p.getName() + ".messagelist", m);
 			try {
 				yaml.save(f);
 			} catch (IOException e1) {
@@ -216,6 +229,32 @@ public class PlayersYML implements Listener {
 			}
 		}
 	}
+	
+	public static void setMessageList(Player off, String m) {
+		File f = new File("plugins//BattlecraftServer//players//" + off.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		List<String> l = new ArrayList<String>();
+
+		if (!yaml.contains(off.getName() + ".messagelist")) {
+			yaml.createSection(off.getName() + ".messagelist");
+			l.add(m);
+			yaml.set(off.getName() + ".messagelist", l);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			List<String> l1 = yaml.getStringList(off.getName() + ".messagelist");
+			l1.add(m);
+			yaml.set(off.getName() + ".messagelist", l1);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public static void setPartyInvites(Player off, List<String> l) {
 		File f = new File("plugins//BattlecraftServer//players//" + off.getUniqueId().toString() + ".yml");
@@ -280,6 +319,20 @@ public class PlayersYML implements Listener {
 		String s = yaml.getString(p.getName() + ".lastLogin");
 		return s;
 	}
+	
+	public static List<String> getMessageList(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		List<String> m = yaml.getStringList(p.getName() + ".messagelist");
+		return m;
+	}
+	
+	public static void clearMessageList(Player p) {
+		YamlConfiguration yaml = getYaml(p);
+		yaml.set(p.getName() + ".messagelist", null);
+		save(p);
+	}
 
 	public static boolean adminToggleEnable(Player p) {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
@@ -288,6 +341,27 @@ public class PlayersYML implements Listener {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public static File getFile(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		return f;
+	}
+	
+	public static YamlConfiguration getYaml(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		return yaml;
+	}
+	
+	public static void save(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

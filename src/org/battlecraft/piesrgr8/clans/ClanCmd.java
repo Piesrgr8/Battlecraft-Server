@@ -17,13 +17,18 @@ import org.bukkit.entity.Player;
 
 public class ClanCmd implements CommandExecutor {
 
-	BattlecraftServer plugin;
+	static BattlecraftServer plugin;
 
 	public static ArrayList<Player> val = new ArrayList<Player>();
 	public static ArrayList<Player> val2 = new ArrayList<Player>();
+	public static ArrayList<Player> mTag = new ArrayList<Player>();
+	public static ArrayList<Player> mName = new ArrayList<Player>();
+	public static ArrayList<Player> mMotd = new ArrayList<Player>();
+	public static ArrayList<Player> mDesc = new ArrayList<Player>();
+	public static ArrayList<Player> mInv = new ArrayList<Player>();
 
 	public ClanCmd(BattlecraftServer p) {
-		this.plugin = p;
+		ClanCmd.plugin = p;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -40,6 +45,8 @@ public class ClanCmd implements CommandExecutor {
 			}
 
 			if (args.length == 0) {
+				ClansGUI.clanMainGUI(p);
+				/*
 				p.sendMessage(Prefix.prefixClans + ChatColor.RED + "Missing Arguments:");
 				p.sendMessage("         " + ChatColor.YELLOW + "/clan create <name>");
 				p.sendMessage("         " + ChatColor.YELLOW + "/clan edit <tag : name : motd : desc>");
@@ -49,15 +56,11 @@ public class ClanCmd implements CommandExecutor {
 				p.sendMessage("         " + ChatColor.YELLOW + "/clan invite <player>");
 				p.sendMessage("         " + ChatColor.YELLOW + "/clan invites");
 				p.sendMessage("         " + ChatColor.YELLOW + "/clan details");
+				*/
 				return true;
 			}
 
 			if (args.length == 1) {
-				if (args[0].equalsIgnoreCase("gui")) {
-					ClansGUI.clanMainGUI(p);
-					return true;
-				}
-				
 				if (args[0].equalsIgnoreCase("create")) {
 					if (Clans.isInClan(p)) {
 						p.sendMessage(Prefix.prefixClans + ChatColor.YELLOW
@@ -163,7 +166,7 @@ public class ClanCmd implements CommandExecutor {
 				}
 
 				if (args[0].equalsIgnoreCase("invites")) {
-					ClansGUI.openGUI(p);
+					ClansGUI.invitesGUI(p);
 					p.sendMessage(Prefix.prefixClans + ChatColor.GREEN + "Opened!");
 					return true;
 				}
@@ -444,17 +447,24 @@ public class ClanCmd implements CommandExecutor {
 		return true;
 	}
 
-	public void resetVal(final Player p) {
-		if (!val.contains(p) || !val2.contains(p)) {
+	public static void resetVal(final Player p) {
+		if (!val.contains(p) || !val2.contains(p) || !mTag.contains(p) || !mName.contains(p)
+				|| !mMotd.contains(p) || !mDesc.contains(p) || mInv.contains(p)) {
 			return;
 		}
 
-		if (val.contains(p) || val2.contains(p)) {
+		if (val.contains(p) || val2.contains(p) || mTag.contains(p) || mName.contains(p)
+				|| mMotd.contains(p) || mDesc.contains(p) || mInv.contains(p)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 					try {
 						val.remove(p);
 						val2.remove(p);
+						mTag.remove(p);
+						mName.remove(p);
+						mMotd.remove(p);
+						mDesc.remove(p);
+						mInv.remove(p);
 					} catch (Exception e) {
 						e.getMessage();
 					}

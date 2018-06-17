@@ -1,9 +1,9 @@
 package org.battlecraft.piesrgr8.menu;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.essentials.PlayerTp;
 import org.battlecraft.piesrgr8.hub.Hub;
 import org.battlecraft.piesrgr8.shop.Shop;
+import org.battlecraft.piesrgr8.teleportation.PlayerTp;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

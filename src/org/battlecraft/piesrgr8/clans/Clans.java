@@ -3,7 +3,6 @@ package org.battlecraft.piesrgr8.clans;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
@@ -227,17 +226,15 @@ public class Clans {
 		return "";
 	}
 
-	public static List<String> getPlayerList() {
+	public static List<String> getPlayerList(Player p) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
-			try {
+			if (a.getStringList("players").contains(p.getName())) {
 				return a.getStringList("players");
-			} catch (Exception e) {
-				return Arrays.asList(err);
 			}
 		}
 		return null;
@@ -303,7 +300,31 @@ public class Clans {
 			}
 
 			if (p.getName().equals(a.getString("Owner"))) {
-				removeClanFile(p);
+				removeClanFile(p.getName());
+			}
+		}
+	}
+	
+	public static void removeFromClan(String remove, String owner) {
+		String path = "plugins//BattlecraftServer//clans//";
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+		for (File p1 : listOfFiles) {
+			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
+			List<String> l = a.getStringList("players");
+			if (a.getStringList("players").contains(remove)) {
+				l.remove(remove);
+				a.set("players", l);
+				try {
+					a.save(p1);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (remove.equals(a.getString("Owner"))) {
+				removeClanFile(remove);
 			}
 		}
 	}
@@ -373,14 +394,14 @@ public class Clans {
 			}
 		}
 	
-	public static boolean isOwner(String name) {
+	public static boolean isOwner(Player p) {
 		String path = "plugins//BattlecraftServer//clans//";
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
 
 		for (File p1 : listOfFiles) {
 			YamlConfiguration a = YamlConfiguration.loadConfiguration(p1);
-			if (p1.getName().equals(name) || a.getString("Owner").equals(name)) {
+			if (p1.getName().equalsIgnoreCase(p.getName()) || a.getString("Owner").equals(p.getName())) {
 				return true;
 			}
 		}
@@ -400,8 +421,8 @@ public class Clans {
 		}
 	}
 
-	private static void removeClanFile(Player p) {
-		File f = new File("plugins//BattlecraftServer//clans//" + p.getName() + ".yml");
+	private static void removeClanFile(String p) {
+		File f = new File("plugins//BattlecraftServer//clans//" + p + ".yml");
 		f.delete();
 	}
 }

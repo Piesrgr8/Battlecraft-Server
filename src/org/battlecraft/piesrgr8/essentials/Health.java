@@ -61,6 +61,7 @@ public class Health implements CommandExecutor {
 			}
 		}
 
+		//LAURENS IDEA IN CODE :D
 		if (cmd.getName().equalsIgnoreCase("death")) {
 			if (!sender.isOp()) {
 				sender.sendMessage(prefix + ChatColor.RED + "You don't have permission to kill yourself!");

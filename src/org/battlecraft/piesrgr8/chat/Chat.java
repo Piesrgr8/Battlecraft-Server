@@ -64,17 +64,16 @@ public class Chat implements Listener, CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("chat")) {
+			if (RanksEnum.isNotStaff(p)) {
+				ErrorUtil.noRank(p, RanksEnum.getPrefix(Ranks.HELPER));
+				return true;
+			}
 			addVal();
 
 			if (sender instanceof Player) {
-				Player p = (Player) sender;
 				if (args.length == 0) {
-					if (RanksEnum.isNotStaff(p)) {
-						ErrorUtil.noRank(p, RanksEnum.getPrefix(Ranks.HELPER));
-						return true;
-					}
-
 					p.sendMessage(Prefix.prefixChat + ChatColor.RED + "Arguments not met:");
 					p.sendMessage("             " + ChatColor.YELLOW + "/chat mute <yes:no>");
 					p.sendMessage("             " + ChatColor.YELLOW + "/chat cooldown <sec>");
@@ -336,7 +335,7 @@ public class Chat implements Listener, CommandExecutor {
 			e.setMessage(e.getMessage().replaceAll("%", "percent"));
 		}
 		
-		//If the rank is there and it the player has a fade.
+		//If the rank is there and the player has a fade.
 		if (RanksEnum.getPrefix(RanksEnum.getRank(p)) != "") {
 			e.setFormat(ChatColor.translateAlternateColorCodes('&',
 					RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + fromUUID.getDisplayName() + " " + ChatColor.GRAY
@@ -480,5 +479,8 @@ public class Chat implements Listener, CommandExecutor {
 	public static void broadcastMsg(String s) {
 		for (Player p : Bukkit.getOnlinePlayers())
 			p.sendMessage(Color.c(s));
+	}
+	
+	public static void sendFade(Player p) {
 	}
 }
