@@ -1,8 +1,5 @@
 package org.battlecraft.piesrgr8.essentials;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Chat;
@@ -26,7 +23,6 @@ import org.battlecraft.piesrgr8.party.PartyCmd;
 import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.ListPlayer;
 import org.battlecraft.piesrgr8.poll.Poll;
-import org.battlecraft.piesrgr8.punish.BanHammer;
 import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Kiosk;
 import org.battlecraft.piesrgr8.staff.Admin;
@@ -41,6 +37,7 @@ import org.battlecraft.piesrgr8.teleportation.Warp;
 import org.battlecraft.piesrgr8.utils.ClickChat;
 import org.battlecraft.piesrgr8.utils.MaintenanceCommand;
 import org.battlecraft.piesrgr8.utils.Prefix;
+import org.battlecraft.piesrgr8.utils.RestartCommand;
 import org.battlecraft.piesrgr8.utils.Skulls;
 import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.weapons.Armors;
@@ -71,7 +68,6 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("armor").setExecutor(new Armors());
 		plugin.getCommand("answer").setExecutor(new Ask());
 		plugin.getCommand("ask").setExecutor(new Ask());
-		plugin.getCommand("banhammer").setExecutor(new BanHammer(plugin));
 		plugin.getCommand("bc").setExecutor(new Commands(plugin));
 		plugin.getCommand("chat").setExecutor(new Chat(plugin));
 		plugin.getCommand("clan").setExecutor(new ClanCmd(plugin));
@@ -95,7 +91,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("heal").setExecutor(new Health());
 		plugin.getCommand("help").setExecutor(new Help());
 		plugin.getCommand("hub").setExecutor(new Hub(plugin));
-		plugin.getCommand("information").setExecutor(new Commands(plugin));
+		plugin.getCommand("information").setExecutor(new Help());
 		plugin.getCommand("invsee").setExecutor(new Invsee());
 		plugin.getCommand("issue").setExecutor(new Issue());
 		plugin.getCommand("jukebox").setExecutor(new Records(plugin));
@@ -110,6 +106,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("player").setExecutor(new ListPlayer(plugin));
 		plugin.getCommand("poll").setExecutor(new Poll(plugin));
 		plugin.getCommand("punish").setExecutor(new Punish(plugin));
+		plugin.getCommand("reload").setExecutor(new RestartCommand(plugin));
 		plugin.getCommand("report").setExecutor(new Report());
 		plugin.getCommand("save").setExecutor(new WorldSave(plugin));
 		plugin.getCommand("scan").setExecutor(new WorldScanProx());
@@ -119,7 +116,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("skull").setExecutor(new Skulls(plugin));
 		plugin.getCommand("spam").setExecutor(new Spammer(plugin));
 		plugin.getCommand("spawn").setExecutor(new Hub(plugin));
-		plugin.getCommand("staff").setExecutor(new StaffCommand());
+		plugin.getCommand("staffchat").setExecutor(new StaffCommand());
 		plugin.getCommand("stats").setExecutor(new StatsManager(plugin));
 		plugin.getCommand("sword").setExecutor(new Weapons(plugin));
 		plugin.getCommand("tell").setExecutor(new Tell(plugin));
@@ -129,6 +126,7 @@ public class Commands implements CommandExecutor {
 		plugin.getCommand("tpc").setExecutor(new Teleportation());
 		plugin.getCommand("tphere").setExecutor(new Teleportation());
 		plugin.getCommand("updaterank").setExecutor(new RanksEnum(plugin));
+		plugin.getCommand("vanish").setExecutor(new Invisibility(plugin));
 		plugin.getCommand("vs").setExecutor(new Invisibility(plugin));
 		plugin.getCommand("website").setExecutor(new ClickChat(plugin));
 		plugin.getCommand("weather").setExecutor(new WorldHandler(plugin));
@@ -141,7 +139,6 @@ public class Commands implements CommandExecutor {
 	//heckin memes boi
 	
 	
-	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("bc")) {
@@ -181,17 +178,6 @@ public class Commands implements CommandExecutor {
 					bc = (bc + ChatColor.translateAlternateColorCodes('&', message) + " ");
 				}
 				Bukkit.getServer().broadcastMessage(Prefix.prefixMain + ChatColor.GREEN + bc);
-			}
-		}
-
-		List<String> info = new ArrayList<String>();
-		info = plugin.getConfig().getStringList("helpblockmessages");
-
-		if (cmd.getName().equalsIgnoreCase("information")) {
-			for (int i = 0; i < info.size(); i++) {
-				String s = info.get(i);
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
-				return true;
 			}
 		}
 		return true;

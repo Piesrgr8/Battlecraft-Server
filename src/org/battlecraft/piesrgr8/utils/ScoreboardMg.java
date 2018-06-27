@@ -119,7 +119,7 @@ public class ScoreboardMg implements Listener {
 
 		Score s2 = ob.getScore(fromUUID.getDisplayName());
 		s2.setScore(6);
-
+		
 		Score s3 = ob.getScore(ChatColor.YELLOW + "" + ChatColor.BOLD + "Players Online:");
 		s3.setScore(4);
 

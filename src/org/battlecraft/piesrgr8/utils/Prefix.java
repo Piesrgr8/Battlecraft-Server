@@ -92,5 +92,7 @@ public class Prefix {
 
 		public static String prefixCooldown = ChatColor.GRAY + "[" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "COOLDOWN"
 				+ ChatColor.GRAY + "] ";
+		
+		public static String prefixStaffChat = ChatColor.BLACK + "["+ ChatColor.GREEN + "StaffChat" + ChatColor.BLACK + "] ";
 
 }

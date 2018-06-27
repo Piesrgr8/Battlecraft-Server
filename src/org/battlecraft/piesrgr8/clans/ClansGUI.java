@@ -347,6 +347,9 @@ public class ClansGUI {
 			
 			String name = Clans.getPlayerList(p).get(i);
 			
+			if (name.equals(p.getName()))
+				continue;
+			
 			ItemStack q = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
 			ItemMeta qm = q.getItemMeta();
 

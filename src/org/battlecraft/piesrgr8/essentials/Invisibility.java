@@ -27,6 +27,7 @@ public class Invisibility implements CommandExecutor,Listener {
 
 	String prefix = Prefix.prefixStealth;
 	public static List<Player> vanish = new ArrayList<Player>();
+	public static List<Player> invis = new ArrayList<Player>();
 	
 	BattlecraftServer plugin;
 	
@@ -60,6 +61,34 @@ public class Invisibility implements CommandExecutor,Listener {
 				vanish.add(p);
 				return true;
 
+			} else {
+				return false;
+			}
+		}
+		
+		if (cmd.getName().equalsIgnoreCase("vanish")) {
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(ChatColor.RED + "You must be a player in the game in order to use this command!");
+				return true;
+			}
+			
+			Player p = (Player) sender;
+			
+			if (!RanksEnum.isStaff(p)) {
+				RanksEnum.sendErrorMessage(Ranks.HELPER);
+			}
+			
+			if (invis.contains(p)) {
+				showPlayer(p);
+				p.sendMessage(ChatColor.GREEN + "You are now VISIBLE!");
+				invis.remove(p);
+				return true;
+				
+			} else if (!invis.contains(p)) {
+				hidePlayer(p);
+				p.sendMessage(ChatColor.GREEN + "You are now INVISIBLE!");
+				invis.add(p);
+				return true;
 			} else {
 				return false;
 			}
@@ -120,6 +149,23 @@ public class Invisibility implements CommandExecutor,Listener {
 	public static void hideAllPlayers(Player player) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			player.hidePlayer(pl);
+		}
+	}
+	
+	//NOW FOR VANISH
+	
+	public static void showPlayer(Player player) {
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			pl.showPlayer(player);
+		}
+	}
+	
+	public static void hidePlayer(Player player) {
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			if (RanksEnum.isAtLeast(pl, Ranks.HELPER))
+				continue;
+			
+			pl.hidePlayer(player);
 		}
 	}
 }

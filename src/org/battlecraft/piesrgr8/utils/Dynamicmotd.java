@@ -44,8 +44,8 @@ public class Dynamicmotd implements Listener {
 			playerName = "my friend!";
 		}
 		
-		if (dayOfMonth == 31) {
-			e.setMotd(permanent + "              " + Color.c("&e&lHAPPY &6&lHALLOWEEN!"));
+		if (dayOfMonth >= 4 && dayOfMonth <= 10) {
+			e.setMotd(permanent + "              " + Color.c("&e&lHAPPY &9&l4TH &r&lOF &c&lJULY!"));
 			return;
 		}
 		
@@ -57,7 +57,7 @@ public class Dynamicmotd implements Listener {
 			int random = rand.nextInt(4);
 
 			if (random == 0) {
-				e.setMotd(permanent + "                      " + ChatColor.YELLOW + "" + ChatColor.BOLD + "1.9 "
+				e.setMotd(permanent + "                        " + ChatColor.YELLOW + "" + ChatColor.BOLD + "1.9 "
 						+ ChatColor.RED + "/" + ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.10 " + ChatColor.RED + "/"
 						+ ChatColor.YELLOW + "" + ChatColor.BOLD + " 1.11 ");
 			} else if (random == 1) {

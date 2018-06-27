@@ -1,46 +1,19 @@
 package org.battlecraft.piesrgr8.utils;
 
-import org.battlecraft.iHersh.ranks.RanksEnum;
-import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
 public class Prefixes implements Listener{
 	
 	BattlecraftServer plugin;
-    Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-    Team team = null;
 	
 	public Prefixes(BattlecraftServer p) {
 		this.plugin = p;
 	}
 	
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        
-        if (RanksEnum.getRank(p).equals(Ranks.OWNER)) {
-        	if (sb.getTeam(p.getName()) == null) {
-        		team = sb.registerNewTeam(p.getName());
-        	}else{
-        		team = sb.getTeam(p.getName());
-        	}
-        	
-        	team.setPrefix(ChatColor.translateAlternateColorCodes('&', "&4&lOWNER&r "));
-        	team.addPlayer(p);
-        }
+	public void start() {
 		
-		
-	}
-	/*
+	}/*
 	sb.getTeam("0000Owner").setPrefix(ChatColor.translateAlternateColorCodes('&', "&4&lOWNER&r "));
 		sb.getTeam("0001Dev").setPrefix(ChatColor.translateAlternateColorCodes('&', "&4&lDEV&r "));
 		sb.getTeam("0002Admin").setPrefix(ChatColor.translateAlternateColorCodes('&', "&c&lADMIN&r "));
@@ -58,4 +31,5 @@ public class Prefixes implements Listener{
 		sb.getTeam("0014Master").setPrefix(ChatColor.translateAlternateColorCodes('&', "&b&lMASTER&r "));
 	
 	*/
+	
 }

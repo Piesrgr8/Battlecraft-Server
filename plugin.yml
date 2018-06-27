@@ -1,6 +1,6 @@
 name: BattlecraftServer
 main: org.battlecraft.piesrgr8.BattlecraftServer
-version: 1.9.5.01, 1.12
+version: 1.10.0.01, 1.12
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
 
@@ -77,6 +77,7 @@ commands:
     description: Spawn in the hub.
   information:
     description: Shows what you can do!
+    aliases: [info]
   invsee:
     description: Open up a players inventory.
   issue:
@@ -108,6 +109,8 @@ commands:
     description: Vote for an ongoing poll.
   punish:
     description: Punish players for behavior issues.
+  reload:
+    description: Reload the server at any time.
   report:
     description: Report a player for breaking rules.
   save:
@@ -128,8 +131,9 @@ commands:
     description: Spawn in the hub.
   spawner:
     description: Spawn things.
-  staff:
+  staffchat:
     description: This is a command for the staff team!
+    aliases: [sc]
   stats:
     description: Check out your stats!
   sword:
@@ -151,6 +155,9 @@ commands:
     description: Updates ranks
   unmute:
     description: Unmute players.
+  vanish:
+    description: Hide from players.
+    aliases: [v]
   vs:
     description: Vanish from players.
   website:

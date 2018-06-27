@@ -3,10 +3,14 @@ package org.battlecraft.piesrgr8.firework;
 import java.util.HashSet;
 import java.util.Random;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
+import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -14,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -85,7 +90,7 @@ public class Fireworks implements Listener {
 			}
 		}
 	}
-/*
+	
 	@EventHandler
 	public void vipFw(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
@@ -100,6 +105,10 @@ public class Fireworks implements Listener {
 				inv.addItem(new ItemStack(Material.FIREWORK, 1));
 			}
 		} else {
+			return;
+		}
+		
+		if (!RanksEnum.isAtLeast(p, Ranks.MOD)) {
 			return;
 		}
 
@@ -179,9 +188,9 @@ public class Fireworks implements Listener {
 				public void run() {
 					fi = 1;
 				}
-			}, 40);
+			}, 100);
 		}
-	} */
+	} 
 
 	private Color getColor(int i) {
 		Color c = null;

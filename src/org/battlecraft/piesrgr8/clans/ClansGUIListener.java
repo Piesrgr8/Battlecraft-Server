@@ -427,7 +427,7 @@ public class ClansGUIListener implements Listener{
 		else if (ClanCmd.mInv.contains(p)) {
 			e.setCancelled(true);
 			Bukkit.dispatchCommand(p, "clan invite " + s);
-			ClanCmd.mDesc.remove(p);
+			ClanCmd.mInv.remove(p);
 			return;
 		}
 	}

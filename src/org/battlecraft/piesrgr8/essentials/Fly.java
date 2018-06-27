@@ -26,14 +26,12 @@ public class Fly implements CommandExecutor {
 				return true;
 			}
 
-			if (PlayersYML.getFlySetting(p, true)) {
+			if (PlayersYML.getFlySetting(p, true) || p.getAllowFlight() == true) {
 				p.setFlying(false);
-				p.setAllowFlight(false);
 				PlayersYML.setFly(p, false);
 				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW + "disabled!");
 				return true;
-			} else if (PlayersYML.getFlySetting(p, false)) {
-				p.setAllowFlight(true);
+			} else if (PlayersYML.getFlySetting(p, false) || p.getAllowFlight() == false) {
 				p.setFlying(true);
 				PlayersYML.setFly(p, true);
 				p.sendMessage(Prefix.prefixMain + ChatColor.GREEN + "Flying is now " + ChatColor.YELLOW + "enabled!");

@@ -32,7 +32,7 @@ public class WorldScanProx implements CommandExecutor {
 
 			for (Entity en : getNearbyEntities(p.getLocation(), 10)) {
 				if (en == p || en.equals(EntityType.ITEM_FRAME) || en.equals(EntityType.SPECTRAL_ARROW)
-						|| en.equals(EntityType.ARROW))
+						|| en.equals(EntityType.ARROW) || en.equals(EntityType.PLAYER))
 					continue;
 				p.sendMessage(ChatColor.GOLD + "There is a " + ChatColor.YELLOW
 						+ (en instanceof Player ? ((Player) en).getName() : en.getType().name()) + ChatColor.GOLD

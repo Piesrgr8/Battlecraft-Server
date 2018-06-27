@@ -31,5 +31,4 @@ public class InstantFw implements Listener {
 			}
 		}, 5);
 	}
-
 }

@@ -3,39 +3,36 @@ package org.battlecraft.piesrgr8.poll;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.utils.Debug;
 import org.battlecraft.piesrgr8.utils.Prefix;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
-public class Poll implements CommandExecutor, Listener {
+public class Poll implements CommandExecutor {
 
-	BattlecraftServer plugin;
-
-	public static HashMap<String, Integer> votes = new HashMap<String, Integer>();
-	public static ArrayList<Player> player = new ArrayList<Player>();
+	static BattlecraftServer plugin;
 
 	public Poll(BattlecraftServer p) {
-		this.plugin = p;
+		Poll.plugin = p;
 	}
 
-	File f = new File("plugins//BattlecraftServer//polls.yml");
-	YamlConfiguration yaml = new YamlConfiguration();
+	static File f = new File("plugins//BattlecraftServer//polls.yml");
+	static YamlConfiguration yaml = new YamlConfiguration();
+
+	public Integer summary() {
+		int i = yaml.getInt("responses.ans1") + yaml.getInt("responses.ans2")
+				+ yaml.getInt("responses.ans3" + yaml.getInt("responses.ans4"));
+		return i;
+	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		votes.put("yes", 0);
-		votes.put("no", 0);
 
 		if (cmd.getName().equalsIgnoreCase("poll")) {
 			if (!(sender instanceof Player)) {
@@ -45,109 +42,181 @@ public class Poll implements CommandExecutor, Listener {
 
 			Player p = (Player) sender;
 			if (args.length == 0) {
-				//p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "Your choices are: " + ChatColor.GREEN
-				//		+ "Yes" + ChatColor.YELLOW + " or " + ChatColor.GREEN + "No.");
-				p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "There are no polls active at this time!");
+				p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "Your choices are: ");
+				p.sendMessage("          " + ChatColor.YELLOW + "1. " + ChatColor.GREEN + "Server List");
+				p.sendMessage("          " + ChatColor.YELLOW + "2. " + ChatColor.GREEN + "A friend");
+				p.sendMessage("          " + ChatColor.YELLOW + "3. " + ChatColor.GREEN + "A Youtube Vid");
+				p.sendMessage("          " + ChatColor.YELLOW + "4. " + ChatColor.GREEN + "I already knew");
+				// p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "There
+				// are no polls active at this time!");
 				return true;
 			}
-/*
+
 			if (args.length == 1) {
 
 				if (args[0].equalsIgnoreCase("results")) {
-					p.sendMessage(
-							Prefix.prefixPolls + ChatColor.GREEN + votes.values() + " votes in total!");
+
+					if (!f.exists()) {
+						p.sendMessage(Prefix.prefixPolls + ChatColor.RED + "The file doesn't exist, creating...");
+						try {
+							f.createNewFile();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						p.sendMessage(Prefix.prefixPolls + ChatColor.RED + "Try doing the command again now!");
+						return true;
+					}
+
+					p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN + summary() + " votes in total!");
 					return true;
 				}
 
-				if (!player.contains(p)) {
-					if (args[0].equalsIgnoreCase("yes")) {
-						votes.put("yes", votes.get("yes") + 1);
-						p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN + "You chose to "
-								+ ChatColor.YELLOW + "agree" + ChatColor.GREEN + " with this change!");
-						p.sendMessage(
-								Prefix.prefixPolls + ChatColor.GREEN + "We are thankful for your response!");
-						player.add(p);
-						registerYaml1(p);
-						return true;
-					}
-
-					if (args[0].equalsIgnoreCase("no")) {
-						votes.put("no", votes.get("no") + 1);
-						p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN + "You chose to "
-								+ ChatColor.YELLOW + "disagree" + ChatColor.GREEN + " with this change!");
-						p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN
-								+ "We would love to know exactly what is wrong"
-								+ " with our plugin. Please report it to a staff member or on our website!");
-						player.add(p);
-						registerYaml2(p);
+				if (!hasVoted(p)) {
+					if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("3")
+							|| args[0].equalsIgnoreCase("4")) {
+						p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN + "You chose " + ChatColor.YELLOW + args[0]
+								+ ChatColor.GREEN + "!");
+						p.sendMessage(Prefix.prefixPolls + ChatColor.GREEN + "We are thankful for your response!");
+						registerYaml(p);
+						registerVote(args[0]);
 						return true;
 					}
 				} else {
-					Debug.debugConsole(
-							"Player has successfully passed command, but according to the arraylist, they cant vote.");
-					p.sendMessage(
-							Prefix.prefixPolls + ChatColor.RED + "You have already voted for this poll!");
+					p.sendMessage(Prefix.prefixPolls + ChatColor.RED + "You have already voted for this poll!");
+					return true;
 				}
-			} */
+			}
+
+			if (args.length >= 2) {
+				p.sendMessage(Prefix.prefixPolls + ChatColor.RED + "That'll do pig. That'll do.");
+				return true;
+			}
 		}
 		return true;
 	}
 
-	public void registerYaml1(Player p) {
-		if (!yaml.contains(p.getName())) {
-			yaml.createSection(p.getName());
-			yaml.createSection(p.getName() + ".response");
-			List<String> values = new ArrayList<String>();
-			values.add("yes");
-			yaml.set(p.getName() + ".response", values);
+	public void registerVote(String s) {
+		if (s.equalsIgnoreCase("1")) {
+			yaml.set("responses.ans1", yaml.getInt("responses.ans1") + 1);
 			try {
-				yaml.save("plugins/BattlecraftServer/polls.yml");
+				yaml.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else {
-			Debug.debugConsole("Player has successfully passed command, but according to the yaml, they cant vote.");
-			p.sendMessage(Prefix.prefixPolls + ChatColor.RED
-					+ "But it appears that your vote has already been registered as "
-					+ yaml.getStringList(p.getName()));
 		}
-	}
 
-	public void registerYaml2(Player p) {
-		if (!yaml.contains(p.getName())) {
-			yaml.createSection(p.getName());
-			yaml.createSection(p.getName() + ".response");
-			List<String> values = new ArrayList<String>();
-			values.add("no");
-			yaml.set(p.getName() + ".response", values);
+		if (s.equalsIgnoreCase("2")) {
+			yaml.set("responses.ans2", yaml.getInt("responses.ans2") + 1);
 			try {
-				yaml.save("plugins/BattlecraftServer/polls.yml");
+				yaml.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else {
-			Debug.debugConsole("Player has successfully passed command, but according to the yaml, they cant vote.");
-			p.sendMessage(Prefix.prefixPolls + ChatColor.RED
-					+ "But it appears that your vote has already been registered as "
-					+ yaml.getStringList(p.getName()));
+		}
+
+		if (s.equalsIgnoreCase("3")) {
+			yaml.set("responses.ans3", yaml.getInt("responses.ans3") + 1);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (s.equalsIgnoreCase("4")) {
+			yaml.set("responses.ans4", yaml.getInt("responses.ans3") + 1);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	@SuppressWarnings("unused")
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
-		final Player p = e.getPlayer();
-/*
+	public void registerYaml(Player p) {
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		if (!yaml.contains(p.getName())) {
+
+			if (!yaml.contains("responses")) {
+				yaml.createSection("responses");
+				yaml.createSection("responses.ans1");
+				yaml.createSection("responses.ans2");
+				yaml.createSection("responses.ans3");
+				yaml.createSection("responses.ans4");
+			}
+
+			yaml.createSection("voters");
+			List<String> values = new ArrayList<String>();
+			values.add(p.getName());
+			yaml.set("voters", values);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public boolean hasVoted(Player p) {
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (yaml.getList("voters").contains(p.getName()))
+			return true;
+
+		return false;
+	}
+
+	public static void addInfoInYml() {
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		if (!yaml.contains("responses") || !yaml.contains("voters")) {
+			yaml.createSection("responses");
+			yaml.createSection("responses.ans1");
+			yaml.createSection("responses.ans2");
+			yaml.createSection("responses.ans3");
+			yaml.createSection("responses.ans4");
+			yaml.createSection("voters");
+			List<String> values = new ArrayList<String>();
+			yaml.set("voters", values);
+			try {
+				yaml.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void sendJoinMessage(final Player p) {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
-				p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW
-						+ "There is an available poll currently going on!");
-				p.sendMessage(ChatColor.GREEN + "       Q: Should we expand our creative world?");
-				p.sendMessage(ChatColor.YELLOW + "       Choices are " + ChatColor.GREEN + "Yes" + ChatColor.YELLOW
-						+ " or " + ChatColor.GREEN + "No.");
+				p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "There is an available poll currently going on!");
+				p.sendMessage(ChatColor.GREEN + "       Q: How did you find our server?");
+				p.sendMessage("          " + ChatColor.YELLOW + "1. " + ChatColor.GREEN + "Server List");
+				p.sendMessage("          " + ChatColor.YELLOW + "2. " + ChatColor.GREEN + "A friend");
+				p.sendMessage("          " + ChatColor.YELLOW + "3. " + ChatColor.GREEN + "A Youtube Vid");
+				p.sendMessage("          " + ChatColor.YELLOW + "4. " + ChatColor.GREEN + "I already knew");
 				p.sendMessage(ChatColor.YELLOW + "       To vote, do " + ChatColor.GREEN + "/poll" + ChatColor.YELLOW
-						+ ", and then your choice of yes or no.");
+						+ ", and then the # for your choice.");
 			}
-		}, 200L); */
+		}, 200L);
 	}
 }

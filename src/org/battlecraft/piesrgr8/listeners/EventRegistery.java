@@ -16,15 +16,13 @@ import org.battlecraft.piesrgr8.fake.Spammer;
 import org.battlecraft.piesrgr8.firework.FireworkJoin;
 import org.battlecraft.piesrgr8.firework.Fireworks;
 import org.battlecraft.piesrgr8.firework.InstantFw;
+import org.battlecraft.piesrgr8.gadgets.Gadget;
 import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.hub.DoubleJump;
 import org.battlecraft.piesrgr8.hub.Hub;
 import org.battlecraft.piesrgr8.hub.Launchers;
 import org.battlecraft.piesrgr8.inventory.InvMethods;
 import org.battlecraft.piesrgr8.inventory.RestoreInventory;
-import org.battlecraft.piesrgr8.kitpvp.Events;
-import org.battlecraft.piesrgr8.kitpvp.WorldManager;
-import org.battlecraft.piesrgr8.kitpvp.challenges.SinglePlayerChal;
 import org.battlecraft.piesrgr8.menu.MainPvP;
 import org.battlecraft.piesrgr8.menu.Menus;
 import org.battlecraft.piesrgr8.menu.NavGame;
@@ -36,8 +34,6 @@ import org.battlecraft.piesrgr8.players.Friends;
 import org.battlecraft.piesrgr8.players.IHersh;
 import org.battlecraft.piesrgr8.players.LilyMc101;
 import org.battlecraft.piesrgr8.players.Piesrgr8;
-import org.battlecraft.piesrgr8.poll.Poll;
-import org.battlecraft.piesrgr8.punish.BanHammer;
 import org.battlecraft.piesrgr8.punish.Punish;
 import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.shop.material.ShopMaterial;
@@ -57,7 +53,6 @@ import org.battlecraft.piesrgr8.teleportation.PlayerTp;
 import org.battlecraft.piesrgr8.utils.Dynamicmotd;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.battlecraft.piesrgr8.utils.Prefixes;
-import org.battlecraft.piesrgr8.utils.RestartCommand;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.SignColors;
 import org.battlecraft.piesrgr8.utils.Tablist;
@@ -89,7 +84,6 @@ public class EventRegistery {
 		pm.registerEvents(new WorldHandler(plugin), plugin);
 		pm.registerEvents(new WorldFallingBlocks(plugin), plugin);
 		pm.registerEvents(new Guns(plugin), plugin);
-		pm.registerEvents(new Poll(plugin), plugin);
 		pm.registerEvents(new PacketUtil(plugin), plugin);
 		pm.registerEvents(new DeathListener(plugin), plugin);
 		pm.registerEvents(new Spammer(plugin), plugin);
@@ -109,7 +103,6 @@ public class EventRegistery {
 		pm.registerEvents(new RanksEnum(plugin), plugin);
 		pm.registerEvents(new PlayersYML(plugin), plugin);
 		pm.registerEvents(new Tablist(plugin), plugin);
-		pm.registerEvents(new RestartCommand(plugin), plugin);
 		pm.registerEvents(new Fireworks(plugin), plugin);
 		pm.registerEvents(new Punish(plugin), plugin);
 		pm.registerEvents(new Invisibility(plugin), plugin);
@@ -118,7 +111,6 @@ public class EventRegistery {
 		pm.registerEvents(new ApplicationForm(plugin), plugin);
 		pm.registerEvents(new Prefixes(plugin), plugin);
 		pm.registerEvents(new InvMethods(plugin), plugin);
-		pm.registerEvents(new BanHammer(plugin), plugin);
 		
 		//FOR HOLIDAYS
 		pm.registerEvents(new FireworkJoin(plugin), plugin);
@@ -166,12 +158,9 @@ public class EventRegistery {
 		
 		//FOR COSMETICS
 		pm.registerEvents(new GadgetGUI(plugin), plugin);
+		pm.registerEvents(new Gadget(plugin), plugin);
 		
-		//FOR KITPVP
-		pm.registerEvents(new WorldManager(plugin), plugin);
-		pm.registerEvents(new org.battlecraft.piesrgr8.kitpvp.challenges.Challenges(plugin), plugin);
-		pm.registerEvents(new Events(plugin), plugin);
-		pm.registerEvents(new SinglePlayerChal(plugin), plugin);
+		
 		pm.registerEvents(new InstantFw(plugin), plugin);
 	}
 }

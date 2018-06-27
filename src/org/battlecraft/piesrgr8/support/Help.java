@@ -31,6 +31,17 @@ public class Help implements CommandExecutor{
 				return false;
 			}
 		}
+		
+		if (cmd.getName().equalsIgnoreCase("information")) {
+			p.sendMessage(ChatColor.YELLOW + "To get started, use the " + ChatColor.AQUA + "nether star " + ChatColor.YELLOW + "to navigate to different games"
+					+ " on the server.");
+			p.sendMessage(ChatColor.YELLOW + "Use the " + ChatColor.AQUA + "end crystal " + ChatColor.YELLOW + "to join a game instantly.");
+			p.sendMessage(ChatColor.YELLOW + "If there is a player breaking rules, use " + ChatColor.AQUA + "/a <msg>, /report <msg>");
+			p.sendMessage(ChatColor.YELLOW + "If there is a bug on the server, report it by using " + ChatColor.AQUA + "/issue <msg>");
+			p.sendMessage(ChatColor.YELLOW + "Now get out there and have fun!");
+			p.sendMessage(ChatColor.YELLOW + "For more information, visit " + ChatColor.AQUA + "http://bcpvp101.enjin.com");
+			p.sendMessage(ChatColor.GOLD + "JOIN OUR DISCORD: " + ChatColor.RED + "https://discord.gg/FtZ4JKX");
+		}
 		return true;
 	}
 }

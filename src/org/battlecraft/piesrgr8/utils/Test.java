@@ -11,8 +11,6 @@ import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.firework.InstantFw;
 import org.battlecraft.piesrgr8.gadgets.GadgetGUI;
 import org.battlecraft.piesrgr8.inventory.InvMethods;
-import org.battlecraft.piesrgr8.kitpvp.challenges.Challenges;
-import org.battlecraft.piesrgr8.punish.BanHammer;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -140,12 +138,10 @@ public class Test implements Listener, CommandExecutor {
 				ClickChat.agreement(p, "Yes", "Agree to nothing!");
 				ClickChat.disagreement(p, "No", "Disagree to nothing!");
 				InstantFw.instant(p);
-				sender.sendMessage("" + Boolean.toString(Challenges.started));
 				sender.sendMessage(TimerDaily.getCurrentTime());
 				sender.sendMessage("" + currentD.getTime());
 				sender.sendMessage("" + min);
 				sender.sendMessage("" + p.getLocation().getChunk().getX() + ", " + p.getLocation().getChunk().getZ());
-				sender.sendMessage(Integer.toString(BanHammer.st.size()));
 				sender.sendMessage(msg);
 				return true;
 			}

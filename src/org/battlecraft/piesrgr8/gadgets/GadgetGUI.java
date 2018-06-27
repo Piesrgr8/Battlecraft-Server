@@ -3,6 +3,7 @@ package org.battlecraft.piesrgr8.gadgets;
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -10,7 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -306,11 +309,11 @@ public class GadgetGUI implements Listener{
 		switch(e.getCurrentItem().getType()) {
 		
 		case CHEST:
-			p.sendMessage("Yo1");
+			p.sendMessage(Prefix.prefixGadget + ChatColor.RED + "This feature isnt ready yet! Come back later when its done!");
 			break;
 			
 		case DIAMOND_BARDING:
-			p.sendMessage("Yo2");
+			p.sendMessage(Prefix.prefixGadget + ChatColor.RED + "This feature isnt ready yet! Come back later when its done!");
 			break;
 			
 		case GOLD_RECORD:
@@ -408,6 +411,21 @@ public class GadgetGUI implements Listener{
 			
 		default:
 			break;
+		}
+	}
+	
+	@EventHandler
+	public void interaction(PlayerInteractEvent e) {
+		Action a = e.getAction();
+		ItemStack is = e.getItem();
+		Player p = e.getPlayer();
+
+		if (a == Action.PHYSICAL || is == null || is.getType().equals(Material.AIR)) {
+			return;
+		}
+
+		if (is.getType().equals(Material.CHEST) && is.hasItemMeta()) {
+			openMainGUI(p);
 		}
 	}
 }

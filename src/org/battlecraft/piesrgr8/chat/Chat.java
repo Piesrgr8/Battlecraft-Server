@@ -317,7 +317,8 @@ public class Chat implements Listener, CommandExecutor {
 			e.setCancelled(true);
 			return;
 		}
-
+		
+		//TODO CHECK THIS LINE
 		addToList(p);
 
 		// Using the new UUID system!!
@@ -433,7 +434,7 @@ public class Chat implements Listener, CommandExecutor {
 			return;
 		}
 
-		// LOOK AT THIS LATER!!
+		//TODO LOOK AT THIS LATER!!
 
 		int rand = new Random().nextInt(RanksEnum.admin.size());
 		Player p1 = RanksEnum.admin.get(rand);

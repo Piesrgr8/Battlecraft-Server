@@ -12,6 +12,7 @@ import org.battlecraft.piesrgr8.listeners.EventRegistery;
 import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.utils.Cooldown;
 import org.battlecraft.piesrgr8.utils.PlayerCountMessage;
+import org.battlecraft.piesrgr8.utils.Tablist;
 import org.battlecraft.piesrgr8.world.WorldFallingBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +40,6 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		Cooldown.cooldownTime = new HashMap<Player, Integer>();
 		Cooldown.cooldownTask = new HashMap<Player, BukkitRunnable>();
 		getLogger().info("The Battlecraft Server Plugin is awake and alive!");
-		log = this.getLogger();
 		PlayerCountMessage.playerCountMessage(this);
 		ConfigMg.saveEverything(this);
 		EventRegistery.registerEvents(this);
@@ -47,6 +47,7 @@ public class BattlecraftServer extends JavaPlugin implements CommandExecutor {
 		Commands.registerCommands(this);
 		RanksEnum.startRanks(this);
 		WorldFallingBlocks.loadYAML();
+		Tablist.setTabList();
 	}
 
 	@Override

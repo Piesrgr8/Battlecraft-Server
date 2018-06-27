@@ -11,6 +11,7 @@ import org.battlecraft.piesrgr8.clans.Clans;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.party.Party;
 import org.battlecraft.piesrgr8.players.Friends;
+import org.battlecraft.piesrgr8.poll.Poll;
 import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.teleportation.PlayerTp;
 import org.battlecraft.piesrgr8.utils.Color;
@@ -88,6 +89,8 @@ public class PlayerListener implements Listener {
 		// Set the join message for everyone to see.
 		e.setJoinMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + fromUUID.getName()
 				+ ChatColor.DARK_GREEN + "" + ChatColor.ITALIC + " joined");
+		
+		// Check to see if anyone is invisible or not.
 
 		// Save the friends list and start the daily timer.
 		Friends.saveFriends(p);
@@ -126,6 +129,7 @@ public class PlayerListener implements Listener {
 
 		// Lonely motd.
 		motd(p);
+		Poll.sendJoinMessage(p);
 
 		if (plugin.getConfig().getBoolean("titleonjoin") == true) {
 			PacketUtil.onJoin(plugin, p);

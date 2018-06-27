@@ -14,16 +14,16 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class ForceChoke implements Listener{
-	
+public class ForceChoke implements Listener {
+
 	static BattlecraftServer plugin;
 	public static ArrayList<Player> choke = new ArrayList<Player>();
 	public static Location loc = null;
-	
+
 	public ForceChoke(BattlecraftServer p) {
 		ForceChoke.plugin = p;
 	}
-	
+
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		if (choke.contains(e.getPlayer())) {
@@ -32,23 +32,24 @@ public class ForceChoke implements Listener{
 			return;
 		}
 	}
-	
+
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Location ploc = e.getPlayer().getLocation();
 		if (choke.contains(e.getPlayer())) {
 			if (ploc.getX() != loc.getX()) {
-				e.setCancelled(true);
+				teleport(e.getPlayer());
 			}
-			
+
 			if (ploc.getZ() != loc.getZ()) {
-				e.setCancelled(true);
+				teleport(e.getPlayer());
+				;
 			}
 		} else {
 			return;
 		}
 	}
-	
+
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = (Player) e.getEntity();
@@ -58,17 +59,27 @@ public class ForceChoke implements Listener{
 			return;
 		}
 	}
-	
+
+	public void teleport(Player p) {
+		try {
+			p.teleport(new Location(p.getWorld(), loc.getX(), p.getLocation().getY(), loc.getZ(),
+					p.getLocation().getPitch(), p.getLocation().getYaw()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void choke(final Player p) {
-		
-		if (choke.contains(p)) return;
-		
+
+		if (choke.contains(p))
+			return;
+
 		if (!choke.contains(p)) {
 			choke.add(p);
 			loc = new Location(p.getWorld(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ());
 			p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 80, 1));
 		}
-		
+
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				p.setHealth(0);
