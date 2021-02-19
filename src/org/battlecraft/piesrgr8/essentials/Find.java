@@ -20,7 +20,6 @@ public class Find implements CommandExecutor {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		

@@ -15,25 +15,21 @@ public class AntiSwear implements Listener {
 	}
 
 	@EventHandler
-	
-	//When a player uses a bad word, their message will be terminated. All bad words are in the general config.
+
+	// When a player uses a bad word, their message will be terminated. All bad
+	// words are in the general config.
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		for (String word : e.getMessage().split(" ")) {
 			if (plugin.getConfig().getStringList("badwords").contains(word)) {
-				
-				if(e.getPlayer().getName().equals("iHersh") || e.getPlayer().getName().equals("Piesgr8") || e.getPlayer().getName().equals("SBG_Memes"))
-				{
+
+				if (e.getPlayer().getName().equals("iHersh") || e.getPlayer().getName().equals("Piesgr8")
+						|| e.getPlayer().getName().equals("SBG_Memes")) {
 					return;
-				}
-				else
-				{
+				} else {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage(ChatColor.RED + "Cursing is against the rules on this server!");
 				}
-				
-				
 			}
 		}
 	}
-
 }

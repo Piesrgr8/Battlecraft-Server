@@ -48,7 +48,7 @@ public class Nick implements CommandExecutor {
 					bc = (bc + message + "");
 				}
 
-				if (args[0].equals("off")) {
+				if (args[0].equals("reset")) {
 					fromUUID.setDisplayName(ChatColor.WHITE + fromUUID.getName());
 					fromUUID.sendMessage(Prefix.prefixNick + "Successfully reset nickname!");
 					PlayersYML.setNick(p, p.getName());
@@ -78,6 +78,9 @@ public class Nick implements CommandExecutor {
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		
 		String nick = ChatColor.translateAlternateColorCodes('&', yaml.getString(fromUUID.getName() + ".nick"));
-		return nick;
+		
+		if (!nick.isEmpty())
+			return nick;
+		return p.getName();
 	}
 }

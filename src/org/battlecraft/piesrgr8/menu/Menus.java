@@ -74,7 +74,7 @@ public class Menus implements Listener, CommandExecutor {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Menu"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Menu"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -97,7 +97,7 @@ public class Menus implements Listener, CommandExecutor {
 
 		case ENDER_CHEST:
 			if (!p.hasPermission("bc.teleport")) {
-				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
+				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 10, (float) 0.5);
 				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
 			}

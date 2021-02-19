@@ -9,10 +9,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.v1_9_R2.EntityPlayer;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
 
 public class Ping implements CommandExecutor {
 
@@ -22,7 +22,6 @@ public class Ping implements CommandExecutor {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("ping")) {

@@ -23,7 +23,6 @@ public class AFK implements Listener, CommandExecutor {
 	}
 	
 	public static ArrayList<Player> afk = new ArrayList<Player>();
-	//public static HashMap<Player, String> message = new HashMap<Player, String>();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

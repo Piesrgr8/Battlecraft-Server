@@ -26,7 +26,7 @@ public class Launchers implements Listener {
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
-		if (e.getTo().getBlock().getRelative(BlockFace.SELF).getType() == Material.STONE_PLATE
+		if (e.getTo().getBlock().getRelative(BlockFace.SELF).getType() == Material.STONE_PRESSURE_PLATE
 				&& e.getTo().getBlock().getRelative(BlockFace.DOWN).getType() == Material.REDSTONE_BLOCK) {
 			e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().multiply(6));
 			e.getPlayer().setVelocity(

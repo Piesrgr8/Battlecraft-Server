@@ -6,7 +6,6 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,13 +32,13 @@ public class GadgetGUI implements Listener{
 		ItemStack q = new ItemStack(Material.CHEST);
 		ItemMeta q1 = q.getItemMeta();
 		
-		ItemStack w = new ItemStack(Material.DIAMOND_BARDING);
+		ItemStack w = new ItemStack(Material.DIAMOND_HORSE_ARMOR);
 		ItemMeta w1 = w.getItemMeta();
 		
-		ItemStack r = new ItemStack(Material.GOLD_RECORD);
+		ItemStack r = new ItemStack(Material.LEGACY_GOLD_RECORD);
 		ItemMeta r1 = r.getItemMeta();
 		
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 		
 		q1.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "Weapons");
@@ -50,8 +49,8 @@ public class GadgetGUI implements Listener{
 		w1.setLore(Arrays.asList(" ", ChatColor.YELLOW + "Use different items and such", ChatColor.YELLOW + "just for fun!"));
 		w.setItemMeta(w1);
 		
-		r1.setDisplayName(ChatColor.AQUA + "" + ChatColor.ITALIC + "Records");
-		r1.setLore(Arrays.asList(" ", ChatColor.YELLOW + "Once you've collected records", ChatColor.YELLOW
+		r1.setDisplayName(ChatColor.AQUA + "" + ChatColor.ITALIC + "LEGACY_RECORDs");
+		r1.setLore(Arrays.asList(" ", ChatColor.YELLOW + "Once you've collected LEGACY_RECORDs", ChatColor.YELLOW
 				+ "from playing games and", ChatColor.YELLOW + "opened chests, you'll see them here!"));
 		r.setItemMeta(r1);
 		
@@ -128,44 +127,44 @@ public class GadgetGUI implements Listener{
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void openRecord(Player p) {
-		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.AQUA + "Records");
+	public static void openLEGACY_RECORD(Player p) {
+		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.AQUA + "LEGACY_RECORDs");
 		
-		ItemStack record1 = new ItemStack(Material.GOLD_RECORD);
-		ItemMeta q = record1.getItemMeta();
+		ItemStack LEGACY_RECORD1 = new ItemStack(Material.LEGACY_GOLD_RECORD);
+		ItemMeta q = LEGACY_RECORD1.getItemMeta();
 		
-		ItemStack record2 = new ItemStack(Material.GREEN_RECORD);
-		ItemMeta w = record2.getItemMeta();
+		ItemStack LEGACY_RECORD2 = new ItemStack(Material.LEGACY_GREEN_RECORD);
+		ItemMeta w = LEGACY_RECORD2.getItemMeta();
 		
-		ItemStack record3 = new ItemStack(Material.RECORD_3);
-		ItemMeta e = record3.getItemMeta();
+		ItemStack LEGACY_RECORD3 = new ItemStack(Material.LEGACY_RECORD_3);
+		ItemMeta e = LEGACY_RECORD3.getItemMeta();
 		
-		ItemStack record4 = new ItemStack(Material.RECORD_4);
-		ItemMeta r = record4.getItemMeta();
+		ItemStack LEGACY_RECORD4 = new ItemStack(Material.LEGACY_RECORD_4);
+		ItemMeta r = LEGACY_RECORD4.getItemMeta();
 		
-		ItemStack record5 = new ItemStack(Material.RECORD_5);
-		ItemMeta t = record5.getItemMeta();
+		ItemStack LEGACY_RECORD5 = new ItemStack(Material.LEGACY_RECORD_5);
+		ItemMeta t = LEGACY_RECORD5.getItemMeta();
 		
-		ItemStack record6 = new ItemStack(Material.RECORD_6);
-		ItemMeta y = record6.getItemMeta();
+		ItemStack LEGACY_RECORD6 = new ItemStack(Material.LEGACY_RECORD_6);
+		ItemMeta y = LEGACY_RECORD6.getItemMeta();
 		
-		ItemStack record7 = new ItemStack(Material.RECORD_7);
-		ItemMeta u = record7.getItemMeta();
+		ItemStack LEGACY_RECORD7 = new ItemStack(Material.LEGACY_RECORD_7);
+		ItemMeta u = LEGACY_RECORD7.getItemMeta();
 		
-		ItemStack record8 = new ItemStack(Material.RECORD_8);
-		ItemMeta i = record8.getItemMeta();
+		ItemStack LEGACY_RECORD8 = new ItemStack(Material.LEGACY_RECORD_8);
+		ItemMeta i = LEGACY_RECORD8.getItemMeta();
 		
-		ItemStack record9 = new ItemStack(Material.RECORD_9);
-		ItemMeta o = record9.getItemMeta();
+		ItemStack LEGACY_RECORD9 = new ItemStack(Material.LEGACY_RECORD_9);
+		ItemMeta o = LEGACY_RECORD9.getItemMeta();
 		
-		ItemStack record10 = new ItemStack(Material.RECORD_10);
-		ItemMeta pot = record10.getItemMeta();
+		ItemStack LEGACY_RECORD10 = new ItemStack(Material.LEGACY_RECORD_10);
+		ItemMeta pot = LEGACY_RECORD10.getItemMeta();
 		
-		ItemStack record11 = new ItemStack(Material.RECORD_11);
-		ItemMeta a = record11.getItemMeta();
+		ItemStack LEGACY_RECORD11 = new ItemStack(Material.LEGACY_RECORD_11);
+		ItemMeta a = LEGACY_RECORD11.getItemMeta();
 		
-		ItemStack record12 = new ItemStack(Material.RECORD_12);
-		ItemMeta s = record12.getItemMeta();
+		ItemStack LEGACY_RECORD12 = new ItemStack(Material.LEGACY_RECORD_12);
+		ItemMeta s = LEGACY_RECORD12.getItemMeta();
 		
 		ItemStack back = new ItemStack(Material.ARROW);
 		ItemMeta bk = back.getItemMeta();
@@ -173,44 +172,44 @@ public class GadgetGUI implements Listener{
 		ItemStack stop = new ItemStack(Material.SLIME_BALL);
 		ItemMeta sp = stop.getItemMeta();
 		
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 		
 		q.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "13");
-		record1.setItemMeta(q);
+		LEGACY_RECORD1.setItemMeta(q);
 		
 		w.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "cat");
-		record2.setItemMeta(w);
+		LEGACY_RECORD2.setItemMeta(w);
 		
 		e.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "blocks");
-		record3.setItemMeta(e);
+		LEGACY_RECORD3.setItemMeta(e);
 		
 		r.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "chirp");
-		record4.setItemMeta(r);
+		LEGACY_RECORD4.setItemMeta(r);
 		
 		t.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "far");
-		record5.setItemMeta(t);
+		LEGACY_RECORD5.setItemMeta(t);
 		
 		y.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "mall");
-		record6.setItemMeta(y);
+		LEGACY_RECORD6.setItemMeta(y);
 		
 		u.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "mellohi");
-		record7.setItemMeta(u);
+		LEGACY_RECORD7.setItemMeta(u);
 		
 		i.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "stal");
-		record8.setItemMeta(i);
+		LEGACY_RECORD8.setItemMeta(i);
 		
 		o.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "strad");
-		record9.setItemMeta(o);
+		LEGACY_RECORD9.setItemMeta(o);
 		
 		pot.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "ward");
-		record10.setItemMeta(pot);
+		LEGACY_RECORD10.setItemMeta(pot);
 		
 		a.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "11");
-		record11.setItemMeta(a);
+		LEGACY_RECORD11.setItemMeta(a);
 		
 		s.setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + "wait");
-		record12.setItemMeta(s);
+		LEGACY_RECORD12.setItemMeta(s);
 		
 		bk.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "BACK");
 		back.setItemMeta(bk);
@@ -248,22 +247,22 @@ public class GadgetGUI implements Listener{
 		// SET 3
 		inv.setItem(18, custom);
 		inv.setItem(19, custom);
-		inv.setItem(20, record1);
-		inv.setItem(21, record2);
-		inv.setItem(22, record3);
-		inv.setItem(23, record4);
-		inv.setItem(24, record5);
+		inv.setItem(20, LEGACY_RECORD1);
+		inv.setItem(21, LEGACY_RECORD2);
+		inv.setItem(22, LEGACY_RECORD3);
+		inv.setItem(23, LEGACY_RECORD4);
+		inv.setItem(24, LEGACY_RECORD5);
 		inv.setItem(25, custom);
 		inv.setItem(26, custom);
 		
 		// SET 4
 		inv.setItem(27, custom);
 		inv.setItem(28, custom);
-		inv.setItem(29, record6);
-		inv.setItem(30, record7);
-		inv.setItem(31, record8);
-		inv.setItem(32, record9);
-		inv.setItem(33, record10);
+		inv.setItem(29, LEGACY_RECORD6);
+		inv.setItem(30, LEGACY_RECORD7);
+		inv.setItem(31, LEGACY_RECORD8);
+		inv.setItem(32, LEGACY_RECORD9);
+		inv.setItem(33, LEGACY_RECORD10);
 		inv.setItem(34, custom);
 		inv.setItem(35, custom);
 		
@@ -271,9 +270,9 @@ public class GadgetGUI implements Listener{
 		inv.setItem(36, custom);
 		inv.setItem(37, custom);
 		inv.setItem(38, custom);
-		inv.setItem(39, record11);
+		inv.setItem(39, LEGACY_RECORD11);
 		inv.setItem(40, custom);
-		inv.setItem(41, record12);
+		inv.setItem(41, LEGACY_RECORD12);
 		inv.setItem(42, custom);
 		inv.setItem(43, custom);
 		inv.setItem(44, custom);
@@ -292,9 +291,10 @@ public class GadgetGUI implements Listener{
 		p.openInventory(inv);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void mainGuiListener(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Cosmetic Menu"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Cosmetic Menu"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -312,12 +312,12 @@ public class GadgetGUI implements Listener{
 			p.sendMessage(Prefix.prefixGadget + ChatColor.RED + "This feature isnt ready yet! Come back later when its done!");
 			break;
 			
-		case DIAMOND_BARDING:
+		case DIAMOND_HORSE_ARMOR:
 			p.sendMessage(Prefix.prefixGadget + ChatColor.RED + "This feature isnt ready yet! Come back later when its done!");
 			break;
 			
-		case GOLD_RECORD:
-			openRecord(p);
+		case LEGACY_GOLD_RECORD:
+			openLEGACY_RECORD(p);
 			break;
 			
 		default:
@@ -325,9 +325,10 @@ public class GadgetGUI implements Listener{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void recordGuiListener(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Records"))
+	public void LEGACY_RECORDGuiListener(InventoryClickEvent e) {
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("LEGACY_RECORDs"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -341,62 +342,62 @@ public class GadgetGUI implements Listener{
 		
 		switch(e.getCurrentItem().getType()) {
 		
-		case GOLD_RECORD:
+		case LEGACY_GOLD_RECORD:
 			Bukkit.dispatchCommand(p, "jukebox 13");
 			p.closeInventory();
 			break;
 			
-		case GREEN_RECORD:
+		case LEGACY_GREEN_RECORD:
 			Bukkit.dispatchCommand(p, "jukebox cat");
 			p.closeInventory();
 			break;
 			
-		case RECORD_3:
+		case LEGACY_RECORD_3:
 			Bukkit.dispatchCommand(p, "jukebox blocks");
 			p.closeInventory();
 			break;
 			
-		case RECORD_4:
+		case LEGACY_RECORD_4:
 			Bukkit.dispatchCommand(p, "jukebox chirp");
 			p.closeInventory();
 			break;
 			
-		case RECORD_5:
+		case LEGACY_RECORD_5:
 			Bukkit.dispatchCommand(p, "jukebox far");
 			p.closeInventory();
 			break;
 			
-		case RECORD_6:
+		case LEGACY_RECORD_6:
 			Bukkit.dispatchCommand(p, "jukebox mall");
 			p.closeInventory();
 			break;
 			
-		case RECORD_7:
+		case LEGACY_RECORD_7:
 			Bukkit.dispatchCommand(p, "jukebox mellohi");
 			p.closeInventory();
 			break;
 			
-		case RECORD_8:
+		case LEGACY_RECORD_8:
 			Bukkit.dispatchCommand(p, "jukebox stal");
 			p.closeInventory();
 			break;
 			
-		case RECORD_9:
+		case LEGACY_RECORD_9:
 			Bukkit.dispatchCommand(p, "jukebox strad");
 			p.closeInventory();
 			break;
 			
-		case RECORD_10:
+		case LEGACY_RECORD_10:
 			Bukkit.dispatchCommand(p, "jukebox ward");
 			p.closeInventory();
 			break;
 			
-		case RECORD_11:
+		case LEGACY_RECORD_11:
 			Bukkit.dispatchCommand(p, "jukebox 11");
 			p.closeInventory();
 			break;
 			
-		case RECORD_12:
+		case LEGACY_RECORD_12:
 			Bukkit.dispatchCommand(p, "jukebox wait");
 			p.closeInventory();
 			break;

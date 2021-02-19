@@ -12,15 +12,11 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
-import net.minecraft.server.v1_9_R2.SoundCategory;
 
 public class Armors implements CommandExecutor {
 
@@ -67,12 +63,7 @@ public class Armors implements CommandExecutor {
 							+ " recieved the " + ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD
 							+ "LEGENDARY" + ChatColor.DARK_PURPLE + "] " + ChatColor.RED + "" + ChatColor.BOLD
 							+ "Man of Steel");
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						((CraftPlayer) player).getHandle().playerConnection.sendPacket(
-								new PacketPlayOutCustomSoundEffect("gotitem.legendary", SoundCategory.MASTER,
-										player.getLocation().getBlockX(), player.getLocation().getBlockY(),
-										player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-					}
+					
 					pi.addItem(one);
 				}
 
@@ -92,12 +83,7 @@ public class Armors implements CommandExecutor {
 							+ " recieved the " + ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD
 							+ "LEGENDARY" + ChatColor.DARK_PURPLE + "] " + ChatColor.RED + "" + ChatColor.BOLD
 							+ "Black Diamond");
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						((CraftPlayer) player).getHandle().playerConnection.sendPacket(
-								new PacketPlayOutCustomSoundEffect("gotitem.legendary", SoundCategory.MASTER,
-										player.getLocation().getBlockX(), player.getLocation().getBlockY(),
-										player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-					}
+					
 					pi.addItem(two);
 				}
 
@@ -121,12 +107,7 @@ public class Armors implements CommandExecutor {
 							+ " recieved the " + ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD
 							+ "RARE" + ChatColor.DARK_PURPLE + "] " + ChatColor.GOLD + "" + ChatColor.BOLD
 							+ "Iron Jacket");
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						((CraftPlayer) player).getHandle().playerConnection
-								.sendPacket(new PacketPlayOutCustomSoundEffect("gotitem.rare", SoundCategory.MASTER,
-										player.getLocation().getBlockX(), player.getLocation().getBlockY(),
-										player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-					}
+					
 					pi.addItem(three);
 				}
 
@@ -146,12 +127,7 @@ public class Armors implements CommandExecutor {
 					Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getName() + ChatColor.GOLD
 							+ " recieved the " + ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD
 							+ "RARE" + ChatColor.DARK_PURPLE + "] " + ChatColor.GOLD + "" + ChatColor.BOLD + "Boche");
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						((CraftPlayer) player).getHandle().playerConnection
-								.sendPacket(new PacketPlayOutCustomSoundEffect("gotitem.rare", SoundCategory.MASTER,
-										player.getLocation().getBlockX(), player.getLocation().getBlockY(),
-										player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-					}
+					
 					pi.addItem(four);
 				}
 			}

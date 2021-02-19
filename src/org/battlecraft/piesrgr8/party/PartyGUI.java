@@ -21,6 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+@SuppressWarnings("deprecation")
 public class PartyGUI implements Listener{
 	
 	BattlecraftServer plugin;
@@ -29,7 +30,6 @@ public class PartyGUI implements Listener{
 		this.plugin = p;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 18, ChatColor.YELLOW + "Party Invites");
 
@@ -46,7 +46,7 @@ public class PartyGUI implements Listener{
 			// of the players in-game
 			String playerName = yaml.getStringList(p.getName() + ".partyinvites").get(i);
 			OfflinePlayer p1 = Bukkit.getServer().getOfflinePlayer(playerName);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+			ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) SkullType.PLAYER.ordinal());
 			SkullMeta meta = (SkullMeta) item.getItemMeta();
 
 		
@@ -100,7 +100,7 @@ public class PartyGUI implements Listener{
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Party Invites")) {
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Party Invites")) {
 			return;
 		}
 
@@ -132,7 +132,7 @@ public class PartyGUI implements Listener{
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void invTp(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Clan Teleportation")) {
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Clan Teleportation")) {
 			return;
 		}
 

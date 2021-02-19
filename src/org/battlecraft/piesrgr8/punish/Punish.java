@@ -48,14 +48,16 @@ public class Punish implements Listener, CommandExecutor {
 		return msg;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack getSkull(String s) {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
 		SkullMeta metaskull = (SkullMeta) skull.getItemMeta();
 		metaskull.setOwner(s);
 		skull.setItemMeta(metaskull);
 		return skull;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack chatOffense(int i) {
 		/*
 		 * i = 0; the book i = 1; sev 1 i = 2; sev 2 i = 3; sev 3 i = 4; perm
@@ -63,7 +65,7 @@ public class Punish implements Listener, CommandExecutor {
 		 */
 
 		if (i == 0) {
-			ItemStack book = new ItemStack(Material.BOOK_AND_QUILL, 1);
+			ItemStack book = new ItemStack(Material.WRITABLE_BOOK, 1);
 			ItemMeta bookmeta = book.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
 			bookmeta.setDisplayName(color("&a&lChat Offense"));
@@ -72,7 +74,7 @@ public class Punish implements Listener, CommandExecutor {
 			book.setItemMeta(bookmeta);
 			return book;
 		} else if (i == 1) {
-			ItemStack sev1 = new ItemStack(Material.INK_SACK, 1, (short) 2);
+			ItemStack sev1 = new ItemStack(Material.INK_SAC, 1, (short) 2);
 
 			ItemMeta meta = sev1.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -99,7 +101,7 @@ public class Punish implements Listener, CommandExecutor {
 			sev1.setItemMeta(meta);
 			return sev1;
 		} else if (i == 2) {
-			ItemStack sev2 = new ItemStack(Material.INK_SACK, 1, (short) 11);
+			ItemStack sev2 = new ItemStack(Material.INK_SAC, 1, (short) 11);
 
 			ItemMeta meta = sev2.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -124,7 +126,7 @@ public class Punish implements Listener, CommandExecutor {
 			sev2.setItemMeta(meta);
 			return sev2;
 		} else if (i == 3) {
-			ItemStack sev3 = new ItemStack(Material.INK_SACK, 1, (short) 1);
+			ItemStack sev3 = new ItemStack(Material.INK_SAC, 1, (short) 1);
 
 			ItemMeta meta = sev3.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -142,7 +144,7 @@ public class Punish implements Listener, CommandExecutor {
 			sev3.setItemMeta(meta);
 			return sev3;
 		} else if (i == 4) {
-			ItemStack perm = new ItemStack(Material.BOOK_AND_QUILL, 1);
+			ItemStack perm = new ItemStack(Material.WRITABLE_BOOK, 1);
 
 			ItemMeta meta = perm.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -162,6 +164,7 @@ public class Punish implements Listener, CommandExecutor {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack genOffense(int i) {
 		/*
 		 * i = 0; the hopper i = 1; sev 1
@@ -179,7 +182,7 @@ public class Punish implements Listener, CommandExecutor {
 			hopper.setItemMeta(meta);
 			return hopper;
 		} else if (i == 1) {
-			ItemStack sev1 = new ItemStack(Material.INK_SACK, 1, (short) 2);
+			ItemStack sev1 = new ItemStack(Material.INK_SAC, 1, (short) 2);
 
 			ItemMeta meta = sev1.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -197,6 +200,7 @@ public class Punish implements Listener, CommandExecutor {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack gameOffense(int i) {
 		/*
 		 * i = 0; the sword i = 1; sev 1 i = 2; sev 2 i = 3; sev 3 i = 4; perm
@@ -213,7 +217,7 @@ public class Punish implements Listener, CommandExecutor {
 			book.setItemMeta(bookmeta);
 			return book;
 		} else if (i == 1) {
-			ItemStack sev1 = new ItemStack(Material.INK_SACK, 1, (short) 2);
+			ItemStack sev1 = new ItemStack(Material.INK_SAC, 1, (short) 2);
 
 			ItemMeta meta = sev1.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -228,7 +232,7 @@ public class Punish implements Listener, CommandExecutor {
 			sev1.setItemMeta(meta);
 			return sev1;
 		} else if (i == 2) {
-			ItemStack sev2 = new ItemStack(Material.INK_SACK, 1, (short) 11);
+			ItemStack sev2 = new ItemStack(Material.INK_SAC, 1, (short) 11);
 
 			ItemMeta meta = sev2.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -245,7 +249,7 @@ public class Punish implements Listener, CommandExecutor {
 			sev2.setItemMeta(meta);
 			return sev2;
 		} else if (i == 3) {
-			ItemStack sev3 = new ItemStack(Material.INK_SACK, 1, (short) 1);
+			ItemStack sev3 = new ItemStack(Material.INK_SAC, 1, (short) 1);
 
 			ItemMeta meta = sev3.getItemMeta();
 			ArrayList<String> lore = new ArrayList<String>();
@@ -404,12 +408,12 @@ public class Punish implements Listener, CommandExecutor {
 		Inventory inv = e.getInventory();
 		Player punisher = (Player) e.getWhoClicked();
 		if (inv != null) {
-			if (inv.getName().contains(color("&4&lPunish"))) {
+			if (e.getView().getTitle().contains(color("&4&lPunish"))) {
 
 				OfflinePlayer punished;
 				YamlConfiguration yaml;
 
-				String Invname = ChatColor.stripColor(inv.getName());
+				String Invname = ChatColor.stripColor(e.getView().getTitle());
 				String Playername = Invname.replaceAll("Punish ", "");
 				punished = Bukkit.getOfflinePlayer(Playername);
 

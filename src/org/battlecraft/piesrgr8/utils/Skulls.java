@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+@SuppressWarnings("deprecation")
 public class Skulls implements CommandExecutor {
 
 	BattlecraftServer plugin;
@@ -24,7 +25,6 @@ public class Skulls implements CommandExecutor {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("skull")) {
 			if (!(sender instanceof Player)) {
@@ -46,7 +46,7 @@ public class Skulls implements CommandExecutor {
 
 			if (args.length == 1) {
 				OfflinePlayer tar = Bukkit.getServer().getOfflinePlayer(args[0]);
-				ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+				ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (short) SkullType.PLAYER.ordinal());
 
 				SkullMeta meta = (SkullMeta) skull.getItemMeta();
 				meta.setOwner(tar.getName());

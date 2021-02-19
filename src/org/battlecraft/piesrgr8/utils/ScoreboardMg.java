@@ -3,7 +3,6 @@ package org.battlecraft.piesrgr8.utils;
 import java.util.UUID;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -17,97 +16,33 @@ import org.bukkit.scoreboard.ScoreboardManager;
 public class ScoreboardMg implements Listener {
 
 	static BattlecraftServer plugin;
+	private static int playerCount = 0;
 
 	public ScoreboardMg(BattlecraftServer p) {
 		ScoreboardMg.plugin = p;
 	}
 
-	static int id;
-	static int id2;
-
-	public static void createBoard(final Player p) {
-		id = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-			public void run() {
-				board1(p);
-			}
-		}, 90, 240);
-
-		id2 = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-			public void run() {
-				board2(p);
-			}
-		}, 90, 240);
+	public static void removeHubBoard(Player p) {
+		Scoreboard b = Bukkit.getScoreboardManager().getNewScoreboard();
+		p.setScoreboard(b);
 	}
 
-	public static void removeBoard(Player p) {
-		ScoreboardManager mg = Bukkit.getScoreboardManager();
-		p.setScoreboard(mg.getNewScoreboard());
-		Bukkit.getServer().getScheduler().cancelTask(id);
-		Bukkit.getServer().getScheduler().cancelTask(id2);
-	}
-
+	@SuppressWarnings("deprecation")
 	public static void board1(Player p) {
-
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
 
-		Objective ob = b.registerNewObjective("Hub", "dummy");
-
-		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
-		ob.setDisplayName(ChatColor.translateAlternateColorCodes('&', "     &c&lBATTLECRAFT    "));
-
-		// OTHER THINGS
-
-		Score s6 = ob.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "            STATS    ");
-		s6.setScore(11);
-
-		Score s7 = ob.getScore(ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "------------------");
-		s7.setScore(1);
-
-		// SETS (UNUSED: s2, s3)
-
-		Score s = ob.getScore(ChatColor.GREEN + "Kills: " + ChatColor.YELLOW + StatsManager.getKills(p));
-		s.setScore(10);
-
-		Score s1 = ob.getScore(ChatColor.GREEN + "Deaths: " + ChatColor.YELLOW + StatsManager.getDeaths(p));
-		s1.setScore(8);
-
-		Score s4 = ob.getScore(ChatColor.GREEN + "MinedBlocks: " + ChatColor.YELLOW + StatsManager.getBlockBreaks(p));
-		s4.setScore(6);
-
-		Score s5 = ob
-				.getScore(ChatColor.GREEN + "Created Items: " + ChatColor.YELLOW + StatsManager.getItemCreations(p));
-		s5.setScore(4);
-
-		Score s8 = ob
-				.getScore(ChatColor.GREEN + "Enchanted Items: " + ChatColor.YELLOW + StatsManager.getEnchantedItems(p));
-		s8.setScore(2);
-
-		// SPACES
-		Score space = ob.getScore(" ");
-		space.setScore(3);
-
-		Score space1 = ob.getScore("  ");
-		space1.setScore(5);
-
-		Score space2 = ob.getScore("   ");
-		space2.setScore(7);
-
-		Score space3 = ob.getScore("    ");
-		space3.setScore(9);
-
-		p.setScoreboard(b.getObjective("Hub").getScoreboard());
-	}
-
-	public static void board2(Player p) {
-		ScoreboardManager mg = Bukkit.getScoreboardManager();
-		Scoreboard b = mg.getNewScoreboard();
-
+		Objective ob;
+		
+		if (b.getObjective("Hub") == null) {
+			ob = b.registerNewObjective("Hub", "dummy");
+		} else {
+			ob = b.getObjective("Hub");
+		}
+		
 		String uuid = p.getUniqueId().toString();
 		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
-
-		Objective ob = b.registerNewObjective("Hub", "dummy");
-
+		
 		ob.setDisplaySlot(DisplaySlot.SIDEBAR);
 		ob.setDisplayName(ChatColor.translateAlternateColorCodes('&', "     &c&lBATTLECRAFT    "));
 
@@ -123,7 +58,7 @@ public class ScoreboardMg implements Listener {
 		Score s3 = ob.getScore(ChatColor.YELLOW + "" + ChatColor.BOLD + "Players Online:");
 		s3.setScore(4);
 
-		Score s4 = ob.getScore(ChatColor.AQUA + "" + Bukkit.getServer().getOnlinePlayers().size());
+		Score s4 = ob.getScore(ChatColor.AQUA + "" + playerCount());
 		s4.setScore(3);
 
 		Score s5 = ob.getScore(ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "------------------");
@@ -140,10 +75,10 @@ public class ScoreboardMg implements Listener {
 		Score sa3 = ob.getScore("   ");
 		sa3.setScore(2);
 
-		p.setScoreboard(b.getObjective("Hub").getScoreboard());
+		p.setScoreboard(b);
 	}
 
-	public static void createNewBoard(Player p, String objectiveName, DisplaySlot display) {
+	public static void createBoard(Player p, String objectiveName, DisplaySlot display) {
 		ScoreboardManager mg = Bukkit.getScoreboardManager();
 		Scoreboard b = mg.getNewScoreboard();
 
@@ -154,5 +89,14 @@ public class ScoreboardMg implements Listener {
 		} else {
 			System.out.println("Cannot set scoreboard for different reasons!");
 		}
+	}
+	
+	private static int playerCount() {
+		
+		if (playerCount < Bukkit.getOnlinePlayers().size()) {
+			playerCount = Bukkit.getOnlinePlayers().size();
+		}
+		
+		return playerCount;
 	}
 }

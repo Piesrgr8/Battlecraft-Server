@@ -28,6 +28,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+@SuppressWarnings("deprecation")
 public class Friends implements CommandExecutor, Listener {
 
 	BattlecraftServer plugin;
@@ -47,7 +48,6 @@ public class Friends implements CommandExecutor, Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		File f = new File("plugins//BattlecraftServer//friends//" + p.getName() + ".yml");
@@ -122,7 +122,6 @@ public class Friends implements CommandExecutor, Listener {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 18, ChatColor.YELLOW + "Friends List");
 
@@ -137,7 +136,7 @@ public class Friends implements CommandExecutor, Listener {
 			// of the players in-game
 			String playerName = yaml.getStringList("friends").get(i);
 			OfflinePlayer p1 = Bukkit.getServer().getOfflinePlayer(playerName);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+			ItemStack item = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
 			ItemMeta meta = item.getItemMeta();
 
 			String on = null;
@@ -168,10 +167,9 @@ public class Friends implements CommandExecutor, Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Friends List"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Friends List"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -185,7 +183,7 @@ public class Friends implements CommandExecutor, Listener {
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
 			Player c = Bukkit.getPlayer(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()));
 			if (RanksEnum.isAtLeast(p, Ranks.VIP)) {
-				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
+				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 10, (float) 0.5);
 				p.sendMessage(Prefix.prefixFriend + RanksEnum.sendErrorMessage(Ranks.VIP));
 				e.setCancelled(true);
 				return;

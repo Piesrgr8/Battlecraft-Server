@@ -10,6 +10,7 @@ import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -79,11 +80,11 @@ public class WorldFallingBlocks implements Listener {
 				float y = (float) -0000.1 + (float) (Math.random() * ((00.1 - -00.1) + 1));
 				float z = (float) -0000.1 + (float) (Math.random() * ((0000.1 - -0000.1)));
 
-				if (b.getType() == Material.REDSTONE || b.getType() == Material.REDSTONE_COMPARATOR
-						|| b.getType() == Material.REDSTONE_COMPARATOR_OFF
-						|| b.getType() == Material.REDSTONE_COMPARATOR_ON || b.getType() == Material.REDSTONE_LAMP_OFF
-						|| b.getType() == Material.REDSTONE_LAMP_ON || b.getType() == Material.REDSTONE_TORCH_OFF
-						|| b.getType() == Material.REDSTONE_TORCH_ON || b.getType() == Material.REDSTONE_WIRE
+				if (b.getType() == Material.REDSTONE || b.getType() == Material.LEGACY_REDSTONE_COMPARATOR
+						|| b.getType() == Material.LEGACY_REDSTONE_COMPARATOR_OFF
+						|| b.getType() == Material.LEGACY_REDSTONE_COMPARATOR_ON || b.getType() == Material.LEGACY_REDSTONE_LAMP_OFF
+						|| b.getType() == Material.LEGACY_REDSTONE_LAMP_ON || b.getType() == Material.LEGACY_REDSTONE_TORCH_OFF
+						|| b.getType() == Material.LEGACY_REDSTONE_TORCH_ON || b.getType() == Material.REDSTONE_WIRE
 						|| b.getType() == Material.LADDER || b.getType() == Material.VINE)
 					continue;
 
@@ -131,21 +132,20 @@ public class WorldFallingBlocks implements Listener {
 		new BukkitRunnable() {
 			int i = -1;
 
-			@SuppressWarnings("deprecation")
 			public void run() {
 				if (i != blocks.size() - 1) {
 					i++;
 					BlockState bs = blocks.get(i);
 
 					bs.getBlock().setType(bs.getType());
-					bs.getBlock().setData(bs.getData().getData());
+					bs.getBlock().setBlockData((BlockData) bs.getData());
 					if (effect)
 						bs.getBlock().getWorld().playEffect(bs.getLocation(), Effect.STEP_SOUND,
 								bs.getBlock().getType());
 				} else {
 					for (BlockState bs : blocks) {
 						bs.getBlock().setType(bs.getType());
-						bs.getBlock().setData(bs.getData().getData());
+						bs.getBlock().setBlockData((BlockData) bs.getData());
 					}
 					blocks.clear();
 					this.cancel();

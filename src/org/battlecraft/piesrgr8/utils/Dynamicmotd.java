@@ -27,7 +27,6 @@ public class Dynamicmotd implements Listener {
 	@EventHandler
 	public void motdDynamic(ServerListPingEvent e) {
 		Calendar cal = Calendar.getInstance();
-		int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 		
 		String[] strDays = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
 		        "Friday", "Saturday" };
@@ -42,11 +41,6 @@ public class Dynamicmotd implements Listener {
 			playerName = motdPlayer.get(ip);
 		} else {
 			playerName = "my friend!";
-		}
-		
-		if (dayOfMonth >= 4 && dayOfMonth <= 10) {
-			e.setMotd(permanent + "              " + Color.c("&e&lHAPPY &9&l4TH &r&lOF &c&lJULY!"));
-			return;
 		}
 		
 		if (MaintenanceMain.enabled == true) {

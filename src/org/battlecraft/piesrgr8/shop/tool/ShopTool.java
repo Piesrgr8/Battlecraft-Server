@@ -7,7 +7,6 @@ import org.battlecraft.piesrgr8.shop.Shop;
 import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +24,6 @@ public class ShopTool implements Listener {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.YELLOW + "Shop - Tools");
 
@@ -37,7 +35,7 @@ public class ShopTool implements Listener {
 		ItemStack mg = new ItemStack(Material.IRON_AXE);
 		ItemMeta mg1 = mg.getItemMeta();
 
-		ItemStack sw = new ItemStack(Material.IRON_SPADE);
+		ItemStack sw = new ItemStack(Material.IRON_SHOVEL);
 		ItemMeta sw1 = sw.getItemMeta();
 
 		ItemStack hg = new ItemStack(Material.NAME_TAG);
@@ -46,7 +44,7 @@ public class ShopTool implements Listener {
 		ItemStack fc = new ItemStack(Material.ENCHANTED_BOOK);
 		ItemMeta fc1 = fc.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -160,7 +158,7 @@ public class ShopTool implements Listener {
 
 	@EventHandler
 	public void onInventoryClick1(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Tools"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop - Tools"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -174,23 +172,23 @@ public class ShopTool implements Listener {
 
 		switch (e.getCurrentItem().getType()) {
 		case IRON_PICKAXE:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case IRON_AXE:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
-		case IRON_SPADE:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+		case IRON_SHOVEL:
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case NAME_TAG:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case ENCHANTED_BOOK:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case ARROW:

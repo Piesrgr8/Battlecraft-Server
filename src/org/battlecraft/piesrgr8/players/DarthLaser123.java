@@ -5,7 +5,7 @@ import java.util.Random;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Chat;
-import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -32,8 +32,7 @@ public class DarthLaser123 implements Listener {
 			e.setJoinMessage(specialName + ChatColor.GOLD + "" + ChatColor.ITALIC + "joined");
 
 			for (Player pl : Bukkit.getOnlinePlayers()) {
-				PacketUtil.sendActionMsg(plugin, pl,
-						ChatColor.DARK_RED + "DarthLaser123: " + ChatColor.GOLD + "Heyo!");
+				TitleManager.sendActionBar(pl, ChatColor.DARK_RED + "DarthLaser123: " + ChatColor.GOLD + "Heyo!");
 			}
 		}
 	}
@@ -87,7 +86,6 @@ public class DarthLaser123 implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public static Player getDarth() {
 		Player p = Bukkit.getPlayerExact("DarthLaser123");
 		return p;

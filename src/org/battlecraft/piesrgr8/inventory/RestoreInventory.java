@@ -245,6 +245,51 @@ public class RestoreInventory implements Listener {
 		}
 	}
 	
+	public static void loadPrisonInventory(Player p) {
+		File file = new File("plugins//BattlecraftServer//inventories//Prison//" + p.getUniqueId().toString() + ".yml");
+		if (file.exists()) {
+			YamlConfiguration inv = YamlConfiguration.loadConfiguration(file);
+			p.getInventory().clear();
+			ItemStack[] contents = p.getInventory().getContents();
+			List<?> list = inv.getList("Inventory");
+
+			for (int i = 0; i < list.size(); i++) {
+				contents[i] = (ItemStack) list.get(i);
+			}
+			p.getInventory().setContents(contents);
+			file.delete();
+		}
+	}
+	
+	public static void savePrisonInventory(Player p) {
+		checkFolder();
+		ArrayList<ItemStack> list = new ArrayList<>();
+		File file = new File("plugins//BattlecraftServer//inventories//Prison//" + p.getUniqueId().toString() + ".yml");
+
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			YamlConfiguration inv = YamlConfiguration.loadConfiguration(file);
+			ItemStack[] contents = p.getInventory().getContents();
+			for (int i = 0; i < contents.length; i++) {
+				ItemStack item = contents[i];
+				if (!(item == null)) {
+					list.add(item);
+				}
+			}
+			inv.set("Inventory", list);
+			try {
+				inv.save(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			p.getInventory().clear();
+		}
+	}
+	
 	public static void saveInvFor(Player p, World world) {
 		if (world == null) {
 			return;
@@ -285,6 +330,12 @@ public class RestoreInventory implements Listener {
 		} else {
 			return;
 		}
+		
+		if (world.getName().equals("Prison")) {
+			savePrisonInventory(p);
+		} else {
+			return;
+		}
 	}
 
 	public static void checkFolder() {
@@ -293,6 +344,7 @@ public class RestoreInventory implements Listener {
 		File file3 = new File("plugins//BattlecraftServer//inventories//Creative");
 		File file4 = new File("plugins//BattlecraftServer//inventories//SkyBlock");
 		File file5 = new File("plugins//BattlecraftServer//inventories//KitPvP");
+		File file7 = new File("plugins//BattlecraftServer//inventories//Prison");
 		File file6 = new File("plugins//BattlecraftServer//inventories//Saved");
 		if (!file.exists()) {
 			file.mkdirs();
@@ -311,6 +363,9 @@ public class RestoreInventory implements Listener {
 		}
 		if (!file6.exists()) {
 			file6.mkdirs();
+		}
+		if (!file7.exists()) {
+			file7.mkdirs();
 		}
 	}
 }

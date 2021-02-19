@@ -21,6 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+@SuppressWarnings("deprecation")
 public class PlayerTp implements Listener {
 
 	public static ArrayList<String> players = new ArrayList<String>();
@@ -37,7 +38,7 @@ public class PlayerTp implements Listener {
 		for (int i = 0; i < players.size(); i++) { // Where players is an array
 													// of the players in-game
 			String playerName = players.get(i);
-			ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+			ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1, (short) SkullType.PLAYER.ordinal());
 			ItemMeta meta = item.getItemMeta();
 
 			meta.setDisplayName(playerName);
@@ -49,10 +50,9 @@ public class PlayerTp implements Listener {
 		p.openInventory(inv);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Player Teleportation")) {
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Player Teleportation")) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ public class PlayerTp implements Listener {
 		if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
 			Player c = Bukkit.getPlayer(e.getCurrentItem().getItemMeta().getDisplayName().trim());
 			if (RanksEnum.isAtLeast(p, Ranks.HELPER)) {
-				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 10, (float) 0.5);
+				p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 10, (float) 0.5);
 				p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "You dont have permission to teleport!");
 				e.setCancelled(true);
 			}

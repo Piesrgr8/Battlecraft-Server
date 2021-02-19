@@ -1,10 +1,11 @@
 package org.battlecraft.piesrgr8.config;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.clans.Clans;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -65,7 +66,6 @@ public class ConfigMg {
 		saveStaffYaml(plugin);
 		saveConsoleYaml(plugin);
 		saveChatYaml(plugin);
-		Clans.createClans(plugin);
 	}
 
 	//Then the list continues, saving every individual yml.
@@ -187,5 +187,17 @@ public class ConfigMg {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String readConfigDebug(File f) throws FileNotFoundException {
+		Scanner sc = new Scanner(f);
+		String line = "";
+		
+		if (sc.hasNext()) {
+			line = sc.next() + "\n";
+		}
+		
+		sc.close();
+		return line;
 	}
 }

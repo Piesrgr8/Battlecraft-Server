@@ -29,7 +29,7 @@ public class Admin implements CommandExecutor{
 			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
 				if (PlayersYML.adminToggleEnable(on)) {
 		on.sendMessage(Prefix.prefixAdmin + ChatColor.WHITE + s);
-		on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
+		on.playSound(on.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10000, 1);
 				}
 			}
 		}

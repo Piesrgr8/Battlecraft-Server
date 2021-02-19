@@ -34,7 +34,7 @@ public class PerkMenu {
 		ItemStack e = new ItemStack(Material.ANVIL);
 		ItemMeta em = w.getItemMeta();
 
-		ItemStack space = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) DyeColor.BLACK.getDyeData());
+		ItemStack space = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, (byte) DyeColor.BLACK.getDyeData());
 		ItemMeta spaceM = space.getItemMeta();
 
 		qm.setDisplayName(Color.c("&a&lTier 1"));

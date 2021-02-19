@@ -13,7 +13,6 @@ import org.bukkit.inventory.Inventory;
 
 public class Enderchest implements CommandExecutor {
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {
 			if (!(sender instanceof Player)) {

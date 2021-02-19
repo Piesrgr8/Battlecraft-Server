@@ -31,7 +31,7 @@ public class HubInv {
 		final ItemStack ns1 = new ItemStack(Material.END_CRYSTAL);
 		ItemMeta meta1 = ns1.getItemMeta();
 		
-		final ItemStack ns2 = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.GREEN.getData());
+		final ItemStack ns2 = new ItemStack(Material.LEGACY_STAINED_CLAY, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta meta2 = ns2.getItemMeta();
 		
 		final ItemStack ns4 = new ItemStack(Material.CHEST);

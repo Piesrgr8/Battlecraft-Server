@@ -5,7 +5,7 @@ import java.util.Random;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Chat;
-import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -31,8 +31,7 @@ public class IHersh implements Listener {
 			e.setJoinMessage(name + ChatColor.GOLD + " joined");
 
 			for (Player pl : Bukkit.getOnlinePlayers()) {
-				PacketUtil.sendActionMsg(plugin, pl,
-						ChatColor.RED + "iHersh: " + ChatColor.GOLD + "Hekin memes dude.");
+				TitleManager.sendActionBar(pl, ChatColor.RED + "iHersh: " + ChatColor.GOLD + "Hekin memes dude.");
 			}
 		}
 	}
@@ -87,7 +86,6 @@ public class IHersh implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public static Player getHersh() {
 		Player p = Bukkit.getPlayerExact("iHersh");
 		return p;

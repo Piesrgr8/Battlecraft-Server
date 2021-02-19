@@ -4,8 +4,8 @@ import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.staff.Admin;
-import org.battlecraft.piesrgr8.utils.PacketUtil;
 import org.battlecraft.piesrgr8.utils.Prefix;
+import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -59,11 +59,11 @@ public class Send implements CommandExecutor {
 				Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has sent: " + ChatColor.YELLOW + msg);
 				for (Player on : Bukkit.getOnlinePlayers()) {
 					if (args[0].equalsIgnoreCase("title")) {
-						PacketUtil.sendTitle(plugin, on, msg, "");
+						TitleManager.sendTitle(on, msg, "", 60, 20, 20);
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("am")) {
-						PacketUtil.sendActionMsg(plugin, on, msg);
+						TitleManager.sendActionBar(on, msg);
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("bc")) {

@@ -59,7 +59,7 @@ public class Kiosk implements Listener, CommandExecutor {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Kiosk"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Kiosk"))
 			return;
 
 		// Player p = (Player) e.getWhoClicked();

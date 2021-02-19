@@ -6,10 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
-import net.minecraft.server.v1_9_R2.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_9_R2.PacketPlayOutChat;
-import net.minecraft.server.v1_9_R2.PlayerConnection;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import net.minecraft.server.v1_16_R2.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_16_R2.PacketPlayOutChat;
+import net.minecraft.server.v1_16_R2.PlayerConnection;
 
 public class ClickChat implements CommandExecutor {
 
@@ -28,7 +28,8 @@ public class ClickChat implements CommandExecutor {
 			PacketPlayOutChat packet = new PacketPlayOutChat(
 					ChatSerializer.a("{\"text\":\"CLICK HERE TO OPEN THE WEBSITE!\",\"color\":\"aqua\",\"bold\":true,"
 							+ "\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://bcpvp101.enjin.com/\"},"
-							+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Click here to open the website!\",\"color\":\"gold\"}]}}}"));
+							+ "\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Click here to open the website!\",\"color\":\"gold\"}]}}}"),
+					null, null);
 
 			connection.sendPacket(packet);
 		}
@@ -39,7 +40,7 @@ public class ClickChat implements CommandExecutor {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a("{\"text\":\"" + arg1
 				+ "\",\"color\":\"yellow\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\""
-				+ arg2 + "\",\"color\":\"green\"}]}}}"));
+				+ arg2 + "\",\"color\":\"green\"}]}}}"), null, null);
 
 		connection.sendPacket(packet);
 	}
@@ -48,7 +49,7 @@ public class ClickChat implements CommandExecutor {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a("{\"text\":\"" + arg1
 				+ "\",\"color\":\"green\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\""
-				+ arg2 + "\",\"color\":\"yellow\"}]}}}"));
+				+ arg2 + "\",\"color\":\"yellow\"}]}}}"), null, null);
 
 		connection.sendPacket(packet);
 	}
@@ -57,15 +58,17 @@ public class ClickChat implements CommandExecutor {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a("{\"text\":\"" + arg1
 				+ "\",\"color\":\"red\",\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\""
-				+ arg2 + "\",\"color\":\"yellow\"}]}}}"));
+				+ arg2 + "\",\"color\":\"yellow\"}]}}}"), null, null);
 
 		connection.sendPacket(packet);
 	}
 
 	public static void test(Player p) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a(
-				"{\"text\":\"gg\",\"color\":\"gold\",\"bold\":true,\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/help\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Get the help menu!\",\"color\":\"yellow\"}]}}}"));
+		PacketPlayOutChat packet = new PacketPlayOutChat(
+				ChatSerializer
+						.a("{\"text\":\"gg\",\"color\":\"gold\",\"bold\":true,\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/help\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Get the help menu!\",\"color\":\"yellow\"}]}}}"),
+				null, null);
 
 		connection.sendPacket(packet);
 	}

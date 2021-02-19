@@ -56,7 +56,7 @@ public class ShopMaterialResource implements Listener {
 		ItemStack block7 = new ItemStack(Material.EMERALD);
 		ItemMeta block_7 = block7.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -173,7 +173,7 @@ public class ShopMaterialResource implements Listener {
 
 	@EventHandler
 	public void onInventoryClick1(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Resources"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop - Resources"))
 			return;
 		e.setCancelled(true);
 
@@ -197,35 +197,35 @@ public class ShopMaterialResource implements Listener {
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("2.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOD, 1, (byte) 1));
+			Shop.addItem(p, new ItemStack(Material.SPRUCE_WOOD, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Spruce Wood Planks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$3!");
 			API.minBal(p, (double) 3);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("3.")) {
-			inv.addItem(new ItemStack(Material.WOOD, 1, (byte) 2));
+			inv.addItem(new ItemStack(Material.BIRCH_WOOD, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Birch Wood Planks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$3!");
 			API.minBal(p, (double) 3);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("4.")) {
-			inv.addItem(new ItemStack(Material.WOOD, 1, (byte) 3));
+			inv.addItem(new ItemStack(Material.JUNGLE_WOOD, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Jungle Wood Planks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$2!");
 			API.minBal(p, (double) 2);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("5.")) {
-			inv.addItem(new ItemStack(Material.WOOD, 1, (byte) 4));
+			inv.addItem(new ItemStack(Material.ACACIA_WOOD, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Acacia Wood Planks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$4!");
 			API.minBal(p, (double) 4);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("6.")) {
-			inv.addItem(new ItemStack(Material.WOOD, 1, (byte) 5));
+			inv.addItem(new ItemStack(Material.DARK_OAK_WOOD, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Dark Oak Wood Planks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$4!");
 			API.minBal(p, (double) 4);

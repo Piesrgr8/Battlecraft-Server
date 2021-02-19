@@ -1,16 +1,16 @@
 package org.battlecraft.piesrgr8.firework;
 
-import java.util.HashSet;
+import java.util.Calendar;
 import java.util.Random;
+import java.util.Set;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.bukkit.Bukkit;
+import org.battlecraft.piesrgr8.inventory.InvMethods;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -39,13 +39,13 @@ public class Fireworks implements Listener {
 		PlayerInventory inv = e.getPlayer().getInventory();
 
 		if (p.getWorld().getName().equals("Hub1")) {
-			if (p.getItemInHand().getType().equals(Material.FIREWORK)) {
+			if (p.getItemInHand().getType().equals(Material.FIREWORK_ROCKET) && inv.getItemInHand().getAmount() >= 10) {
 				if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 					e.setCancelled(true);
-
-					inv.remove(new ItemStack(Material.FIREWORK, 10));
+					
+					InvMethods.remove(inv, Material.FIREWORK_ROCKET, 10);
 					Firework fw = (Firework) p.getWorld()
-							.spawn(p.getTargetBlock((HashSet<Byte>) null, 10).getLocation(), Firework.class);
+							.spawn(p.getTargetBlock((Set<Material>) null, 10).getLocation(), Firework.class);
 					FireworkMeta fwm = fw.getFireworkMeta();
 
 					// Our random generator
@@ -95,19 +95,26 @@ public class Fireworks implements Listener {
 	public void vipFw(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
 		PlayerInventory inv = p.getInventory();
+		int seconds = Calendar.SECOND;
+		
+		if (seconds == Calendar.SECOND) {
+			return;
+		}
 
 		if (!RanksEnum.isAtLeast(p, Ranks.VIP)) {
 			return;
 		}
 
 		if (p.getLocation().getWorld().getName().equals("Hub1")) {
-			if (!inv.contains(new ItemStack(Material.FIREWORK, 64))) {
-				inv.addItem(new ItemStack(Material.FIREWORK, 1));
+			if (!inv.contains(new ItemStack(Material.FIREWORK_ROCKET, 64))) {
+				inv.addItem(new ItemStack(Material.FIREWORK_ROCKET, 1));
+				seconds = Calendar.SECOND;
 			}
 		} else {
 			return;
 		}
-		
+
+		/*
 		if (!RanksEnum.isAtLeast(p, Ranks.MOD)) {
 			return;
 		}
@@ -189,7 +196,7 @@ public class Fireworks implements Listener {
 					fi = 1;
 				}
 			}, 100);
-		}
+		} */
 	} 
 
 	private Color getColor(int i) {

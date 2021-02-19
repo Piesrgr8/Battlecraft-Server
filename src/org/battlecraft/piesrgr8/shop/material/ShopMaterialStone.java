@@ -6,7 +6,6 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +26,6 @@ public class ShopMaterialStone implements Listener {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.YELLOW + "Shop - Stone");
 
@@ -45,19 +43,16 @@ public class ShopMaterialStone implements Listener {
 		ItemStack block4 = new ItemStack(Material.BRICK);
 		ItemMeta block_4 = block4.getItemMeta();
 
-		ItemStack block5 = new ItemStack(Material.SMOOTH_BRICK);
+		ItemStack block5 = new ItemStack(Material.STONE_BRICKS);
 		ItemMeta block_5 = block5.getItemMeta();
 
-		byte stoneType1 = 1;
-		ItemStack block6 = new ItemStack(Material.SMOOTH_BRICK, 1, stoneType1);
+		ItemStack block6 = new ItemStack(Material.MOSSY_STONE_BRICKS, 1);
 		ItemMeta block_6 = block5.getItemMeta();
 
-		byte stoneType2 = 2;
-		ItemStack block7 = new ItemStack(Material.SMOOTH_BRICK, 1, stoneType2);
+		ItemStack block7 = new ItemStack(Material.CRACKED_STONE_BRICKS, 1);
 		ItemMeta block_7 = block5.getItemMeta();
 
-		byte stoneType3 = 3;
-		ItemStack block8 = new ItemStack(Material.SMOOTH_BRICK, 1, stoneType3);
+		ItemStack block8 = new ItemStack(Material.CHISELED_STONE_BRICKS, 1);
 		ItemMeta block_8 = block5.getItemMeta();
 
 		ItemStack block9 = new ItemStack(Material.SANDSTONE);
@@ -66,7 +61,7 @@ public class ShopMaterialStone implements Listener {
 		ItemStack block10 = new ItemStack(Material.RED_SANDSTONE);
 		ItemMeta block_10 = block5.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -195,7 +190,7 @@ public class ShopMaterialStone implements Listener {
 
 	@EventHandler
 	public void onInventoryClick1(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Stone"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop - Stone"))
 			return;
 		e.setCancelled(true);
 
@@ -237,28 +232,28 @@ public class ShopMaterialStone implements Listener {
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("5.")) {
-			inv.addItem(new ItemStack(Material.SMOOTH_BRICK));
+			inv.addItem(new ItemStack(Material.STONE_BRICKS));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Stone Bricks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$3!");
 			API.minBal(p, (double) 3);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("6.")) {
-			inv.addItem(new ItemStack(Material.SMOOTH_BRICK, 1, (byte) 1));
+			inv.addItem(new ItemStack(Material.MOSSY_STONE_BRICKS, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Mossy Stone Bricks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$3!");
 			API.minBal(p, (double) 3);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("7.")) {
-			inv.addItem(new ItemStack(Material.SMOOTH_BRICK, 1, (byte) 2));
+			inv.addItem(new ItemStack(Material.CRACKED_STONE_BRICKS, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Cracked Stone Bricks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$2!");
 			API.minBal(p, (double) 2);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("8.")) {
-			inv.addItem(new ItemStack(Material.SMOOTH_BRICK, 1, (byte) 3));
+			inv.addItem(new ItemStack(Material.CHISELED_STONE_BRICKS, 1));
 			p.sendMessage(Prefix.prefixShop + ChatColor.GREEN + "You bought " + ChatColor.YELLOW + "Chiseled Stone Bricks"
 					+ ChatColor.GREEN + " for " + ChatColor.GOLD + "$4!");
 			API.minBal(p, (double) 4);

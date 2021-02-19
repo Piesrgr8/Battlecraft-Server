@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,8 +24,8 @@ public class Poll implements CommandExecutor {
 		Poll.plugin = p;
 	}
 
-	static File f = new File("plugins//BattlecraftServer//polls.yml");
-	static YamlConfiguration yaml = new YamlConfiguration();
+	static File f = ConfigMg.poll;
+	static YamlConfiguration yaml = ConfigMg.pollY;
 
 	public Integer summary() {
 		int i = yaml.getInt("responses.ans1") + yaml.getInt("responses.ans2")
@@ -134,14 +135,6 @@ public class Poll implements CommandExecutor {
 	}
 
 	public void registerYaml(Player p) {
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-
 		if (!yaml.contains(p.getName())) {
 
 			if (!yaml.contains("responses")) {
@@ -164,29 +157,20 @@ public class Poll implements CommandExecutor {
 		}
 	}
 
-	public boolean hasVoted(Player p) {
+	public static boolean hasVoted(Player p) {
 		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			p.sendMessage(Prefix.prefixPolls + "File doesn't exist!");
+			return true;
 		}
 
-		if (yaml.getList("voters").contains(p.getName()))
+		if (yaml.getList("voters").contains(p.getName())) {
 			return true;
+		}
 
 		return false;
 	}
 
 	public static void addInfoInYml() {
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
 
 		if (!yaml.contains("responses") || !yaml.contains("voters")) {
 			yaml.createSection("responses");
@@ -206,6 +190,10 @@ public class Poll implements CommandExecutor {
 	}
 
 	public static void sendJoinMessage(final Player p) {
+		if (hasVoted(p)) {
+			return;
+		}
+		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
 				p.sendMessage(Prefix.prefixPolls + ChatColor.YELLOW + "There is an available poll currently going on!");

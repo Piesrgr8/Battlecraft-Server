@@ -35,6 +35,7 @@ public class NavGame implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 9, ChatColor.BLUE + "Quick Game");
 
@@ -52,7 +53,7 @@ public class NavGame implements Listener {
 		ItemStack hg = new ItemStack(Material.CHEST);
 		ItemMeta hg1 = hg.getItemMeta();
 
-		ItemStack air = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack air = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 		ItemMeta air1 = air.getItemMeta();
 
 		// Setting the meta, or names, of all of the blocks that will be added
@@ -100,9 +101,10 @@ public class NavGame implements Listener {
 		p.openInventory(inv);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Quick Game"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Quick Game"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -135,7 +137,7 @@ public class NavGame implements Listener {
 			Sg.openGUI(p);
 			break;
 
-		case STAINED_GLASS_PANE:
+		case LEGACY_STAINED_GLASS_PANE:
 			p.closeInventory();
 			break;
 

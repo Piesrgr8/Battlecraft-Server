@@ -5,26 +5,24 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
-import org.battlecraft.piesrgr8.essentials.Invisibility;
+import org.battlecraft.piesrgr8.teleportation.Teleportation;
 import org.battlecraft.piesrgr8.utils.Prefix;
-import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
@@ -44,14 +42,15 @@ public class Hub implements Listener, CommandExecutor {
 		this.plugin = p;
 	}
 
-	public void teleportInWorld(Player player, World world, double x, double y, double z) {
-		player.teleport(new Location(world, x, y, z));
-
-		if (world == null) {
-			player.sendMessage(Prefix.prefixHub + ChatColor.RED + "This world doesnt exist!");
-		}
+	public static void hubSpawn(Player p) {
+		World w = Bukkit.getServer().getWorld(yaml.getString("hub.world"));
+		double x = yaml.getDouble("hub.x");
+		double y = yaml.getDouble("hub.y");
+		double z = yaml.getDouble("hub.z");
+		Teleportation.teleportInWorld(p, w, x, y, z);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 18, ChatColor.YELLOW + "Game Selector");
 
@@ -72,7 +71,7 @@ public class Hub implements Listener, CommandExecutor {
 		ItemStack fc = new ItemStack(Material.IRON_SWORD);
 		ItemMeta fc1 = fc.getItemMeta();
 
-		ItemStack gm = new ItemStack(Material.WOOD_AXE);
+		ItemStack gm = new ItemStack(Material.WOODEN_AXE);
 		ItemMeta gm1 = gm.getItemMeta();
 
 		ItemStack sb = new ItemStack(Material.LAVA_BUCKET);
@@ -84,10 +83,10 @@ public class Hub implements Listener, CommandExecutor {
 		ItemStack kp = new ItemStack(Material.DIAMOND_SWORD);
 		ItemMeta kp1 = kp.getItemMeta();
 
-		ItemStack shop = new ItemStack(Material.EXP_BOTTLE);
+		ItemStack shop = new ItemStack(Material.EXPERIENCE_BOTTLE);
 		ItemMeta shop1 = shop.getItemMeta();
 
-		ItemStack air = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack air = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 		ItemMeta air1 = air.getItemMeta();
 
 		/*
@@ -191,9 +190,10 @@ public class Hub implements Listener, CommandExecutor {
 		p.openInventory(inv);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Game Selector"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Game Selector"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -207,76 +207,76 @@ public class Hub implements Listener, CommandExecutor {
 
 		switch (e.getCurrentItem().getType()) {
 		case COBBLESTONE:
-			teleportInWorld(p, Bukkit.getWorld("world"), 843, 2, 541);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("world"), 843, 2, 541);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Main PvP.");
 			break;
 
 		case SLIME_BALL:
-			teleportInWorld(p, Bukkit.getWorld("Minigame"), -266.5, 114, 284.5);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Minigame"), -266.5, 114, 284.5);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Minigames.");
 			break;
 
 		case BOW:
-			teleportInWorld(p, Bukkit.getWorld("Skywars_1"), -2.5, 99, -4.5);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Skywars_1"), -2.5, 99, -4.5);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "SkyWars.");
 			break;
 
 		case CHEST:
-			teleportInWorld(p, Bukkit.getWorld("world"), 2076.5, 4, 783);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("world"), 2076.5, 4, 783);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Survival Games.");
 			break;
 
 		case DIAMOND_SWORD:
-			teleportInWorld(p, Bukkit.getWorld("world"), 1565.633, 6.63153, 585.487);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("world"), 1565.633, 6.63153, 585.487);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "KitPvP.");
 			break;
 
 		case IRON_SWORD:
-			teleportInWorld(p, Bukkit.getWorld("Factions"), -110.5, 67, -236.5);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Factions"), -110.5, 67, -236.5);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Factions.");
 			break;
 
-		case WOOD_AXE:
-			teleportInWorld(p, Bukkit.getWorld("Creative"), -350.5, 245, 663.5);
+		case WOODEN_AXE:
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Creative"), -350.5, 245, 663.5);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Creative.");
 			break;
 
 		case LAVA_BUCKET:
-			teleportInWorld(p, Bukkit.getWorld("Hub1"), 1082, 5, 618.5);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Hub1"), 1082, 5, 618.5);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "SkyBlock.");
 			break;
 
 		case ENDER_PEARL:
-			teleportInWorld(p, Bukkit.getWorld("Hub1"), 1041, 11, 586);
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("Hub1"), 1041, 11, 586);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Hub.");
 			break;
 
-		case EXP_BOTTLE:
-			teleportInWorld(p, Bukkit.getWorld("world"), 1816, 4, 577);
+		case EXPERIENCE_BOTTLE:
+			Teleportation.teleportInWorld(p, Bukkit.getWorld("world"), 1816, 4, 577);
 			p.closeInventory();
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD
 					+ "Shop.");
 			break;
 
-		case STAINED_GLASS_PANE:
+		case LEGACY_STAINED_GLASS_PANE:
 			p.closeInventory();
 			break;
 
@@ -311,40 +311,22 @@ public class Hub implements Listener, CommandExecutor {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onWorldChange(PlayerChangedWorldEvent e) {
-		final Player p = e.getPlayer();
-
-		if (p.getWorld().getName().equals("Hub1")) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-					HubInv.hubInv(p);
-					ScoreboardMg.createBoard(p);
-					Invisibility.showAllPlayers(p);
-					Invisibility.vanish.remove(p);
-				}
-			}, 20);
-		} else if (e.getFrom().getName().equals("Hub1")) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-				public void run() {
-					ScoreboardMg.removeBoard(p);
-					Invisibility.showAllPlayers(p);
-					Invisibility.vanish.remove(p);
-					p.getInventory().clear();
-					p.removePotionEffect(PotionEffectType.SPEED);
-				}
-			}, 5);
-		}
-	}
-
 	@EventHandler
 	public void voidDamage(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.getLocation().getWorld().getName().equals("Hub1")) {
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000000, 2));
 			if (p.getLocation().getY() <= -15) {
-				teleportInWorld(p, Bukkit.getWorld("Hub1"), 1041, 11, 586);
+				hubSpawn(p);
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onDamage(EntityDamageEvent e) {
+		Entity en = e.getEntity();
+		if (en.getWorld().getName().equals("Hub1") && e instanceof Player) {
+			e.setCancelled(true);
 		}
 	}
 
@@ -391,11 +373,7 @@ public class Hub implements Listener, CommandExecutor {
 			}
 
 			Player p = (Player) sender;
-			World w = Bukkit.getServer().getWorld(yaml.getString("hub.world"));
-			double x = yaml.getDouble("hub.x");
-			double y = yaml.getDouble("hub.y");
-			double z = yaml.getDouble("hub.z");
-			p.teleport(new Location(w, x, y, z));
+			hubSpawn(p);
 			p.setHealth(20);
 			p.setFoodLevel(20);
 			p.sendMessage(Prefix.prefixHub + ChatColor.GREEN + "Teleported to " + ChatColor.GREEN + "" + ChatColor.BOLD

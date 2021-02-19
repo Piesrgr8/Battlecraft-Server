@@ -7,15 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import net.minecraft.server.v1_9_R2.PacketPlayOutCustomSoundEffect;
-import net.minecraft.server.v1_9_R2.SoundCategory;
 
 public class WeapMethod {
 
@@ -33,12 +29,7 @@ public class WeapMethod {
 		Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getName() + ChatColor.GOLD + " has the "
 				+ ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE" + ChatColor.DARK_PURPLE
 				+ "] " + ChatColor.RED + "" + ChatColor.BOLD + "Death Dealer");
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
-					"gotitem.legendary", SoundCategory.MASTER, player.getLocation().getBlockX(),
-					player.getLocation().getBlockY(), player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-
-		}
+		
 		pi.addItem(newItem);
 	}
 
@@ -56,11 +47,7 @@ public class WeapMethod {
 		Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getName() + ChatColor.GOLD + " has the "
 				+ ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE" + ChatColor.DARK_PURPLE
 				+ "] " + ChatColor.RED + "" + ChatColor.BOLD + "The Black Blade");
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
-					"gotitem.legendary", SoundCategory.MASTER, player.getLocation().getBlockX(),
-					player.getLocation().getBlockY(), player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-		}
+		
 		pi.addItem(newItem);
 	}
 
@@ -77,11 +64,7 @@ public class WeapMethod {
 		Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getName() + ChatColor.GOLD + " has the "
 				+ ChatColor.YELLOW + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "EXOTIC" + ChatColor.YELLOW + "] "
 				+ ChatColor.RED + "" + ChatColor.BOLD + "Bread and Butter");
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
-					"gotitem.rank", SoundCategory.MASTER, player.getLocation().getBlockX(),
-					player.getLocation().getBlockY(), player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-		}
+		
 		pi.addItem(newItem);
 	}
 
@@ -101,12 +84,7 @@ public class WeapMethod {
 		Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + p.getName() + ChatColor.GREEN + " recieved the "
 				+ ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE" + ChatColor.DARK_PURPLE
 				+ "] " + ChatColor.GOLD + "" + ChatColor.BOLD + "Karabela");
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
-					"gotitem.rare", SoundCategory.MASTER, player.getLocation().getBlockX(),
-					player.getLocation().getBlockY(), player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-
-		}
+		
 		pi.addItem(karaBela);
 	}
 
@@ -126,12 +104,7 @@ public class WeapMethod {
 		Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + p.getName() + ChatColor.GREEN + " recieved the "
 				+ ChatColor.DARK_PURPLE + "[" + ChatColor.GOLD + "" + ChatColor.BOLD + "RARE" + ChatColor.DARK_PURPLE
 				+ "] " + ChatColor.GOLD + "" + ChatColor.BOLD + "Sharpshooter");
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutCustomSoundEffect(
-					"gotitem.rare", SoundCategory.MASTER, player.getLocation().getBlockX(),
-					player.getLocation().getBlockY(), player.getLocation().getBlockZ(), 100000.0F, 1.0F));
-
-		}
+		
 		pi.addItem(sharpShooter);
 	}
 

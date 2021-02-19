@@ -6,7 +6,6 @@ import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.shop.Shop;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,55 +46,55 @@ public class ShopMaterialColorwool implements Listener {
 		// Creating the items and registering them.
 		
 
-		ItemStack block1 = new ItemStack(Material.WOOL);
+		ItemStack block1 = new ItemStack(Material.LEGACY_WOOL);
 		ItemMeta block_1 = block1.getItemMeta();
 
-		ItemStack block2 = new ItemStack(Material.WOOL, 1, plankType2);
+		ItemStack block2 = new ItemStack(Material.LEGACY_WOOL, 1, plankType2);
 		ItemMeta block_2 = block2.getItemMeta();
 
-		ItemStack block3 = new ItemStack(Material.WOOL, 1, plankType3);
+		ItemStack block3 = new ItemStack(Material.LEGACY_WOOL, 1, plankType3);
 		ItemMeta block_3 = block3.getItemMeta();
 
-		ItemStack block4 = new ItemStack(Material.WOOL, 1, plankType4);
+		ItemStack block4 = new ItemStack(Material.LEGACY_WOOL, 1, plankType4);
 		ItemMeta block_4 = block4.getItemMeta();
 
-		ItemStack block5 = new ItemStack(Material.WOOL, 1, plankType5);
+		ItemStack block5 = new ItemStack(Material.LEGACY_WOOL, 1, plankType5);
 		ItemMeta block_5 = block5.getItemMeta();
 
-		ItemStack block6 = new ItemStack(Material.WOOL, 1, plankType6);
+		ItemStack block6 = new ItemStack(Material.LEGACY_WOOL, 1, plankType6);
 		ItemMeta block_6 = block5.getItemMeta();
 		
-		ItemStack block7 = new ItemStack(Material.WOOL, 1, plankType7);
+		ItemStack block7 = new ItemStack(Material.LEGACY_WOOL, 1, plankType7);
 		ItemMeta block_7 = block7.getItemMeta();
 		
-		ItemStack block8 = new ItemStack(Material.WOOL, 1, plankType8);
+		ItemStack block8 = new ItemStack(Material.LEGACY_WOOL, 1, plankType8);
 		ItemMeta block_8 = block8.getItemMeta();
 		
-		ItemStack block9 = new ItemStack(Material.WOOL, 1, plankType9);
+		ItemStack block9 = new ItemStack(Material.LEGACY_WOOL, 1, plankType9);
 		ItemMeta block_9 = block9.getItemMeta();
 		
-		ItemStack block10 = new ItemStack(Material.WOOL, 1, plankType10);
+		ItemStack block10 = new ItemStack(Material.LEGACY_WOOL, 1, plankType10);
 		ItemMeta block_10 = block10.getItemMeta();
 		
-		ItemStack block11 = new ItemStack(Material.WOOL, 1, plankType11);
+		ItemStack block11 = new ItemStack(Material.LEGACY_WOOL, 1, plankType11);
 		ItemMeta block_11 = block11.getItemMeta();
 		
-		ItemStack block12 = new ItemStack(Material.WOOL, 1, plankType12);
+		ItemStack block12 = new ItemStack(Material.LEGACY_WOOL, 1, plankType12);
 		ItemMeta block_12 = block12.getItemMeta();
 		
-		ItemStack block13 = new ItemStack(Material.WOOL, 1, plankType13);
+		ItemStack block13 = new ItemStack(Material.LEGACY_WOOL, 1, plankType13);
 		ItemMeta block_13 = block13.getItemMeta();
 		
-		ItemStack block14 = new ItemStack(Material.WOOL, 1, plankType14);
+		ItemStack block14 = new ItemStack(Material.LEGACY_WOOL, 1, plankType14);
 		ItemMeta block_14 = block14.getItemMeta();
 		
-		ItemStack block15 = new ItemStack(Material.WOOL, 1, plankType15);
+		ItemStack block15 = new ItemStack(Material.LEGACY_WOOL, 1, plankType15);
 		ItemMeta block_15 = block15.getItemMeta();
 		
-		ItemStack block16 = new ItemStack(Material.WOOL, 1, plankType16);
+		ItemStack block16 = new ItemStack(Material.LEGACY_WOOL, 1, plankType16);
 		ItemMeta block_16 = block16.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -246,9 +245,10 @@ public class ShopMaterialColorwool implements Listener {
 		p.openInventory(inv);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick1(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Colored Wool"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop - Colored Wool"))
 			return;
 		e.setCancelled(true);
 
@@ -265,97 +265,97 @@ public class ShopMaterialColorwool implements Listener {
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("1. Wool")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL));
 			p.sendMessage(Shop.successfulMessage(p, "Wool", 10));
 			Shop.sub(p, 10);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("2.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType2));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType2));
 			p.sendMessage(Shop.successfulMessage(p, "Orange Wool", 20));
 			Shop.sub(p, 20);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("3.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType3));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType3));
 			p.sendMessage(Shop.successfulMessage(p, "Magenta Wool", 20));
 			Shop.sub(p, 20);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("4.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType4));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType4));
 			p.sendMessage(Shop.successfulMessage(p, "Light Blue Wool", 20));
 			Shop.sub(p, 20);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("5.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType5));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType5));
 			p.sendMessage(Shop.successfulMessage(p, "Yellow Wool", 20));
 			Shop.sub(p, 20);
 		}
 
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("6.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType6));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType6));
 			p.sendMessage(Shop.successfulMessage(p, "Lime Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("7.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType7));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType7));
 			p.sendMessage(Shop.successfulMessage(p, "Pink Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("8.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType8));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType8));
 			p.sendMessage(Shop.successfulMessage(p, "Gray Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("9.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType9));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType9));
 			p.sendMessage(Shop.successfulMessage(p, "Light Gray Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("10.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType10));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType10));
 			p.sendMessage(Shop.successfulMessage(p, "Cyan Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("11.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType11));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType11));
 			p.sendMessage(Shop.successfulMessage(p, "Purple Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("12.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType12));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType12));
 			p.sendMessage(Shop.successfulMessage(p, "Blue Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("13.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType13));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType13));
 			p.sendMessage(Shop.successfulMessage(p, "Brown Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("14.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType14));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType14));
 			p.sendMessage(Shop.successfulMessage(p, "Green Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("15.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType15));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType15));
 			p.sendMessage(Shop.successfulMessage(p, "Red Wool", 20));
 			Shop.sub(p, 20);
 		}
 		
 		if (e.getCurrentItem().getItemMeta().getDisplayName().contains("16.")) {
-			Shop.addItem(p, new ItemStack(Material.WOOL, 1, plankType16));
+			Shop.addItem(p, new ItemStack(Material.LEGACY_WOOL, 1, plankType16));
 			p.sendMessage(Shop.successfulMessage(p, "Black Wool", 20));
 			Shop.sub(p, 20);
 		}

@@ -7,7 +7,6 @@ import org.battlecraft.piesrgr8.utils.Prefix;
 import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +26,6 @@ public class Shop implements Listener {
 		this.plugin = p;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 54, ChatColor.YELLOW + "Shop");
 
@@ -54,7 +52,7 @@ public class Shop implements Listener {
 		ItemStack sb = new ItemStack(Material.SLIME_BALL);
 		ItemMeta sb1 = sb.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 
 		// Setting the meta, or names, of all of the blocks that will be added
@@ -163,7 +161,7 @@ public class Shop implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -185,23 +183,23 @@ public class Shop implements Listener {
 			break;
 
 		case ENDER_CHEST:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case REDSTONE_BLOCK:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case IRON_SWORD:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case IRON_HOE:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case SLIME_BALL:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		default:

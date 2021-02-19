@@ -104,10 +104,10 @@ public class Invisibility implements CommandExecutor,Listener {
 		Player p = e.getPlayer();
 		PlayerInventory inv = p.getInventory();
 		
-		ItemStack item1 = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.GRAY.getData());
+		ItemStack item1 = new ItemStack(Material.LEGACY_STAINED_CLAY, 1, DyeColor.GRAY.getDyeData());
 		ItemMeta itemM1 = item1.getItemMeta();
 		
-		ItemStack item2 = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.GREEN.getData());
+		ItemStack item2 = new ItemStack(Material.LEGACY_STAINED_CLAY, 1, DyeColor.GREEN.getDyeData());
 		ItemMeta itemM2 = item2.getItemMeta();
 		
 		itemM1.setDisplayName(ChatColor.GRAY + "Vanish Players (Right-Click)");
@@ -120,7 +120,7 @@ public class Invisibility implements CommandExecutor,Listener {
 			return;
 		}
 		
-		if (is.getType().equals(Material.CLAY) || is.getType().equals(Material.STAINED_CLAY) && is.hasItemMeta()) {
+		if (is.getType().equals(Material.CLAY) || is.getType().equals(Material.LEGACY_STAINED_CLAY) && is.hasItemMeta()) {
 			e.setCancelled(true);
 			if (Invisibility.vanish.contains(p)) {
 				Invisibility.showAllPlayers(p);
@@ -140,12 +140,14 @@ public class Invisibility implements CommandExecutor,Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void showAllPlayers(Player player) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			player.showPlayer(pl);
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void hideAllPlayers(Player player) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			player.hidePlayer(pl);
@@ -154,12 +156,14 @@ public class Invisibility implements CommandExecutor,Listener {
 	
 	//NOW FOR VANISH
 	
+	@SuppressWarnings("deprecation")
 	public static void showPlayer(Player player) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			pl.showPlayer(player);
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void hidePlayer(Player player) {
 		for (Player pl : Bukkit.getOnlinePlayers()) {
 			if (RanksEnum.isAtLeast(pl, Ranks.HELPER))

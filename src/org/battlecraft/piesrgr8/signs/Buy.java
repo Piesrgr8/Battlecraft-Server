@@ -35,6 +35,16 @@ public class Buy implements Listener{
 		}
 		
 		if (e.getLine(0).equalsIgnoreCase("Buy")) {
+			if (e.getLine(1).isEmpty() || e.getLine(2).isEmpty()) {
+				p.sendMessage(Prefix.prefixSigns + ChatColor.RED + "Your sign must have a quantity, a product, and a price!");
+				e.setCancelled(true);
+				return;
+			}
+			
+			if (e.getLine(3).isEmpty()) {
+				e.setLine(3, "0");
+			}
+			
 			p.sendMessage(Prefix.prefixSigns + ChatColor.GREEN + "Added a buy sign!");
 			e.setLine(0, ChatColor.GRAY + "[" + ChatColor.RED + "" + ChatColor.BOLD + "BUY" + ChatColor.GRAY + "]");
 		}

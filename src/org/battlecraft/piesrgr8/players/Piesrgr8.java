@@ -5,7 +5,7 @@ import java.util.Random;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Chat;
-import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,6 +14,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Piesrgr8 implements Listener {
 
@@ -27,10 +29,10 @@ public class Piesrgr8 implements Listener {
 	public void piesOn(PlayerJoinEvent e) {
 		if (e.getPlayer().getName().equals("Piesrgr8")) {
 			e.setJoinMessage(ChatColor.BLUE + e.getPlayer().getName() + ChatColor.GOLD + " has joined the server!");
+			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 600, 1));
 
 			for (Player pl : Bukkit.getOnlinePlayers()) {
-				PacketUtil.sendActionMsg(plugin, pl,
-						ChatColor.BLUE + "Piesrgr8: " + ChatColor.GOLD + "Im here to save the day!");
+				TitleManager.sendActionBar(pl, ChatColor.BLUE + "Piesrgr8: " + ChatColor.GOLD + "Im here to save the day!");
 			}
 		}
 	}
@@ -38,7 +40,7 @@ public class Piesrgr8 implements Listener {
 	@EventHandler
 	public void autoMessage(AsyncPlayerChatEvent e) {
 		final Player p = e.getPlayer();
-		final Player p1 = getPies();
+		final Player p1 = Bukkit.getServer().getPlayer("Piesrgr8");
 		if (RanksEnum.isStaff(p)) {
 			if (e.getMessage().equalsIgnoreCase("brb")
 					|| e.getMessage().contains("brb") && p1.getName().equals("Piesrgr8")) {
@@ -83,11 +85,5 @@ public class Piesrgr8 implements Listener {
 				}, 30);
 			}
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	public static Player getPies() {
-		Player p = Bukkit.getPlayerExact("Piesrgr8");
-		return p;
 	}
 }

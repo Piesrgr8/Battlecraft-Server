@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
+@SuppressWarnings("deprecation")
 public class MainPvP implements Listener {
 
 	BattlecraftServer plugin;
@@ -67,7 +68,7 @@ public class MainPvP implements Listener {
 		ItemStack bk = new ItemStack(Material.ARROW);
 		ItemMeta bk1 = bk.getItemMeta();
 
-		ItemStack air = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack air = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 		ItemMeta air1 = air.getItemMeta();
 
 		// Setting the meta, or names, of all of the blocks that will be added
@@ -128,7 +129,7 @@ public class MainPvP implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		String test = "Test";
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Main PvP"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Main PvP"))
 			return;
 
 		final Player p = (Player) e.getWhoClicked();

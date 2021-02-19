@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 public class Ask implements CommandExecutor{
 	
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("ask")) {
 			if (!(sender instanceof Player)) {
@@ -37,7 +36,7 @@ public class Ask implements CommandExecutor{
 					if (on.hasPermission("bc.staff")) {
 						on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + p.getName() + ": "
 								+ ChatColor.GREEN + bc);
-						on.playSound(on.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
+						on.playSound(on.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10000, 1);
 					}
 				}
 			}
@@ -75,7 +74,7 @@ public class Ask implements CommandExecutor{
 				
 				p.sendMessage(Prefix.prefixStaff + ChatColor.LIGHT_PURPLE + "Your Answer" + ": " + ChatColor.GREEN + msg);
 				p1.sendMessage(Prefix.prefixStaff + ChatColor.LIGHT_PURPLE + p.getName() + ": " + ChatColor.GREEN + msg);
-				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 10000, 1);
+				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10000, 1);
 		}
 	}
 		return true;

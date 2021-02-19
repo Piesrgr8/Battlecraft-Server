@@ -17,8 +17,6 @@ import org.bukkit.entity.Player;
 public class Gamemode implements CommandExecutor {
 
 	String prefix = Prefix.prefixGamemode;
-
-	@SuppressWarnings("deprecation")
 	
 	//Everything said here is for gamemodes, and each particular gamemode has a method for targeting players too.
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -30,7 +28,7 @@ public class Gamemode implements CommandExecutor {
 			}
 			if (args.length == 0) {
 				p.setGameMode(GameMode.SURVIVAL);
-				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
 					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
 						+ " has changed their gamemode to Survival!");
@@ -44,10 +42,10 @@ public class Gamemode implements CommandExecutor {
 				}
 				if (target.getName().equalsIgnoreCase(args[0])) {
 					target.setGameMode(GameMode.SURVIVAL);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					p.sendMessage(
 							prefix + ChatColor.GREEN + target.getName() + ChatColor.GREEN + " is now in survival!");
-					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "SURVIVAL!");
 						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
@@ -64,7 +62,7 @@ public class Gamemode implements CommandExecutor {
 			}
 			if (args.length == 0) {
 				p.setGameMode(GameMode.CREATIVE);
-				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
 					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
 						+ " has changed their gamemode to Creative!");
@@ -78,10 +76,10 @@ public class Gamemode implements CommandExecutor {
 				}
 				if (target.getName().equalsIgnoreCase(args[0])) {
 					target.setGameMode(GameMode.CREATIVE);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					p.sendMessage(
 							prefix + ChatColor.GREEN + target.getName() + ChatColor.GREEN + " is now in creative!");
-					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "CREATIVE!");
 						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
@@ -98,7 +96,7 @@ public class Gamemode implements CommandExecutor {
 			}
 			if (args.length == 0) {
 				p.setGameMode(GameMode.ADVENTURE);
-				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+				p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 				p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS");
 					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN
 						+ " has changed their gamemode to Adventure!");
@@ -112,10 +110,10 @@ public class Gamemode implements CommandExecutor {
 				}
 				if (target.getName().equalsIgnoreCase(args[0])) {
 					target.setGameMode(GameMode.ADVENTURE);
-					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					p.sendMessage(
 							prefix + ChatColor.GREEN + target.getName() + ChatColor.GREEN + " is now in adventure!");
-					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+					target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 					target.sendMessage(prefix + ChatColor.GREEN + p.getName() + " has changed your gamemode to "
 							+ ChatColor.GREEN + "" + ChatColor.BOLD + "ADVENTURE!");
 						Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " has changed " + ChatColor.YELLOW
@@ -132,7 +130,7 @@ public class Gamemode implements CommandExecutor {
 				return true;
 			}
 			p.setGameMode(GameMode.SPECTATOR);
-			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+			p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 			p.sendMessage(prefix + ChatColor.GREEN + "" + ChatColor.BOLD + "SUCCESS" + ChatColor.RESET + "-" + " "
 					+ ChatColor.GOLD + "Welcome to spectator mode!");
 			return true;

@@ -20,7 +20,6 @@ public class Report implements CommandExecutor {
 
 	String bg = Prefix.prefixReport;
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("report")) {
 			if (!(sender instanceof Player)) {

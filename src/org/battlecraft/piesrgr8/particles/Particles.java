@@ -2,17 +2,13 @@ package org.battlecraft.piesrgr8.particles;
 
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.utils.Prefix;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-
-import net.minecraft.server.v1_9_R2.EnumParticle;
-import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 
 public class Particles implements CommandExecutor {
 
@@ -37,12 +33,12 @@ public class Particles implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("2")) {
 					sender.sendMessage("Playing!");
-					trace1(p, true);
+					//trace1(p, true);
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("stop")) {
 					sender.sendMessage("Stopped!");
-					trace1(p, false);
+					//trace1(p, false);
 					return true;
 				}
 			}
@@ -53,10 +49,8 @@ public class Particles implements CommandExecutor {
 	public void sphere(Player p, boolean b) {
 		if (b) {
 			final Location loc = p.getLocation();
-			Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
 				double phi = 0;
 
-				public void run() {
 					phi += Math.PI / 10;
 					for (double theta = 0; theta <= 2 * Math.PI; theta += Math.PI / 40) {
 						double r = 1.5;
@@ -64,17 +58,11 @@ public class Particles implements CommandExecutor {
 						double y = r;
 						double z = r * Math.sin(theta) * Math.sin(phi);
 						loc.add(x, y, z);
-						for (Player online : Bukkit.getOnlinePlayers()) {
-							((CraftPlayer) online).getHandle().playerConnection.sendPacket(
-									new PacketPlayOutWorldParticles(EnumParticle.NOTE, true, (float) loc.getX(),
-											(float) loc.getY(), (float) loc.getZ(), 0, 0, 0, (float) 1, 1, null));
-						}
-					}
-				}
-			}, 1);
+						p.spawnParticle(Particle.FLAME, x, y, z, 10);
+			}
 		}
 	}
-
+/*
 	public void trace1(Player p, boolean b) {
 		if (b) {
 			final Location loc = p.getLocation();
@@ -89,5 +77,5 @@ public class Particles implements CommandExecutor {
 				}
 			}, 1, 10);
 		}
-	}
+	}*/
 }

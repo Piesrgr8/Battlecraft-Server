@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
+@SuppressWarnings("deprecation")
 public class Sg implements Listener {
 
 	BattlecraftServer plugin;
@@ -67,7 +68,7 @@ public class Sg implements Listener {
 		ItemStack bk = new ItemStack(Material.ARROW);
 		ItemMeta bk1 = bk.getItemMeta();
 
-		ItemStack air = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack air = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 		ItemMeta air1 = air.getItemMeta();
 
 		// Setting the meta, or names, of all of the blocks that will be added
@@ -128,7 +129,7 @@ public class Sg implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Survival Games"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Survival Games"))
 			return;
 
 		final Player p = (Player) e.getWhoClicked();

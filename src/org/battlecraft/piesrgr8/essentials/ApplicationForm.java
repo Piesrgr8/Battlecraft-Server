@@ -14,7 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,8 +24,7 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minecraft.server.v1_9_R2.PacketDataSerializer;
-import net.minecraft.server.v1_9_R2.PacketPlayOutCustomPayload;
+import net.minecraft.server.v1_16_R2.PacketPlayOutCustomPayload;
 
 public class ApplicationForm implements Listener, CommandExecutor{
 	
@@ -45,13 +44,13 @@ public class ApplicationForm implements Listener, CommandExecutor{
        buf.setByte(0, (byte)0);
        buf.writerIndex(1);
 
-        PacketPlayOutCustomPayload packet = new PacketPlayOutCustomPayload("MC|BOpen", new PacketDataSerializer(buf));
+        PacketPlayOutCustomPayload packet = new PacketPlayOutCustomPayload();
         ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
         p.getInventory().setItem(slot, old);
     }
     
     public ItemStack app() {
-    	ItemStack book = new ItemStack(Material.BOOK_AND_QUILL);
+    	ItemStack book = new ItemStack(Material.WRITABLE_BOOK);
     	BookMeta meta = (BookMeta) book.getItemMeta();
     	meta.setTitle("Application Form");
     	meta.setAuthor("Battlecraft");
@@ -60,7 +59,6 @@ public class ApplicationForm implements Listener, CommandExecutor{
     	return book;
     }
     
-    @SuppressWarnings("deprecation")
 	@EventHandler
     public void editBook(PlayerEditBookEvent e) {
     	Player p1 = Bukkit.getServer().getPlayer(map.get(1));
@@ -71,7 +69,6 @@ public class ApplicationForm implements Listener, CommandExecutor{
     	p1.getInventory().addItem(ol);
     }
 	
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("application")) {

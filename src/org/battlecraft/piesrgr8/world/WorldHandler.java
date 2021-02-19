@@ -3,7 +3,9 @@ package org.battlecraft.piesrgr8.world;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.ClanMain;
 import org.battlecraft.piesrgr8.clans.Clans;
+import org.battlecraft.piesrgr8.essentials.Invisibility;
 import org.battlecraft.piesrgr8.hub.HubInv;
 import org.battlecraft.piesrgr8.inventory.RestoreInventory;
 import org.battlecraft.piesrgr8.utils.Color;
@@ -22,10 +24,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.potion.PotionEffectType;
 
-public class WorldHandler implements Listener, CommandExecutor {
+public class WorldHandler implements Listener, CommandExecutor{
 
 	BattlecraftServer plugin;
+	ClanMain clanPL;
 
 	public WorldHandler(BattlecraftServer p) {
 		this.plugin = p;
@@ -135,7 +139,8 @@ public class WorldHandler implements Listener, CommandExecutor {
 		}
 
 		if (p.getWorld().getName().equals("Factions")) {
-			Clans.sendMotd(p);
+			Clans c = new Clans(clanPL);
+			c.sendMotd(p);
 		}
 		return;
 	}
@@ -147,7 +152,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 				public void run() {
 					RestoreInventory.saveInvFor(p, p.getLocation().getWorld());
-					ScoreboardMg.createBoard(p);
+					ScoreboardMg.board1(p);
 				}
 			}, 35);
 
@@ -156,6 +161,32 @@ public class WorldHandler implements Listener, CommandExecutor {
 					HubInv.hubInv(p);
 				}
 			}, 50);
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onWorldChange(PlayerChangedWorldEvent e) {
+		final Player p = e.getPlayer();
+
+		if (p.getWorld().getName().equals("Hub1")) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+				public void run() {
+					HubInv.hubInv(p);
+					ScoreboardMg.board1(p);
+					Invisibility.showAllPlayers(p);
+					Invisibility.vanish.remove(p);
+				}
+			}, 20);
+		} else if (e.getFrom().getName().equals("Hub1")) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+				public void run() {
+					ScoreboardMg.removeHubBoard(p);
+					Invisibility.showAllPlayers(p);
+					Invisibility.vanish.remove(p);
+					p.getInventory().clear();
+					p.removePotionEffect(PotionEffectType.SPEED);
+				}
+			}, 5);
 		}
 	}
 
@@ -167,7 +198,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 			e.setCancelled(true);
 		}
 	}
-
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("world")) {
 			Player p = (Player) sender;
@@ -175,7 +206,7 @@ public class WorldHandler implements Listener, CommandExecutor {
 			p.sendMessage(Prefix.prefixWorld + ChatColor.GREEN + "You are in this world: " + world);
 			return true;
 		}
-
+		
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("weather")) {
 			if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
@@ -202,93 +233,6 @@ public class WorldHandler implements Listener, CommandExecutor {
 				return true;
 			}
 		}
-
-		if (cmd.getName().equalsIgnoreCase("time")) {
-			World w = p.getLocation().getWorld();
-			if (args.length == 0) {
-				sender.sendMessage(Color.c(Prefix.prefixWorld + "&eRight now, it is &a" + checkTime(p) + ", "
-						+ w.getTime() + " &ein server ticks!"));
-
-				if (RanksEnum.isAtLeast(p, Ranks.ADMIN))
-					sender.sendMessage(
-							Color.c(Prefix.prefixWorld + "&eIf you want to set the time, use &a/time set {time}!"));
-				return true;
-			}
-			if (args.length == 1) {
-				if (args[0].equalsIgnoreCase("set")) {
-					if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
-						sender.sendMessage(Color
-								.c(Prefix.prefixWorld + "&cYou do not have permission to set the time in the world!"));
-						return true;
-					}
-
-					sender.sendMessage(Color.c(Prefix.prefixWorld + "&eWhat would you like the time to be?"));
-					return true;
-				}
-			}
-
-			if (args.length == 2) {
-
-				if (!RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
-					sender.sendMessage(
-							Color.c(Prefix.prefixWorld + "&cYou do not have permission to set the time in the world!"));
-					return true;
-				}
-
-				if (args[1].equalsIgnoreCase("day")) {
-					w.setTime(1000);
-					p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-					return true;
-				}
-
-				if (args[1].equalsIgnoreCase("night")) {
-					w.setTime(13000);
-					p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-					return true;
-				}
-
-				if (args[1].equalsIgnoreCase("noon")) {
-					w.setTime(6000);
-					p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-					return true;
-				}
-
-				if (args[1].equalsIgnoreCase("morning")) {
-					w.setTime(22925);
-					p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-					return true;
-				}
-
-				if (args[1].equalsIgnoreCase("afternoon")) {
-					w.setTime(10000);
-					p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-					return true;
-				}
-
-				w.setTime(Long.parseLong(args[1]));
-				p.sendMessage(Color.c(Prefix.prefixWorld + "&aYou have set the time to " + args[1] + "!"));
-				return true;
-			}
-		}
 		return true;
-	}
-
-	public static String checkTime(Player p) {
-		World w = p.getLocation().getWorld();
-		long l = w.getTime();
-
-		if (l >= 6000 && l <= 7500)
-			return "noon";
-		if (l >= 7501 && l <= 12999)
-			return "afternoon";
-		if (l >= 13000 && l <= 17999)
-			return "night";
-		if (l >= 18000 && l <= 22924)
-			return "midnight";
-		if (l >= 22925 && l <= 24000)
-			return "morning";
-		if (l >= 0 && l <= 5999)
-			return "morning";
-		return null;
 	}
 }

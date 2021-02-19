@@ -14,7 +14,6 @@ import org.bukkit.inventory.Inventory;
 
 public class Invsee implements CommandExecutor {
 
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("invsee")) {
 			if (!(sender instanceof Player)) {

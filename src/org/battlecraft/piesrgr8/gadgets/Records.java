@@ -21,6 +21,7 @@ public class Records implements CommandExecutor {
 		this.plugin = p;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("jukebox")) {
@@ -70,7 +71,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("chirp")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_4);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_4);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "chirp!");
 					} catch (Exception e) {
@@ -80,7 +81,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("13")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.GOLD_RECORD);
+						JukeboxUtil.playRecord(p, Material.LEGACY_GOLD_RECORD);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "13!");
 					} catch (Exception e) {
@@ -90,7 +91,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("cat")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.GREEN_RECORD);
+						JukeboxUtil.playRecord(p, Material.LEGACY_GREEN_RECORD);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "cat!");
 					} catch (Exception e) {
@@ -100,7 +101,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("blocks")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_3);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_3);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "blocks!");
 					} catch (Exception e) {
@@ -110,7 +111,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("far")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_5);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_5);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "far!");
 					} catch (Exception e) {
@@ -120,7 +121,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("mall")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_6);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_6);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "mall!");
 					} catch (Exception e) {
@@ -130,7 +131,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("mellohi")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_7);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_7);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "mellohi!");
 					} catch (Exception e) {
@@ -140,7 +141,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("stal")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_8);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_8);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "stal!");
 					} catch (Exception e) {
@@ -150,7 +151,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("strad")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_9);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_9);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "strad!");
 					} catch (Exception e) {
@@ -160,7 +161,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("ward")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_10);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_10);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "ward!");
 					} catch (Exception e) {
@@ -170,7 +171,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("11")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_11);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_11);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "11!");
 					} catch (Exception e) {
@@ -180,7 +181,7 @@ public class Records implements CommandExecutor {
 
 				if (args[0].equalsIgnoreCase("wait")) {
 					try {
-						JukeboxUtil.playRecord(p, Material.RECORD_12);
+						JukeboxUtil.playRecord(p, Material.LEGACY_RECORD_12);
 						p.sendMessage(
 								Prefix.prefixGadget + ChatColor.GREEN + "Now playing " + ChatColor.YELLOW + "wait!");
 					} catch (Exception e) {

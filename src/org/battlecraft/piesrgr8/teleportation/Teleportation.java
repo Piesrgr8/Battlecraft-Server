@@ -20,8 +20,15 @@ public class Teleportation implements CommandExecutor {
 
 	static File f = new File("plugins//BattlecraftServer//warps//");
 	static YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+	
+	public static void teleportInWorld(Player player, World world, double x, double y, double z) {
+		player.teleport(new Location(world, x, y, z));
 
-	@SuppressWarnings("deprecation")
+		if (world == null) {
+			player.sendMessage(Prefix.prefixWarp + ChatColor.RED + "This world doesnt exist!");
+		}
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("tp")) {
 			if (!(sender instanceof Player)) {
@@ -44,8 +51,8 @@ public class Teleportation implements CommandExecutor {
 					return true;
 				}
 				if (tar.getName().equalsIgnoreCase(args[0])) {
-					p.teleport(new Location(tar.getWorld(), tar.getLocation().getX(), tar.getLocation().getY(),
-							tar.getLocation().getZ()));
+					teleportInWorld(p, tar.getWorld(), tar.getLocation().getX(), 
+							tar.getLocation().getY(), tar.getLocation().getZ());
 					p.sendMessage(Prefix.prefixWarp + ChatColor.GREEN + "Teleported to " + ChatColor.YELLOW
 							+ tar.getName());
 					Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " teleported to "

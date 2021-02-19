@@ -17,17 +17,6 @@ public class PacketUtil implements Listener {
 	@EventHandler
 	public static void onJoin(final BattlecraftServer plugin, final Player p) {
 		TitleManager.sendTitle(p.getPlayer(), ChatColor.translateAlternateColorCodes('&', "&c&lBATTLECRAFT"),
-				ChatColor.translateAlternateColorCodes('&', "&aWelcome to the server, " + p.getName()), 40);
-	}
-
-	@EventHandler
-	public static void sendTitle(final BattlecraftServer plugin, final Player p, final String msg, final String msg1) {
-		TitleManager.sendTitle(p, ChatColor.translateAlternateColorCodes('&', msg),
-				ChatColor.translateAlternateColorCodes('&', msg1), 70);
-	}
-
-	@EventHandler
-	public static void sendActionMsg(final BattlecraftServer plugin, final Player p, final String msg) {
-		TitleManager.sendActionBar(p, ChatColor.translateAlternateColorCodes('&', msg), 70);
+				ChatColor.translateAlternateColorCodes('&', "&aWelcome to the server, " + p.getName()), 40, 20, 10);
 	}
 }

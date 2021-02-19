@@ -17,7 +17,6 @@ public class Health implements CommandExecutor {
 	String prefix = Prefix.prefixHealth;
 
 	//Everything here is for healing and killing, and it also has their own methods for targeting players too.
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("heal")) {
 			if (!RanksEnum.isAtLeast((Player) sender, Ranks.SRMOD)) {

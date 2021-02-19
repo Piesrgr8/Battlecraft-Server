@@ -2,6 +2,7 @@ package org.battlecraft.piesrgr8.teleportation;
 
 
 import java.io.File;
+import java.io.IOException;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
@@ -13,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class Warp implements CommandExecutor{
@@ -40,7 +42,7 @@ public class Warp implements CommandExecutor{
 					bc = (bc + message + "");
 				}
 				
-				Tp.setupWarp(p, bc);
+				setupWarp(p, bc);
 				
 				p.sendMessage(Prefix.prefixWarp + ChatColor.GREEN + "Successfully created warp!");
 				Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " created warp "
@@ -70,12 +72,12 @@ public class Warp implements CommandExecutor{
 					bc = (bc + message + "");
 				}
 				
-				if (!Tp.isAWarp(bc)) {
+				if (!isAWarp(bc)) {
 					p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "This warp does not exist!");
 					return true;
 				}
 				
-				Tp.deleteWarp(bc);
+				deleteWarp(bc);
 				
 				p.sendMessage(Prefix.prefixWarp + ChatColor.GREEN + "Successfully deleted warp!");
 				Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " deleted warp "
@@ -96,7 +98,7 @@ public class Warp implements CommandExecutor{
 			}
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("list")) {
-					File f1 = Tp.getFolder();
+					File f1 = getFolder();
 					String[] names = f1.list();
 					StringBuilder sb = new StringBuilder();
 	                for(int i = 0; i < names.length; i++)
@@ -108,18 +110,63 @@ public class Warp implements CommandExecutor{
 					return true;
 				}
 				
-				if (!Tp.getYaml(args[0]).contains(args[0])) {
+				if (!getYaml(args[0]).contains(args[0])) {
 					p.sendMessage(Prefix.prefixWarp + ChatColor.RED + "Warp doesnt exist");
 					return true;
 				}
 
 				p.sendMessage(Prefix.prefixWarp + ChatColor.GREEN + "Warp successful");
 				Admin.sendMessage(ChatColor.YELLOW + sender.getName() + ChatColor.GREEN + " went to warp " + ChatColor.YELLOW + args[0]);
-				p.teleport(new Location(Bukkit.getWorld(Tp.getYaml(args[0]).getString(args[0] + ".world")),
-						Tp.getYaml(args[0]).getDouble(args[0] + ".xPos"), Tp.getYaml(args[0]).getDouble(args[0] + ".yPos"),
-						Tp.getYaml(args[0]).getDouble(args[0] + ".zPos")));
+				p.teleport(new Location(Bukkit.getWorld(getYaml(args[0]).getString(args[0] + ".world")),
+						getYaml(args[0]).getDouble(args[0] + ".xPos"), getYaml(args[0]).getDouble(args[0] + ".yPos"),
+						getYaml(args[0]).getDouble(args[0] + ".zPos")));
 			}
 		}
 		return true;
+	}
+	
+	public static void setupWarp(Player p, String name) {
+		File f = new File("plugins//BattlecraftServer//warps//" + name + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		yaml.createSection(name);
+		yaml.createSection(name + ".world");
+		yaml.createSection(name + ".xPos");
+		yaml.createSection(name + ".yPos");
+		yaml.createSection(name + ".zPos");
+		yaml.set(name + ".world", p.getLocation().getWorld().getName());
+		yaml.set(name + ".xPos", p.getLocation().getBlockX());
+		yaml.set(name + ".yPos", p.getLocation().getBlockY());
+		yaml.set(name + ".zPos", p.getLocation().getBlockZ());
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteWarp(String name) {
+		File f = new File("plugins//BattlecraftServer//warps//" + name + ".yml");
+		f.delete();
+	}
+	
+	public static YamlConfiguration getYaml(String n) {
+		File f = new File("plugins//BattlecraftServer//warps//" + n + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		return yaml;
+	}
+	
+	public static File getFolder() {
+		File f = new File("plugins//BattlecraftServer//warps//");
+		return f;
+	}
+	
+	public static boolean isAWarp(String n) {
+		File f = new File("plugins//BattlecraftServer//warps//" + n + ".yml");
+		if (f.getName().equals(n)) {
+			return true;
+		}
+		return false;
 	}
 }

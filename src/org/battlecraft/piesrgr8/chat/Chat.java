@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.ClanMain;
+import org.battlecraft.piesrgr8.chat.Fade.FadeType;
 import org.battlecraft.piesrgr8.clans.Clans;
 import org.battlecraft.piesrgr8.config.ConfigMg;
 import org.battlecraft.piesrgr8.essentials.Nick;
@@ -31,6 +33,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 public class Chat implements Listener, CommandExecutor {
 
 	BattlecraftServer plugin;
+
+	ClanMain clanPL = null;
+	Clans clans = new Clans(clanPL);
 
 	public Chat(BattlecraftServer p) {
 		this.plugin = p;
@@ -267,8 +272,8 @@ public class Chat implements Listener, CommandExecutor {
 	@EventHandler
 	public void chat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
-		
-		
+		String msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
+		String format = "";
 
 		if (staff.contains(p)) {
 			e.setCancelled(true);
@@ -276,8 +281,7 @@ public class Chat implements Listener, CommandExecutor {
 			for (Player on : staff)
 				on.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						"&7[&b&oSTAFF&7]&r " + RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + p.getDisplayName()
-								+ " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET
-								+ e.getMessage()));
+								+ " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + msg));
 
 			return;
 		}
@@ -288,8 +292,7 @@ public class Chat implements Listener, CommandExecutor {
 			for (Player on : admin)
 				on.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						"&7[&c&oADMIN&7]&r " + RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + p.getDisplayName()
-								+ " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET
-								+ e.getMessage()));
+								+ " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + msg));
 
 			return;
 		}
@@ -300,7 +303,7 @@ public class Chat implements Listener, CommandExecutor {
 			for (Player on : op)
 				on.sendMessage(ChatColor.translateAlternateColorCodes('&',
 						"&7[&4&oOP&7]&r " + RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + p.getDisplayName() + " "
-								+ ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
+								+ ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET + msg));
 
 			return;
 		}
@@ -317,72 +320,42 @@ public class Chat implements Listener, CommandExecutor {
 			e.setCancelled(true);
 			return;
 		}
-		
-		//TODO CHECK THIS LINE
+
+		// TODO CHECK THIS LINE
 		addToList(p);
 
 		// Using the new UUID system!!
 		String uuid = p.getUniqueId().toString();
 		Player fromUUID = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
 
-		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
-		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-
 		String nick = Nick.getNick(fromUUID);
+
+		format += ChatColor.translateAlternateColorCodes('&', RanksEnum.getPrefix(RanksEnum.getRank(p))) + " " + nick + " ";
+		
+		if (clans.isInClan(fromUUID)) {
+			format += ChatColor.GRAY + "["
+					+ clans.getClanTag(p) + "] " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " ;
+			e.setFormat(ChatColor.translateAlternateColorCodes('&',
+					RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + nick + " " + ChatColor.GRAY + "["
+							+ clans.getClanTag(p) + "] " + ChatColor.GRAY + "" + ChatColor.BOLD + "> " + ChatColor.RESET
+							+ Fade.useFade(msg, FadeType.BLUE)));
+		}
+
+		if (RanksEnum.isAtLeast(p, Ranks.VIP)) {
+			format += ChatColor.RESET + msg;
+		} else {
+			format += ChatColor.GRAY + msg;
+		}
+
+		// Otherwise, use the default format.
+		e.setFormat(format);
 
 		// This was just to avoid any errors when making a message. Had
 		// something to do with ChatColor.
-		if (e.getMessage().contains("%")) {
-			e.setMessage(e.getMessage().replaceAll("%", "percent"));
-		}
-		
-		//If the rank is there and the player has a fade.
-		if (RanksEnum.getPrefix(RanksEnum.getRank(p)) != "") {
-			e.setFormat(ChatColor.translateAlternateColorCodes('&',
-					RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + fromUUID.getDisplayName() + " " + ChatColor.GRAY
-							+ "" + ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
+		if (msg.contains("%")) {
+			e.setMessage(ChatColor.translateAlternateColorCodes('&', msg.replaceAll("%", "percent")));
 		}
 
-		// If the rank is existent, then use the format for that specific rank.
-		if (RanksEnum.getPrefix(RanksEnum.getRank(p)) != "") {
-			e.setFormat(ChatColor.translateAlternateColorCodes('&',
-					RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + fromUUID.getDisplayName() + " " + ChatColor.GRAY
-							+ "" + ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
-
-			// If a player has a nickname in their play info yml, use it as
-			// their message format.
-			if (yaml.contains(fromUUID.getName() + ".nick")
-					&& !yaml.getString(fromUUID.getName() + ".nick").equals(fromUUID.getName())) {
-				try {
-					e.setFormat(ChatColor.translateAlternateColorCodes('&',
-							RanksEnum.getPrefix(RanksEnum.getRank(p)) + " *" + nick + " " + ChatColor.GRAY + ""
-									+ ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
-				} catch (Exception e1) {
-					e.setFormat(ChatColor.RED + "" + ChatColor.BOLD + "ERR " + ChatColor.GRAY
-							+ fromUUID.getDisplayName() + " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "
-							+ ChatColor.GRAY + e.getMessage());
-					e1.getMessage();
-				}
-			}
-
-			if (Clans.isInClan(fromUUID)) {
-				try {
-					e.setFormat(ChatColor.translateAlternateColorCodes('&',
-							RanksEnum.getPrefix(RanksEnum.getRank(p)) + " " + fromUUID.getDisplayName() + " "
-									+ ChatColor.GRAY + "[" + Clans.getClanTag(p) + "] " + ChatColor.GRAY + ""
-									+ ChatColor.BOLD + "> " + ChatColor.RESET + e.getMessage()));
-				} catch (Exception e1) {
-					e.setFormat(ChatColor.RED + "" + ChatColor.BOLD + "ERR " + ChatColor.GRAY
-							+ fromUUID.getDisplayName() + " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "
-							+ ChatColor.GRAY + e.getMessage());
-					e1.getMessage();
-				}
-			}
-		} else {
-			// Otherwise, use the default format.
-			e.setFormat(ChatColor.GRAY + fromUUID.getDisplayName() + " " + ChatColor.GRAY + "" + ChatColor.BOLD + "> "
-					+ ChatColor.GRAY + e.getMessage());
-		}
 	}
 
 	@EventHandler
@@ -391,7 +364,7 @@ public class Chat implements Listener, CommandExecutor {
 		if (RanksEnum.isAtLeast(p, Ranks.ADMIN)) {
 			return;
 		}
-		
+
 		for (Player on : Bukkit.getServer().getOnlinePlayers()) {
 			if (RanksEnum.isAtLeast(on, Ranks.ADMIN)) {
 				if (e.getMessage().contains("/")) {
@@ -434,7 +407,7 @@ public class Chat implements Listener, CommandExecutor {
 			return;
 		}
 
-		//TODO LOOK AT THIS LATER!!
+		// TODO LOOK AT THIS LATER!!
 
 		int rand = new Random().nextInt(RanksEnum.admin.size());
 		Player p1 = RanksEnum.admin.get(rand);
@@ -481,7 +454,7 @@ public class Chat implements Listener, CommandExecutor {
 		for (Player p : Bukkit.getOnlinePlayers())
 			p.sendMessage(Color.c(s));
 	}
-	
+
 	public static void sendFade(Player p) {
 	}
 }

@@ -113,7 +113,6 @@ public class Party {
 		return "";
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static Player getLeader(Player p) {
 		String path = "plugins//BattlecraftServer//party//";
 		File folder = new File(path);

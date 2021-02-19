@@ -35,15 +35,14 @@ public class ForceChoke implements Listener {
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		Location ploc = e.getPlayer().getLocation();
 		if (choke.contains(e.getPlayer())) {
+			Location ploc = e.getPlayer().getLocation();
 			if (ploc.getX() != loc.getX()) {
 				teleport(e.getPlayer());
 			}
 
 			if (ploc.getZ() != loc.getZ()) {
 				teleport(e.getPlayer());
-				;
 			}
 		} else {
 			return;
@@ -82,6 +81,7 @@ public class ForceChoke implements Listener {
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 			public void run() {
+				p.damage(0.1);
 				p.setHealth(0);
 			}
 		}, 80);

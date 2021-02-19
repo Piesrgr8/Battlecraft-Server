@@ -31,7 +31,7 @@ public class ShopMaterial implements Listener {
 
 		// Creating the items and registering them.
 
-		ItemStack main = new ItemStack(Material.WOOD);
+		ItemStack main = new ItemStack(Material.OAK_WOOD);
 		ItemMeta main1 = main.getItemMeta();
 
 		ItemStack mg = new ItemStack(Material.STONE);
@@ -40,28 +40,28 @@ public class ShopMaterial implements Listener {
 		ItemStack sw = new ItemStack(Material.COAL_BLOCK);
 		ItemMeta sw1 = sw.getItemMeta();
 
-		ItemStack hg = new ItemStack(Material.WOOL, 1, DyeColor.LIME.getDyeData());
+		ItemStack hg = new ItemStack(Material.LEGACY_WOOL, 1, DyeColor.LIME.getDyeData());
 		ItemMeta hg1 = hg.getItemMeta();
 
-		ItemStack fc = new ItemStack(Material.STAINED_CLAY, 1, DyeColor.LIME.getDyeData());
+		ItemStack fc = new ItemStack(Material.LEGACY_STAINED_CLAY, 1, DyeColor.LIME.getDyeData());
 		ItemMeta fc1 = fc.getItemMeta();
 
 		ItemStack gm = new ItemStack(Material.GLASS);
 		ItemMeta gm1 = gm.getItemMeta();
 
-		ItemStack sb = new ItemStack(Material.WOOD_STAIRS);
+		ItemStack sb = new ItemStack(Material.OAK_STAIRS);
 		ItemMeta sb1 = sb.getItemMeta();
 
 		ItemStack nb = new ItemStack(Material.PURPUR_BLOCK);
 		ItemMeta nb1 = nb.getItemMeta();
 
-		ItemStack fn = new ItemStack(Material.FENCE);
+		ItemStack fn = new ItemStack(Material.OAK_FENCE);
 		ItemMeta fn1 = fn.getItemMeta();
 
 		ItemStack un = new ItemStack(Material.SAND);
 		ItemMeta un1 = un.getItemMeta();
 
-		ItemStack custom = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+		ItemStack custom = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta custom1 = custom.getItemMeta();
 
 		ItemStack back = new ItemStack(Material.ARROW);
@@ -197,9 +197,10 @@ public class ShopMaterial implements Listener {
 		p.openInventory(inv);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick1(InventoryClickEvent e) {
-		if (!ChatColor.stripColor(e.getInventory().getName()).equalsIgnoreCase("Shop - Building Materials"))
+		if (!ChatColor.stripColor(e.getView().getTitle()).equalsIgnoreCase("Shop - Building Materials"))
 			return;
 
 		Player p = (Player) e.getWhoClicked();
@@ -212,7 +213,7 @@ public class ShopMaterial implements Listener {
 		}
 
 		switch (e.getCurrentItem().getType()) {
-		case WOOD:
+		case OAK_WOOD:
 			ShopMaterialWood.openGUI(p);
 			break;
 
@@ -224,32 +225,32 @@ public class ShopMaterial implements Listener {
 			ShopMaterialResource.openGUI(p);
 			break;
 
-		case WOOL:
+		case WHITE_WOOL:
 			ShopMaterialColorwool.openGUI(p);
 			break;
 
-		case STAINED_CLAY:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+		case LEGACY_STAINED_CLAY:
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case GLASS:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
-		case WOOD_STAIRS:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+		case OAK_STAIRS:
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case PURPUR_BLOCK:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case SAND:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
-		case FENCE:
-			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!", 30);
+		case OAK_FENCE:
+			TitleManager.sendActionBar(p, ChatColor.RED + "This is not available in BETA!");
 			break;
 
 		case ARROW:

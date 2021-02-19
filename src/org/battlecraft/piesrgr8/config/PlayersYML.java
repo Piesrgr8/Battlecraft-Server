@@ -2,10 +2,12 @@ package org.battlecraft.piesrgr8.config;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
+import org.battlecraft.piesrgr8.chat.Fade.FadeType;
+import org.battlecraft.piesrgr8.chat.Notifications.NotifType;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,6 +44,7 @@ public class PlayersYML implements Listener {
 			yaml.createSection(p.getName() + ".firstJoin");
 			yaml.createSection(p.getName() + ".lastLogin");
 			yaml.createSection(p.getName() + ".logTime");
+			yaml.createSection(p.getName() + ".chatFade");
 			yaml.createSection(p.getName() + ".claninvites");
 			yaml.createSection(p.getName() + ".partyinvites");
 			yaml.createSection(p.getName() + ".messagelist");
@@ -53,6 +56,7 @@ public class PlayersYML implements Listener {
 			yaml.set(p.getName() + ".logins", 0);
 			yaml.set(p.getName() + ".firstJoin", "log");
 			yaml.set(p.getName() + ".lastLogin", "log");
+			yaml.set(p.getName() + ".chatFade", "default");
 			try {
 				yaml.save(f);
 			} catch (IOException e1) {
@@ -92,8 +96,17 @@ public class PlayersYML implements Listener {
 		
 		if (!yaml.contains(p.getName() + ".messagelist")) {
 			yaml.createSection(p.getName() + ".messagelist");
-			List<String> m = new ArrayList<String>();
-			yaml.set(p.getName() + ".messagelist", m);
+			yaml.set(p.getName() + ".messagelist", "");
+			try {
+				yaml.save(f);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (!yaml.contains(p.getName() + ".chatFade")) {
+			yaml.createSection(p.getName() + ".chatFade");
+			yaml.set(p.getName() + ".chatFade", "default");
 			try {
 				yaml.save(f);
 			} catch (IOException e1) {
@@ -230,24 +243,36 @@ public class PlayersYML implements Listener {
 		}
 	}
 	
-	public static void setMessageList(Player off, String m) {
-		File f = new File("plugins//BattlecraftServer//players//" + off.getUniqueId().toString() + ".yml");
+	public static void setMessageList(OfflinePlayer p, String m, NotifType et) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-		List<String> l = new ArrayList<String>();
-
-		if (!yaml.contains(off.getName() + ".messagelist")) {
-			yaml.createSection(off.getName() + ".messagelist");
-			l.add(m);
-			yaml.set(off.getName() + ".messagelist", l);
+		List<String> l = yaml.getStringList(p.getName() + ".messagelist");
+		String st = "";
+		
+		if (et.equals(NotifType.MSG)) 
+			st = "[MSG]";
+		if (et.equals(NotifType.ADMIN))
+			st = "[ADMIN]";
+		if (et.equals(NotifType.CRITIC)) 
+			st = "[CRITIC]";
+		if (et.equals(NotifType.STAFF) && RanksEnum.isOfflinePlayerStaff(p))
+			st = "[STAFF]";
+		if (et.equals(NotifType.CLANS))
+			st = "[CLANS]";
+			
+		
+		if (!yaml.contains(p.getName() + ".messagelist")) {
+			yaml.createSection(p.getName() + ".messagelist");
+			l.add(st + " " + m);
+			yaml.set(p.getName() + ".messagelist", l);
 			try {
 				yaml.save(f);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			List<String> l1 = yaml.getStringList(off.getName() + ".messagelist");
-			l1.add(m);
-			yaml.set(off.getName() + ".messagelist", l1);
+			l.add(st + " " + m);
+			yaml.set(p.getName() + ".messagelist", l);
 			try {
 				yaml.save(f);
 			} catch (IOException e) {
@@ -301,6 +326,19 @@ public class PlayersYML implements Listener {
 			}
 		}
 	}
+	
+	public static void setChatFade(Player p, FadeType ft) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		if (yaml.contains(p.getName() + ".chatFade")) {
+			if (ft.equals(FadeType.DEFAULT)) {
+				yaml.set(p.getName() + ".chatFade", "default");
+			} else if (ft.equals(FadeType.BLUE)) {
+				yaml.set(p.getName() + ".chatFade", "blue");
+			}
+		}
+	}
 
 	public static boolean getFlySetting(Player p, boolean b) {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
@@ -329,9 +367,14 @@ public class PlayersYML implements Listener {
 	}
 	
 	public static void clearMessageList(Player p) {
-		YamlConfiguration yaml = getYaml(p);
-		yaml.set(p.getName() + ".messagelist", null);
-		save(p);
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		yaml.set(p.getName() + ".messagelist", "");
+		try {
+			yaml.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static boolean adminToggleEnable(Player p) {
@@ -344,6 +387,16 @@ public class PlayersYML implements Listener {
 		}
 	}
 	
+	public static FadeType getChatFade(Player p) {
+		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
+		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
+		
+		if (yaml.getString(p.getName() + ".chatFade").equals("blue")) {
+		return FadeType.BLUE;
+		}
+		return FadeType.DEFAULT;
+	}
+	
 	public static File getFile(Player p) {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		return f;
@@ -353,15 +406,5 @@ public class PlayersYML implements Listener {
 		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
 		return yaml;
-	}
-	
-	public static void save(Player p) {
-		File f = new File("plugins//BattlecraftServer//players//" + p.getUniqueId().toString() + ".yml");
-		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(f);
-		try {
-			yaml.save(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }

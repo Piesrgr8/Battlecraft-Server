@@ -5,7 +5,7 @@ import java.util.Random;
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.Chat;
-import org.battlecraft.piesrgr8.utils.PacketUtil;
+import org.battlecraft.piesrgr8.utils.TitleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class LilyMc101 implements Listener {
 
 	BattlecraftServer plugin;
-	
+
 	String name = ChatColor.GREEN + "" + ChatColor.BOLD + "LilyMc101";
 
 	public LilyMc101(BattlecraftServer p) {
@@ -31,7 +31,7 @@ public class LilyMc101 implements Listener {
 			e.setJoinMessage(name + ChatColor.GOLD + " joined");
 
 			for (Player pl : Bukkit.getOnlinePlayers()) {
-				PacketUtil.sendActionMsg(plugin, pl,
+				TitleManager.sendActionBar(pl,
 						ChatColor.RED + "LilyMc101: " + ChatColor.GOLD + "Gamer, taken, has no life. Fight me.");
 			}
 		}
@@ -62,7 +62,6 @@ public class LilyMc101 implements Listener {
 					}
 				}, 30);
 			}
-			
 
 			if (e.getMessage().equalsIgnoreCase("builder") || e.getMessage().contains("builder")
 					|| e.getMessage().contains("lily")
@@ -86,7 +85,6 @@ public class LilyMc101 implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public static Player getLily() {
 		Player p = Bukkit.getPlayerExact("LilyMc101");
 		return p;

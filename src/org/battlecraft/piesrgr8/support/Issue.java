@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.iHersh.ranks.RanksEnum.Ranks;
+import org.battlecraft.piesrgr8.chat.Notifications.NotifType;
+import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.utils.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -43,23 +45,32 @@ public class Issue implements CommandExecutor {
 					bc = (bc + message + " ");
 				}
 
-				p.sendMessage(bg + ChatColor.GREEN + "Thank you for reporting the issue! Staff has been alerted "
-						+ "and they will try the best they can to help solve the issue!");
-				for (Player on : Bukkit.getOnlinePlayers()) {
-					if (RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
-						on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "A player has made an issue: "
-								+ ChatColor.GREEN + bc);
+				if (RanksEnum.isStaffOnline()) {
+
+					p.sendMessage(bg + ChatColor.GREEN + "Thank you for reporting the issue! Staff has been alerted "
+							+ "and they will try the best they can to help solve the issue!");
+					for (Player on : Bukkit.getOnlinePlayers()) {
+						if (RanksEnum.isAtLeast((Player) sender, Ranks.HELPER)) {
+							on.sendMessage(Prefix.prefixStaff + ChatColor.YELLOW + "A player has made an issue: "
+									+ ChatColor.GREEN + bc);
+						}
 					}
+					yaml.createSection(p.getName());
+					yaml.createSection(p.getName() + ".issue");
+					yaml.set(p.getName() + ".issue", bc);
+					try {
+						yaml.save(f);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return true;
+				} else {
+					for (Player on : RanksEnum.staff)
+					PlayersYML.setMessageList(on, bc, NotifType.STAFF);
+					p.sendMessage(bg + ChatColor.GREEN
+							+ "Thank you for reporting the issue! Staff is currently not online, but they will " + 
+							"be told about the issue once they come online!");
 				}
-				yaml.createSection(p.getName());
-				yaml.createSection(p.getName() + ".issue");
-				yaml.set(p.getName() + ".issue", bc);
-				try {
-					yaml.save(f);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				return true;
 			}
 		}
 		return true;

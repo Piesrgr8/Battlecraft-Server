@@ -3,6 +3,9 @@ main: org.battlecraft.piesrgr8.BattlecraftServer
 version: 1.10.0.01, 1.12
 author: Piesrgr8
 description: This plugin is for the Battlecraft Server.
+api-version: 1.13
+loadbefore: [Clans]
+softdepend: [Bconomy]
 
 commands:
   admin:

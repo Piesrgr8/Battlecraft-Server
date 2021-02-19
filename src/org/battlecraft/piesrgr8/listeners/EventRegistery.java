@@ -4,8 +4,6 @@ import org.battlecraft.iHersh.ranks.RanksEnum;
 import org.battlecraft.piesrgr8.BattlecraftServer;
 import org.battlecraft.piesrgr8.chat.AntiSwear;
 import org.battlecraft.piesrgr8.chat.Chat;
-import org.battlecraft.piesrgr8.clans.ClanClaim;
-import org.battlecraft.piesrgr8.clans.ClansGUIListener;
 import org.battlecraft.piesrgr8.combat.ForceChoke;
 import org.battlecraft.piesrgr8.config.PlayersYML;
 import org.battlecraft.piesrgr8.essentials.AFK;
@@ -43,24 +41,18 @@ import org.battlecraft.piesrgr8.shop.material.ShopMaterialStone;
 import org.battlecraft.piesrgr8.shop.material.ShopMaterialWood;
 import org.battlecraft.piesrgr8.shop.tool.ShopTool;
 import org.battlecraft.piesrgr8.signs.Buy;
-import org.battlecraft.piesrgr8.stats.BlockBreaks;
-import org.battlecraft.piesrgr8.stats.DamageTaken;
-import org.battlecraft.piesrgr8.stats.Deaths;
-import org.battlecraft.piesrgr8.stats.Enchants;
-import org.battlecraft.piesrgr8.stats.ItemCreations;
-import org.battlecraft.piesrgr8.stats.Kills;
+import org.battlecraft.piesrgr8.signs.Sell;
+import org.battlecraft.piesrgr8.stats.StatsManager;
 import org.battlecraft.piesrgr8.teleportation.PlayerTp;
 import org.battlecraft.piesrgr8.utils.Dynamicmotd;
 import org.battlecraft.piesrgr8.utils.PacketUtil;
-import org.battlecraft.piesrgr8.utils.Prefixes;
 import org.battlecraft.piesrgr8.utils.ScoreboardMg;
 import org.battlecraft.piesrgr8.utils.SignColors;
-import org.battlecraft.piesrgr8.utils.Tablist;
-import org.battlecraft.piesrgr8.utils.Test;
 import org.battlecraft.piesrgr8.utils.online.TimerDaily;
 import org.battlecraft.piesrgr8.weapons.Guns;
 import org.battlecraft.piesrgr8.world.WorldFallingBlocks;
 import org.battlecraft.piesrgr8.world.WorldHandler;
+import org.battlecraft.piesrgr8.world.WorldTime;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -79,7 +71,6 @@ public class EventRegistery {
 		pm.registerEvents(new Hub(plugin), plugin);
 		pm.registerEvents(new SilentJoin(plugin), plugin);
 		pm.registerEvents(new PlayerListener(plugin), plugin);
-		pm.registerEvents(new BCBlockListener(), plugin);
 		pm.registerEvents(new AntiSwear(plugin), plugin);
 		pm.registerEvents(new WorldHandler(plugin), plugin);
 		pm.registerEvents(new WorldFallingBlocks(plugin), plugin);
@@ -87,7 +78,7 @@ public class EventRegistery {
 		pm.registerEvents(new PacketUtil(plugin), plugin);
 		pm.registerEvents(new DeathListener(plugin), plugin);
 		pm.registerEvents(new Spammer(plugin), plugin);
-		pm.registerEvents(new Test(plugin), plugin);
+		pm.registerEvents(new Sell(plugin), plugin);
 		pm.registerEvents(new RestoreInventory(plugin), plugin);
 		pm.registerEvents(new Dynamicmotd(plugin), plugin);
 		pm.registerEvents(new Menus(plugin), plugin);
@@ -102,15 +93,14 @@ public class EventRegistery {
 		pm.registerEvents(new Friends(plugin), plugin);
 		pm.registerEvents(new RanksEnum(plugin), plugin);
 		pm.registerEvents(new PlayersYML(plugin), plugin);
-		pm.registerEvents(new Tablist(plugin), plugin);
 		pm.registerEvents(new Fireworks(plugin), plugin);
 		pm.registerEvents(new Punish(plugin), plugin);
 		pm.registerEvents(new Invisibility(plugin), plugin);
 		pm.registerEvents(new EntityListener(plugin), plugin);
 		pm.registerEvents(new AFK(plugin), plugin);
 		pm.registerEvents(new ApplicationForm(plugin), plugin);
-		pm.registerEvents(new Prefixes(plugin), plugin);
 		pm.registerEvents(new InvMethods(plugin), plugin);
+		pm.registerEvents(new WorldTime(plugin), plugin);
 		
 		//FOR HOLIDAYS
 		pm.registerEvents(new FireworkJoin(plugin), plugin);
@@ -122,12 +112,7 @@ public class EventRegistery {
 		pm.registerEvents(new DarthLaser123(plugin), plugin);
 
 		// FOR STATS
-		pm.registerEvents(new Kills(plugin), plugin);
-		pm.registerEvents(new Deaths(plugin), plugin);
-		pm.registerEvents(new ItemCreations(plugin), plugin);
-		pm.registerEvents(new DamageTaken(plugin), plugin);
-		pm.registerEvents(new BlockBreaks(plugin), plugin);
-		pm.registerEvents(new Enchants(plugin), plugin);
+		pm.registerEvents(new StatsManager(plugin), plugin);
 		
 		// FOR SHOP
 		pm.registerEvents(new Shop(plugin), plugin);
@@ -143,10 +128,6 @@ public class EventRegistery {
 		
 		//FOR COMBAT
 		pm.registerEvents(new ForceChoke(plugin), plugin);
-		
-		//FOR CLANS
-		pm.registerEvents(new ClansGUIListener(plugin), plugin);
-		pm.registerEvents(new ClanClaim(plugin), plugin);
 		
 		//FOR PARTIES
 		pm.registerEvents(new PartyGUI(plugin), plugin);
